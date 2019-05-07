@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Question</title>
 </head>
 <body>
+    <table>
+        <tr>
+            {% for key in question.keys() %}
+                <th> {{ key }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for value in question.values() %}
+                <td> {{ value }}</td>
+            {% endfor %}
+        </tr>
+
+    </table>
 
 </body>
 </html>
