@@ -9,7 +9,7 @@
     <table>
         <ul>
             {% for dict in questions %}
-                <p><li><a href="" >{{ dict['title'] }}</a></li></p>
+                <p><li><a href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
             {% endfor %}
         </ul>
     </table>
