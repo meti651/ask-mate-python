@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 import connection
 import data_handler
+import utility
 
 
 
 app = Flask(__name__)
 
+@app.route("/")
 @app.route('/list')
 def route_list():
     questions = connection.read_data('sample_data/question.csv')
@@ -23,6 +25,12 @@ def ask_question():
         new_question = {}
         for key in request.form.keys():
             new_question[key] = request.form[key]
+        new_id = data_handler.get_max_id(is_answer=False)
+        new_question["id"] = new_id
+        new_question["view_number"] = 0
+        new_question["vote_number"] = 0
+        new_submission_time = utility.get_submission_time()
+        new_question["submission_time"] = new_submission_time
         connection.append_data('sample_data/question.csv', new_question, data_handler.QUESTION_KEYS)
         return redirect("/list")
     return render_template("add_question.html")
@@ -35,4 +43,7 @@ def ask_question():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        debug=True,
+        port=5000
+    )

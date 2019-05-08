@@ -14,7 +14,7 @@ def append_data(filename, story, KEYS):
 
 def write_data(filename, fieldnames, datas):
     with open(filename, "w") as csv_file:
-        writer = csv.DictWriter(csv_file)
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writerow(fieldnames)
         for data in datas:
             writer.writerow(data)

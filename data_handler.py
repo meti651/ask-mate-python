@@ -20,16 +20,19 @@ def get_answers_by_question_id(filename, q_id):
     return answers
 
 def get_max_id(is_answer=True):
-    record = connection.read_data("/sample_data/max_id_s.csv")
+    reader = connection.read_data("sample_data/max_id_s.csv")
+    numbers = {}
+    for row in reader:
+        for key in MAX_ID_KEYS:
+            numbers[key] = row[key]
     if is_answer:
-        max_id = int(record["answer_id"])
+        max_id = int(numbers["answer_max_id"])
         max_id += 1
-        record["answer_id"] = max_id
+        numbers["answer_max_id"] = max_id
     else:
-        max_id = int(record["question_id"])
+        max_id = int(numbers["question_max_id"])
         max_id += 1
-        record["question_id"] = max_id
-
-
-    connection.write_data("/sample_data/max_id_s.csv", MAX_ID_KEYS)
+        numbers["question_max_id"] = max_id
+    record = [numbers]
+    connection.write_data("sample_data/max_id_s.csv", MAX_ID_KEYS, record)
     return str(max_id)
