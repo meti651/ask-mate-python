@@ -35,6 +35,22 @@ def ask_question():
         return redirect("/list")
     return render_template("add_question.html")
 
+@app.route('/question/<question_id>/edit', methods=('GET','POST'))
+def edit_question(question_id):
+    if request.method == "POST":
+        questions = connection.read_data('sample_data/question.csv')
+        question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
+        for question in questions:
+            if question == question_details:
+                for key in request.form.keys():
+                    question[key] = request.form[key]
+            break
+        connection.write_data('sample_data/question.csv', QUESTION_KEYS, question_details)
+        return redirect("/list")
+    else:
+        question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
+        return render_template('add_question.html', question_details=question_details)
+
 
 
 
