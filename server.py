@@ -14,7 +14,8 @@ def route_list():
 @app.route('/question/<question_id>')
 def display_question(question_id):
     displayed_question = data_handler.get_story_by_id('sample_data/question.csv', question_id)
-    return render_template('question.html', question=displayed_question)
+    displayed_answers = data_handler.get_answers_by_question_id('sample_data/answer.csv', question_id)
+    return render_template('question.html', question=displayed_question, answers=displayed_answers)
 
 
 

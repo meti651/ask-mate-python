@@ -9,3 +9,11 @@ def get_story_by_id(filename, id):
     for data in datas:
         if data['id'] == id:
             return data
+
+def get_answers_by_question_id(filename, q_id):
+    datas = connection.read_data(filename)
+    answers = []
+    for data in datas:
+        if data['question_id'] == q_id:
+            answers.append(data)
+    return answers

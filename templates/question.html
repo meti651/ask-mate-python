@@ -5,6 +5,7 @@
     <title>Question</title>
 </head>
 <body>
+    <h1>Question</h1>
     <table>
         <tr>
             {% for key in question.keys() %}
@@ -18,6 +19,23 @@
         </tr>
 
     </table>
+    <h2>Answers</h2>
+    {% if answers|length > 0 %}
+    <table>
 
+        <tr>
+            {% for key in answers[0].keys() %}
+                <th> {{ key }}</th>
+            {% endfor %}
+        </tr>
+        {% for answer in answers %}
+        <tr>
+            {% for value in answer.values() %}
+                <td> {{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </body>
 </html>
