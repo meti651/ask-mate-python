@@ -38,18 +38,17 @@ def ask_question():
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
     if request.method == "POST":
-        questions = connection.read_data('sample_data/question.csv')
-        question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
-        for question in questions:
-            if question == question_details:
+        questions = list(connection.read_data('sample_data/question.csv'))
+        for index in range(len(questions)):
+            if questions[index]['id'] == question_id:
                 for key in request.form.keys():
-                    question[key] = request.form[key]
-            break
-        connection.write_data('sample_data/question.csv', QUESTION_KEYS, question_details)
+                    questions[index][key] = request.form[key]
+        connection.write_data('sample_data/question.csv', data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
-    else:
-        question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
-        return render_template('add_question.html', question_details=question_details)
+
+    question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
+    print(question_details)
+    return render_template('add_question.html', question_details=question_details)
 
 
 @app.route('/question/<question_id>/new_answer', methods=['GET', 'POST'])
