@@ -36,6 +36,23 @@ def ask_question():
     return render_template("add_question.html")
 
 
+@app.route('/question/<question_id>/new_answer', methods=['GET', 'POST'])
+def add_new_answer(question_id):
+    if request.method == 'POST':
+        new_answer = {}
+        for key in request.form.keys():
+            new_answer[key] = request.form[key]
+        new_id = data_handler.get_max_id(is_answer=True)
+        new_answer['id'] = new_id
+        new_answer['submission_time'] = utility.get_submission_time()
+        new_answer['vote_number'] = 0
+        new_answer['question_id'] = question_id
+        connection.append_data('sample_data/answer.csv', new_answer, data_handler.ANSWER_KEYS)
+        return redirect('/question/' + question_id)
+    return render_template('answer.html')
+
+
+
 
 
 

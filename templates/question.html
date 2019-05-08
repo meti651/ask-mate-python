@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Question</h1>
+    <p><a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a></p>
     <table>
         <tr>
             {% for key in question.keys() %}
