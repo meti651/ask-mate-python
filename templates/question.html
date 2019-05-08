@@ -29,11 +29,11 @@
             {% endfor %}
         </tr>
         {% for answer in answers %}
-        <tr>
-            {% for value in answer.values() %}
-                <td> {{ value }}</td>
-            {% endfor %}
-        </tr>
+            <tr>
+                {% for value in answer.values() %}
+                    <td> {{ value }}</td>
+                {% endfor %}
+            </tr>
         {% endfor %}
     </table>
     {% endif %}

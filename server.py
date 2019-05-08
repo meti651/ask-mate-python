@@ -17,7 +17,15 @@ def display_question(question_id):
     displayed_answers = data_handler.get_answers_by_question_id('sample_data/answer.csv', question_id)
     return render_template('question.html', question=displayed_question, answers=displayed_answers)
 
-
+@app.route('/add_question', methods=('GET', 'POST'))
+def ask_question():
+    if request.method == "POST":
+        new_question = {}
+        for key in request.form.keys():
+            new_question[key] = request.form[key]
+        connection.append_data('sample_data/question.csv', new_question, data_handler.QUESTION_KEYS)
+        return redirect("/list")
+    return render_template("add_question.html")
 
 
 
