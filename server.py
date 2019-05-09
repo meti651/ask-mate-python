@@ -20,6 +20,7 @@ def route_list():
         reverse = request.form['order_direction']
         sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
+    return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
