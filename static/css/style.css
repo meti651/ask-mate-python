@@ -1,0 +1,93 @@
+html {
+    background-color: whitesmoke;
+}
+h1 {
+    text-align: center;
+    color: yellowgreen;
+    background-color: grey;
+    height: 90px;
+    line-height: 90px;
+    margin-top: 0px;
+}
+
+h2 {
+    text-align: center;
+    color: yellowgreen;
+    background-color: grey;
+    height: 50px;
+    width: 200px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+
+th {
+    font-size: 20px;
+    text-align: center;
+    color: lawngreen;
+    background-color: dimgrey;
+    height: 30px;
+    width: 100px;
+    letter-spacing: 1px;
+
+}
+
+td {
+    text-align: center;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+
+table {
+    -webkit-border-vertical-spacing: 10px;
+}
+
+
+#list {
+    color: black;
+    text-align: left;
+    font-size: 22px;
+    margin: 4px 2px;
+
+}
+
+#link:hover {
+    color: yellowgreen;
+}
+
+#list:hover {
+    color: whitesmoke;
+    text-align: left;
+    font-size: 22px;
+    margin: 4px 2px;
+
+}
+
+
+.button {
+    background-color: gray;
+    border: none;
+    color: whitesmoke;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+
+.button:hover{
+    background-color: whitesmoke;
+    border: none;
+    color: gray;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+
