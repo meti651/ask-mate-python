@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
+import os
 import connection
 import data_handler
 import utility
@@ -7,6 +8,8 @@ app = Flask(__name__)
 PATH_QUESTIONS = 'sample_data/question.csv'
 PATH_ANSWERS = 'sample_data/answer.csv'
 
+UPLOAD_FOLDER = os.path.basename("Pictures")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 @app.route('/list')
@@ -26,12 +29,16 @@ def ask_question():
         new_question = {}
         for key in request.form.keys():
             new_question[key] = request.form[key]
+
         new_id = data_handler.get_max_id(is_answer=False)
         new_question["id"] = new_id
+
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
+
         new_submission_time = utility.get_submission_time()
         new_question["submission_time"] = new_submission_time
+
         connection.append_data(PATH_QUESTIONS, new_question, data_handler.QUESTION_KEYS)
         return redirect("/list")
     fieldnames = data_handler.QUESTION_KEYS
