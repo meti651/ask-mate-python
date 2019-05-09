@@ -33,7 +33,9 @@ def ask_question():
         new_question["submission_time"] = new_submission_time
         connection.append_data('sample_data/question.csv', new_question, data_handler.QUESTION_KEYS)
         return redirect("/list")
-    return render_template("add_question.html")
+    fieldnames = data_handler.QUESTION_KEYS
+    question_details = utility.fill_dict_with_keys(fieldnames)
+    return render_template("add_question.html", question_details=question_details)
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
@@ -45,6 +47,7 @@ def edit_question(question_id):
                     questions[index][key] = request.form[key]
         connection.write_data('sample_data/question.csv', data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
+
     question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
     return render_template('add_question.html', question_details=question_details)
 
