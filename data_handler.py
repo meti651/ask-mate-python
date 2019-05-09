@@ -36,3 +36,9 @@ def get_max_id(is_answer=True):
     record = [numbers]
     connection.write_data("sample_data/max_id_s.csv", MAX_ID_KEYS, record)
     return str(max_id)
+
+def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
+    answers = connection.read_data(filename)
+    for answer in answers:
+        if answer["id"] == answer_id:
+            return answer["question_id"]

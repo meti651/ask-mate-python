@@ -37,6 +37,7 @@
                 {% for value in answer.values() %}
                     <td> {{ value }}</td>
                 {% endfor %}
+                <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
             </tr>
         {% endfor %}
     </table>

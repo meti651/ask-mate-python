@@ -67,8 +67,11 @@ def add_new_answer(question_id):
     return render_template('answer.html')
 
 
-
-
+@app.route('/answer/<answer_id>/delete')
+def delete_an_answer(answer_id):
+    question_id = data_handler.get_question_id_by_answer_id(answer_id)
+    connection.delete_answer(answer_id, data_handler.ANSWER_KEYS)
+    return redirect('/question/' + question_id)
 
 
 if __name__ == "__main__":
