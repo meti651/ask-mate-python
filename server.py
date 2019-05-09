@@ -88,7 +88,7 @@ def add_new_answer(question_id):
         new_answer['question_id'] = question_id
         connection.append_data('sample_data/answer.csv', new_answer, data_handler.ANSWER_KEYS)
         return redirect('/question/' + question_id)
-    return render_template('answer.html')
+    return render_template('answer.html', question_id=question_id)
 
 
 @app.route('/answer/<answer_id>/delete')

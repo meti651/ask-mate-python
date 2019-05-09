@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add new answer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <form action="" method="post">
-        <p>
-            <label id="titles" for="message">New answer:</label>
-            <textarea id="message" name="message" minlength="10"></textarea>
-        </p>
-        <p>
-            <label id="titles" for="image">Image:</label>
-            <input class="text" type="text" name="image">
-        </p>
-        <p>
-            <button class="button" type="submit">Post answer</button>
-        </p>
-    </form>
-
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add new answer</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <a href="/question/{{ question_id }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <form action="" method="post">
+            <p>
+                <label id="titles" for="message">New answer:</label>
+                <textarea id="message" name="message" minlength="10"></textarea>
+            </p>
+            <p>
+                <label id="titles" for="image">Image:</label>
+                <input class="text" type="text" name="image">
+            </p>
+            <p>
+                <button class="button" type="submit">Post answer</button>
+            </p>
+        </form>
+    </body>
 </html>
