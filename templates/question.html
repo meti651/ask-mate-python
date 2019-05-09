@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Question</title>
-</head>
-<body>
-    <a href="/list">Back to the question list</a>
-    <h1>Question</h1>
-    <p>
-        <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
-        <a href="/question/{{ question.id }}/edit"><button>Edit</button></a>
-        <a href="/question/{{ question['id'] }}/delete"><button>Delete question</button></a>
-        <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
-        <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
-    </p>
-    <table>
-        <tr>
-            {% for key in question.keys() %}
-                <th> {{ key }}</th>
-            {% endfor %}
-        </tr>
-        <tr>
-            {% for value in question.values() %}
-                {% if loop.index < 7 %}
-                    <td> {{ value }}</td>
-                {% elif loop.index == 7 %}
-                    <td><img src="{{ value }}" alter="image" height="200"></td>
-                {% endif %}
-            {% endfor %}
-        </tr>
-    </table>
-    <h2>Answers</h2>
-    {% if answers|length > 0 %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Questions</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <a href="/list">Back to the question list</a>
+        <h1>{{ question.title }}</h1>
+        <p>
+            <a href="/question/{{ question.id }}/new_answer"><button class="button">Answer</button></a>
+            <a href="/question/{{ question.id }}/edit"><button class="button">Edit</button></a>
+            <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
+            <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
+            <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
+        </p>
         <table>
             <tr>
-                {% for key in answers[0].keys() %}
+                {% for key in question.keys() %}
                     <th> {{ key }}</th>
                 {% endfor %}
             </tr>
-            {% for answer in answers %}
-                <tr>
-                    {% for value in answer.values() %}
-                        {% if loop.index < 6 %}
-                            <td> {{ value }}</td>
-                        {% elif loop.index == 6 %}
-                            <td><img src="{{ value }}" alter="image" height="100"></td>
-                        {% endif %}
-                    {% endfor %}
-                    <td>
-                        <a href="/answer/{{ answer['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
-                        <a href="/answer/{{ answer['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
-                    </td>
-                    <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
-                </tr>
-            {% endfor %}
+            <tr>
+                {% for value in question.values() %}
+                    {% if loop.index < 7 %}
+                        <td> {{ value }}</td>
+                    {% elif loop.index == 7 %}
+                        <td><img src="{{ value }}" alter="image" height="200"></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
         </table>
-    {% endif %}
-</body>
+        <h2>Answers</h2>
+        {% if answers|length > 0 %}
+            <div id="answer">
+                <table>
+                    <tr>
+                        {% for key in answers[0].keys() %}
+                            <th> {{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for answer in answers %}
+                        <tr>
+                            {% for value in answer.values() %}
+                                {% if loop.index < 6 %}
+                                    <td> {{ value }}</td>
+                                {% elif loop.index == 6 %}
+                                    <td><img src="{{ value }}" alter="image" height="100"></td>
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <a href="/answer/{{ answer['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
+                                <a href="/answer/{{ answer['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
+                            </td>
+                            <td><a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </body>
 </html>

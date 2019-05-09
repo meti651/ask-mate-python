@@ -2,17 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ask Mate Python</title>
+    <title>Ask Mate v1.0</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Ask Mate Python</h1>
-    <p><a href="/add_question"><button>Ask question</button></a></p>
-    <table>
+    <h1>Ask Mate v1.0</h1>
+    <div id="button">
+    <p><a href="/add_question"><button class="button">Ask question</button></a></p>
+    </div>
+    <form action="", method="POST">
+        <p>
+            <select class="button2" name="attribute">
+                <option value="id">Date</option>
+                <option value="title">Title</option>
+                <option value="view_number">View Number</option>
+                <option value="vote_number">Vote Number</option>
+            </select>
+            <select class="button2" name="order_direction">
+                <option value="asc">ASC</option>
+                <option value="desc">DESC</option>
+            </select>
+            <a href="/list?order_by={{ attribute }}&order_direction={{ reverse }}"><button class="button" type="submit">List</button></a>
+        </p>
+    </form>
+    <h2>Questions</h2>
+    <ul>
         {% for dict in questions %}
-            <tr>
-                <td><a href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></td>
-            </tr>
+            <div id="list">
+                <p><li><a id="link" href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
+            </div>
         {% endfor %}
-    </table>
+    </ul>
 </body>
 </html>

@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
+import os
 import connection
 import data_handler
 import utility
@@ -7,11 +8,19 @@ app = Flask(__name__)
 PATH_QUESTIONS = 'sample_data/question.csv'
 PATH_ANSWERS = 'sample_data/answer.csv'
 
+UPLOAD_FOLDER = os.path.basename("Pictures")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
-@app.route('/list')
+@app.route('/list', methods=('POST', 'GET'))
 def route_list():
-    questions = connection.read_data(PATH_QUESTIONS)
+    questions = connection.read_data('sample_data/question.csv')
+    questions =data_handler.sort_questions(questions, "id", "desc")
+    if request.method == 'POST':
+        attribute = request.form['attribute']
+        reverse = request.form['order_direction']
+        sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
     return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
 
 @app.route('/question/<question_id>')
@@ -26,12 +35,16 @@ def ask_question():
         new_question = {}
         for key in request.form.keys():
             new_question[key] = request.form[key]
+
         new_id = data_handler.get_max_id(is_answer=False)
         new_question["id"] = new_id
+
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
+
         new_submission_time = utility.get_submission_time()
         new_question["submission_time"] = new_submission_time
+
         connection.append_data(PATH_QUESTIONS, new_question, data_handler.QUESTION_KEYS)
         return redirect("/list")
     fieldnames = data_handler.QUESTION_KEYS
@@ -48,7 +61,6 @@ def edit_question(question_id):
                     questions[index][key] = request.form[key]
         connection.write_data(PATH_QUESTIONS, data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
-
     question_details = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
     return render_template('add_question.html', question_details=question_details)
 
@@ -100,5 +112,5 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=5000
+        port=8888
     )

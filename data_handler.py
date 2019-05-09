@@ -37,6 +37,13 @@ def get_max_id(is_answer=True):
     connection.write_data("sample_data/max_id_s.csv", MAX_ID_KEYS, record)
     return str(max_id)
 
+def sort_questions(question_list, attribute, order_direction):
+    if order_direction == 'asc':
+        sorted_questions = sorted(question_list, key=lambda k: k[attribute])
+    else:
+        sorted_questions = sorted(question_list, key=lambda k: k[attribute], reverse=True)
+    return sorted_questions
+
 def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
     answers = connection.read_data(filename)
     for answer in answers:
@@ -51,7 +58,7 @@ def delete_by_id(filename, key, delete_id, fieldnames):
         if data[key] == delete_id:
             continue
         results.append(data)
-    connection.write_data(filename, fieldnames, reversed(results))
+    connection.write_data(filename, fieldnames, results)
 
 
 def count_vote(filename, id, vote_type, fieldnames):
