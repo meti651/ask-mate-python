@@ -15,6 +15,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/list', methods=('POST', 'GET'))
 def route_list():
     questions = connection.read_data('sample_data/question.csv')
+    questions =data_handler.sort_questions(questions, "id", "desc")
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']

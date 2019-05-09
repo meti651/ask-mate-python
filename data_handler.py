@@ -58,4 +58,4 @@ def delete_by_id(filename, key, delete_id, fieldnames):
         if data[key] == delete_id:
             continue
         results.append(data)
-    connection.write_data(filename, fieldnames, reversed(results))
+    connection.write_data(filename, fieldnames, results)
