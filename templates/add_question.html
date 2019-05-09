@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ask your question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>Ask your question!</h1>
@@ -20,7 +21,7 @@
             <input type="text" name="image" value="{{ question_details["image"] }}">
         </p>
         <p>
-            <button type="submit">Ask</button>
+            <button class="button" type="submit">Ask</button>
         </p>
     </form>
 </body>

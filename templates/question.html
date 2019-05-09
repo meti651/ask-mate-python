@@ -27,12 +27,11 @@
                 {% endif %}
             {% endfor %}
         </tr>
-
     </table>
     <h2>Answers</h2>
+    <div id="answer">
     {% if answers|length > 0 %}
     <table>
-
         <tr>
             {% for key in answers[0].keys() %}
                 <th> {{ key }}</th>
@@ -51,6 +50,7 @@
             </tr>
         {% endfor %}
     </table>
+    </div>
     {% endif %}
 </body>
 </html>
