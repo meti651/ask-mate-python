@@ -105,8 +105,9 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
         data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
         return redirect('/question/' + id)
     if story_type == "answer":
+        question_id = data_handler.get_question_id_by_answer_id(id)
         data_handler.count_vote(PATH_ANSWERS, id, vote_type, data_handler.ANSWER_KEYS)
-        return redirect('/question/' + id)
+        return redirect('/question/' + question_id)
 
 
 if __name__ == "__main__":
