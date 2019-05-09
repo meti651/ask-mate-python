@@ -49,7 +49,7 @@ def ask_question():
         return redirect("/list")
     fieldnames = data_handler.QUESTION_KEYS
     question_details = utility.fill_dict_with_keys(fieldnames)
-    return render_template("add_question.html", question_details=question_details)
+    return render_template("add_question.html", question_details=question_details, mode="add")
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
@@ -62,7 +62,7 @@ def edit_question(question_id):
         connection.write_data(PATH_QUESTIONS, data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
     question_details = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
-    return render_template('add_question.html', question_details=question_details)
+    return render_template('add_question.html', question_details=question_details, mode="edit")
 
 
 @app.route("/question/<question_id>/delete")

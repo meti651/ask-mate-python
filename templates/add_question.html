@@ -20,9 +20,15 @@
             <label id="titles" for="image">Image:</label>
             <input class="text" type="text" name="image" value="{{ question_details["image"] }}">
         </p>
-        <p>
-            <button class="button" type="submit">Edit Question</button>
-        </p>
+        {% if mode == "add" %}
+            <p>
+                <button class="button" type="submit">Ask Question</button>
+            </p>
+        {% elif mode == "edit" %}
+            <p>
+                <button class="button" type="submit">Edit Question</button>
+            </p>
+        {% endif %}
     </form>
 </body>
 </html>
