@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Question</title>
+    <title>Questions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Question</h1>
+    <h1>{{ question.title }}</h1>
     <p>
-        <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
-        <a href="/question/{{ question.id }}/edit"><button>Edit</button></a>
-        <a href="/question/{{ question['id'] }}/delete"><button>Delete question</button></a>
+        <a href="/question/{{ question.id }}/new_answer"><button class="button">Answer</button></a>
+        <a href="/question/{{ question.id }}/edit"><button class="button">Edit</button></a>
+        <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
     </p>
     <table>
         <tr>
@@ -38,7 +39,7 @@
                 {% for value in answer.values() %}
                     <td> {{ value }}</td>
                 {% endfor %}
-                <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
+                <td><a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a></td>
             </tr>
         {% endfor %}
     </table>
