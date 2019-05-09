@@ -45,29 +45,16 @@ def edit_question(question_id):
                     questions[index][key] = request.form[key]
         connection.write_data('sample_data/question.csv', data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
-        question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
-        return render_template('add_question.html', question_details=question_details)
+    question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
+    return render_template('add_question.html', question_details=question_details)
 
 
 @app.route("/question/<question_id>/delete")
 def delete_question(question_id):
-    questions = connection.read_data("sample_data/question.csv")
-    result_questions = []
-    for question in questions:
-        if question["id"] == question_id:
-            continue
-        result_questions.append(question)
-    question_fieldnames = data_handler.QUESTION_KEYS
-    connection.write_data("sample_data/question.csv", question_fieldnames, reversed(result_questions))
-
-    answers = connection.read_data("sample_data/answer.csv")
-    result_answers = []
-    for answer in answers:
-        if answer["question_id"] == question_id:
-            continue
-        result_answers.append(answer)
-    answer_fieldnames = data_handler.ANSWER_KEYS
-    connection.write_data("sample_data/answer.csv", answer_fieldnames, reversed(result_answers))
+    questions_fieldnames = data_handler.QUESTION_KEYS
+    data_handler.delete_by_id("sample_data/question.csv", "id", question_id, questions_fieldnames)
+    answers_fieldnames = data_handler.ANSWER_KEYS
+    data_handler.delete_by_id("sample_data/answer.csv", "question_id", question_id, answers_fieldnames)
     return redirect("/list")
 
 
