@@ -67,9 +67,7 @@ def count_vote(filename, id, vote_type, fieldnames):
     for data in datas:
         if data['id'] == id and vote_type == "vote-up":
             data['vote_number'] = str(int(data['vote_number']) + 1)
-            # data['vote_number'] += 1
         elif data['id'] == id and vote_type == "vote-down":
             data['vote_number'] = str(int(data['vote_number']) - 1)
-            # data['vote_number'] -= 1
         results.append(data)
     connection.write_data(filename, fieldnames, results)
