@@ -9,6 +9,7 @@
     <p>
         <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
         <a href="/question/{{ question.id }}/edit"><button>Edit</button></a>
+        <a href="/question/{{ question['id'] }}/delete"><button>Delete question</button></a>
     </p>
     <table>
         <tr>
@@ -18,7 +19,11 @@
         </tr>
         <tr>
             {% for value in question.values() %}
-                <td> {{ value }}</td>
+                {% if loop.index < 7 %}
+                    <td> {{ value }}</td>
+                {% elif loop.index == 7 %}
+                    <td><img src="{{ value }}" alter="image" height="200"></td>
+                {% endif %}
             {% endfor %}
         </tr>
 
@@ -35,8 +40,13 @@
         {% for answer in answers %}
             <tr>
                 {% for value in answer.values() %}
-                    <td> {{ value }}</td>
+                    {% if loop.index < 6 %}
+                        <td> {{ value }}</td>
+                    {% elif loop.index == 6 %}
+                        <td><img src="{{ value }}" alter="image" height="100"></td>
+                    {% endif %}
                 {% endfor %}
+                <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
             </tr>
         {% endfor %}
     </table>

@@ -43,3 +43,20 @@ def sort_questions(question_list, attribute, order_direction):
     else:
         sorted_questions = sorted(question_list, key=lambda k: k[attribute], reverse=True)
     return sorted_questions
+
+def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
+    answers = connection.read_data(filename)
+    for answer in answers:
+        if answer["id"] == answer_id:
+            return answer["question_id"]
+
+
+def delete_by_id(filename, key, delete_id, fieldnames):
+    datas = connection.read_data(filename)
+    results = []
+    for data in datas:
+        if data[key] == delete_id:
+            continue
+        results.append(data)
+    connection.write_data(filename, fieldnames, reversed(results))
+>>>>>>> db137d85a3b6ff8292668ca20c55fc4358b609e2

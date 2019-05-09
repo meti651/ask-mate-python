@@ -11,3 +11,10 @@ def get_submission_time():
     result += str(current_date.minute)
     result += str(current_date.second)
     return result
+
+
+def fill_dict_with_keys(keys):
+    result = {}
+    for key in keys:
+        result[key] = ""
+    return result
