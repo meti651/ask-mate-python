@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ask Mate Python</title>
+    <title>Ask Mate v1.0</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Ask Mate Python</h1>
-    <p><a href="/add_question"><button>Ask question</button></a></p>
+    <h1>Ask Mate v1.0</h1>
+    <div id="button">
+    <p><a href="/add_question"><button class="button">Ask question</button></a></p>
+    </div>
     <table>
-        <ul>
-            {% for dict in questions %}
-                <p><li><a href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
-            {% endfor %}
-        </ul>
+        <h2>Questions</h2>
+    <ul>
+        {% for dict in questions %}
+            <div id="list">
+                <p><li><a id="link" href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
+            </div>
+        {% endfor %}
+    </ul>
     </table>
 
 </body>
