@@ -12,10 +12,14 @@ UPLOAD_FOLDER = os.path.basename("Pictures")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
-@app.route('/list')
+@app.route('/list', methods=('POST', 'GET'))
 def route_list():
-    questions = connection.read_data(PATH_QUESTIONS)
-    return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
+    questions = connection.read_data('sample_data/question.csv')
+    if request.method == 'POST':
+        attribute = request.form['attribute']
+        reverse = request.form['order_direction']
+        sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
@@ -55,7 +59,6 @@ def edit_question(question_id):
                     questions[index][key] = request.form[key]
         connection.write_data(PATH_QUESTIONS, data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
-
     question_details = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
     return render_template('add_question.html', question_details=question_details)
 
@@ -97,5 +100,5 @@ def delete_an_answer(answer_id):
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=5000
+        port=8888
     )
