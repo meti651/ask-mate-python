@@ -4,7 +4,7 @@ import csv
 def read_data(filename):
     with open(filename, "r") as csv_file:
         reader = csv.DictReader(csv_file)
-        datas = reversed(list(reader))
+        datas = list(reader)
     return datas
 
 def append_data(filename, story, KEYS):

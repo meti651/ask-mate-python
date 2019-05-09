@@ -59,4 +59,4 @@ def delete_by_id(filename, key, delete_id, fieldnames):
             continue
         results.append(data)
     connection.write_data(filename, fieldnames, reversed(results))
->>>>>>> db137d85a3b6ff8292668ca20c55fc4358b609e2
+
