@@ -8,9 +8,14 @@ import utility
 app = Flask(__name__)
 
 @app.route("/")
-@app.route('/list')
+@app.route('/list', methods=('POST', 'GET'))
 def route_list():
     questions = connection.read_data('sample_data/question.csv')
+    if request.method == 'POST':
+        attribute = request.form['attribute']
+        reverse = request.form['order_direction']
+        sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
     return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
 
 @app.route('/question/<question_id>')
@@ -47,7 +52,6 @@ def edit_question(question_id):
         return redirect("/list")
 
     question_details = data_handler.get_story_by_id('sample_data/question.csv', question_id)
-    print(question_details)
     return render_template('add_question.html', question_details=question_details)
 
 
@@ -74,5 +78,5 @@ def add_new_answer(question_id):
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=5000
+        port=8888
     )

@@ -36,3 +36,10 @@ def get_max_id(is_answer=True):
     record = [numbers]
     connection.write_data("sample_data/max_id_s.csv", MAX_ID_KEYS, record)
     return str(max_id)
+
+def sort_questions(question_list, attribute, order_direction):
+    if order_direction == 'asc':
+        sorted_questions = sorted(question_list, key=lambda k: k[attribute])
+    else:
+        sorted_questions = sorted(question_list, key=lambda k: k[attribute], reverse=True)
+    return sorted_questions
