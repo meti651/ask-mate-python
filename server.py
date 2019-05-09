@@ -36,6 +36,26 @@ def ask_question():
     return render_template("add_question.html")
 
 
+@app.route("/question/<question_id>/delete")
+def delete_question(question_id):
+    questions = connection.read_data("sample_data/question.csv")
+    result_questions = []
+    for question in questions:
+        if question["id"] == question_id:
+            continue
+        result_questions.append(question)
+    question_fieldnames = data_handler.QUESTION_KEYS
+    connection.write_data("sample_data/question.csv", question_fieldnames, reversed(result_questions))
+
+    answers = connection.read_data("sample_data/answer.csv")
+    result_answers = []
+    for answer in answers:
+        if answer["question_id"] == question_id:
+            continue
+        result_answers.append(answer)
+    answer_fieldnames = data_handler.ANSWER_KEYS
+    connection.write_data("sample_data/answer.csv", answer_fieldnames, reversed(result_answers))
+    return redirect("/list")
 
 
 
