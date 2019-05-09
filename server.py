@@ -77,8 +77,9 @@ def add_new_answer(question_id):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
+    filename = "sample_data/answer.csv"
     question_id = data_handler.get_question_id_by_answer_id(answer_id)
-    connection.delete_answer(answer_id, data_handler.ANSWER_KEYS)
+    data_handler.delete_by_id(filename, "id", answer_id, data_handler.ANSWER_KEYS)
     return redirect('/question/' + question_id)
 
 
