@@ -87,6 +87,16 @@ def delete_an_answer(answer_id):
     return redirect('/question/' + question_id)
 
 
+@app.route('/<story_type>/<id>/<vote_type>')
+def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
+    if story_type == "question":
+        data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
+        return redirect('/question/' + id)
+    if story_type == "answer":
+        data_handler.count_vote(PATH_ANSWERS, id, vote_type, data_handler.ANSWER_KEYS)
+        return redirect('/question/' + id)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

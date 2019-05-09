@@ -11,6 +11,8 @@
         <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
         <a href="/question/{{ question.id }}/edit"><button>Edit</button></a>
         <a href="/question/{{ question['id'] }}/delete"><button>Delete question</button></a>
+        <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
+        <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
     </p>
     <table>
         <tr>
@@ -45,6 +47,10 @@
                             <td><img src="{{ value }}" alter="image" height="100"></td>
                         {% endif %}
                     {% endfor %}
+                    <td>
+                        <a href="/answer/{{ answer['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
+                        <a href="/answer/{{ answer['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
+                    </td>
                     <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
                 </tr>
             {% endfor %}
