@@ -8,12 +8,11 @@
     <h1>Ask Mate Python</h1>
     <p><a href="/add_question"><button>Ask question</button></a></p>
     <table>
-        <ul>
-            {% for dict in questions %}
-                <p><li><a href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
-            {% endfor %}
-        </ul>
+        {% for dict in questions %}
+            <tr>
+                <td><a href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></td>
+            </tr>
+        {% endfor %}
     </table>
-
 </body>
 </html>
