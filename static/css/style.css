@@ -1,16 +1,28 @@
 html {
-    background-color: whitesmoke;
+    background-color: lightgray;
 }
 h1 {
     text-align: center;
     color: yellowgreen;
+    border: 1px solid #2f4f4f;
+    font-weight: bold;
     background-color: grey;
     height: 90px;
     line-height: 90px;
     margin-top: 0px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
 }
 
 h2 {
+    border: 1px solid #2f4f4f;
+    font-weight: bold;
     text-align: center;
     color: yellowgreen;
     background-color: grey;
@@ -18,6 +30,14 @@ h2 {
     width: 200px;
     line-height: 50px;
     margin-top: 0px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
 }
 
 th {
@@ -28,6 +48,13 @@ th {
     height: 30px;
     width: 100px;
     letter-spacing: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
 
 }
 
@@ -55,7 +82,7 @@ table {
 }
 
 #list:hover {
-    color: whitesmoke;
+    color: lightgray;
     text-align: left;
     font-size: 22px;
     margin: 4px 2px;
@@ -65,8 +92,9 @@ table {
 
 .button {
     background-color: gray;
-    border: none;
-    color: whitesmoke;
+    border: 1px solid #2f4f4f;
+    font-weight: bold;
+    color: lightgray;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -74,10 +102,18 @@ table {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
 }
 
 .button:hover{
-    background-color: whitesmoke;
+    background-color: lightgray;
     border: none;
     color: gray;
     padding: 15px 32px;
@@ -92,8 +128,9 @@ table {
 
 .button2 {
     background-color: gray;
-    border: none;
-    color: whitesmoke;
+    border: 1px solid #2f4f4f;
+    font-weight: bold;
+    color: lightgray;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -101,6 +138,14 @@ table {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
 }
 
 #titles {
@@ -109,10 +154,27 @@ table {
 }
 
 textarea {
-  width: 300px;
-  height: 150px;
+    width: 300px;
+    height: 150px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
 }
 
 .text {
+    height: 25px;
     width: 300px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
 }
