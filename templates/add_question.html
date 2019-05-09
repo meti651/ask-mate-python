@@ -9,19 +9,19 @@
     <h1>Ask your question!</h1>
     <form action="" method="POST">
         <p>
-            <label for="title">Title of question:</label>
-            <input type="text" name="title" required value="{{ question_details["title"] }}">
+            <label id="titles" for="title">Title of question:</label>
+            <input class="text" type="text" name="title" required value="{{ question_details["title"] }}">
         </p>
         <p>
-            <label for="message">Expressed question:</label>
+            <label id="titles" for="message">Expressed question:</label>
             <textarea name="message" required>{{ question_details["message"] }}</textarea>
         </p>
         <p>
-            <label for="image">Image:</label>
-            <input type="text" name="image" value="{{ question_details["image"] }}">
+            <label id="titles" for="image">Image:</label>
+            <input class="text" type="text" name="image" value="{{ question_details["image"] }}">
         </p>
         <p>
-            <button class="button" type="submit">Ask</button>
+            <button class="button" type="submit">Edit Question</button>
         </p>
     </form>
 </body>
