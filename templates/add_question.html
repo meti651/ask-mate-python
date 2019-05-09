@@ -8,10 +8,11 @@
 <body>
     {% if mode == "add" %}
         <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <h1>Ask your question!</h1>
     {% elif mode == "edit" %}
         <a href="/question/{{ question_details['id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <h1>Edit your question!</h1>
     {% endif %}
-    <h1>Ask your question!</h1>
     <form action="" method="POST">
         <p>
             <label id="titles" for="title">Title of question:</label>
