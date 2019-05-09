@@ -5,6 +5,7 @@
     <title>Question</title>
 </head>
 <body>
+    <a href="/list">Back to the question list</a>
     <h1>Question</h1>
     <p>
         <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
@@ -26,30 +27,28 @@
                 {% endif %}
             {% endfor %}
         </tr>
-
     </table>
     <h2>Answers</h2>
     {% if answers|length > 0 %}
-    <table>
-
-        <tr>
-            {% for key in answers[0].keys() %}
-                <th> {{ key }}</th>
-            {% endfor %}
-        </tr>
-        {% for answer in answers %}
+        <table>
             <tr>
-                {% for value in answer.values() %}
-                    {% if loop.index < 6 %}
-                        <td> {{ value }}</td>
-                    {% elif loop.index == 6 %}
-                        <td><img src="{{ value }}" alter="image" height="100"></td>
-                    {% endif %}
+                {% for key in answers[0].keys() %}
+                    <th> {{ key }}</th>
                 {% endfor %}
-                <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
             </tr>
-        {% endfor %}
-    </table>
+            {% for answer in answers %}
+                <tr>
+                    {% for value in answer.values() %}
+                        {% if loop.index < 6 %}
+                            <td> {{ value }}</td>
+                        {% elif loop.index == 6 %}
+                            <td><img src="{{ value }}" alter="image" height="100"></td>
+                        {% endif %}
+                    {% endfor %}
+                    <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
     {% endif %}
 </body>
 </html>
