@@ -6,7 +6,11 @@
 </head>
 <body>
     <h1>Question</h1>
-    <p><a href="/question/{{ question['id'] }}/delete">Delete question</a></p>
+    <p>
+        <a href="/question/{{ question.id }}/new_answer"><button>Answer</button></a>
+        <a href="/question/{{ question.id }}/edit"><button>Edit</button></a>
+        <a href="/question/{{ question['id'] }}/delete">Delete question</a>
+    </p>
     <table>
         <tr>
             {% for key in question.keys() %}
@@ -34,6 +38,7 @@
                 {% for value in answer.values() %}
                     <td> {{ value }}</td>
                 {% endfor %}
+                <td><a href="/answer/{{ answer.id }}/delete"><button>Delete answer</button></a></td>
             </tr>
         {% endfor %}
     </table>

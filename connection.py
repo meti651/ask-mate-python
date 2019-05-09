@@ -18,3 +18,12 @@ def write_data(filename, fieldnames, datas):
         writer.writeheader()
         for data in datas:
             writer.writerow(data)
+
+def delete_answer(answer_id, KEYS, filename="sample_data/answer.csv"):
+    answers = read_data(filename)
+    with open(filename, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=KEYS)
+        writer.writeheader()
+        for answer in answers:
+            if answer["id"] != answer_id:
+                writer.writerow(answer)
