@@ -22,3 +22,18 @@ def delete_by_id(filename, key, delete_id, fieldnames):
 
 def count_vote(filename, id, vote_type, fieldnames):
 
+@connection.connection_handler
+def insert_question_to_database(cursor, submission_time, view_number, vote_number, title, message, image):
+    cursor.execute("""
+                    INSERT INTO question
+                    (submission_time, view_number, vote_number, title, message, image)
+                    VALUES (%s, %s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, vote_number, title, message, image))
+
+@connection.connection_handler
+def insert_question_to_database(cursor, submission_time, view_number, question_id, message, image):
+    cursor.execute("""
+                    INSERT INTO answer
+                    (submission_time, view_number, question_id message, image)
+                    VALUES (%s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, question_id, message, image))

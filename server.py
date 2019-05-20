@@ -35,17 +35,11 @@ def ask_question():
         new_question = {}
         for key in request.form.keys():
             new_question[key] = request.form[key]
-
-        new_id = data_handler.get_max_id(is_answer=False)
-        new_question["id"] = new_id
-
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
-
-        new_submission_time = utility.get_submission_time()
-        new_question["submission_time"] = new_submission_time
-
-        connection.append_data(PATH_QUESTIONS, new_question, data_handler.QUESTION_KEYS)
+        new_question["submission_time"] = utility.get_submission_time()
+        data_handler.insert_question_to_database(new_question['submission_time'], new_question['view_number'],
+            new_question['vote_number'], new_question['title'], new_question['message'], new_question['image'])
         return redirect("/list")
     fieldnames = data_handler.QUESTION_KEYS
     question_details = utility.fill_dict_with_keys(fieldnames)
