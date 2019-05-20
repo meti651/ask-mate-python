@@ -14,14 +14,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route("/")
 @app.route('/list', methods=('POST', 'GET'))
 def route_list():
-    questions = connection.read_data('sample_data/question.csv')
-    questions =data_handler.sort_questions(questions, "id", "desc")
+    questions = data_handler.get_all_questions_title('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
         sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
-    return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
+    return render_template('list.html', questions=questions)
 
 @app.route('/question/<question_id>')
 def display_question(question_id):

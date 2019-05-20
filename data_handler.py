@@ -1,4 +1,5 @@
 import connection
+from psycopg2 import sql
 
 
 @connection.connection_handler
@@ -15,11 +16,21 @@ def get_last_5_questions_title(cursor, sort_by, direction):
 
 @connection.connection_handler
 def get_all_questions_title(cursor, sort_by, direction):
-    cursor.execute("""
-                        SELECT title FROM question
-                        ORDER BY %(sort_by)s %(direction)s;
-                        """,
-                   {'sort_by': sort_by, 'direction': direction})
+    if direction == "ASC":
+        cursor.execute(sql.SQL("""
+                            SELECT title FROM question
+                            ORDER BY {sort_by} ASC;
+                            """
+                            ).format(sort_by=sql.Identifier(sort_by)),
+                       {'sort_by': sort_by})
+    else:
+        cursor.execute(sql.SQL("""
+                                    SELECT title FROM question
+                                    ORDER BY {sort_by} DESC;
+                                    """
+                               ).format(sort_by=sql.Identifier(sort_by)),
+                       {'sort_by': sort_by})
+
     questions = cursor.fetchall()
     return questions
 
@@ -42,16 +53,3 @@ def delete_question(cursor, id):
                     WHERE id = %(id)s
                     """,
                    {'id': id})
-
-
-
-
-def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
-
-
-
-def delete_by_id(filename, key, delete_id, fieldnames):
-
-
-def count_vote(filename, id, vote_type, fieldnames):
-
