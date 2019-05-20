@@ -55,3 +55,19 @@ def delete_question(cursor, id):
                    {'id': id})
 
 
+@connection.connection_handler
+def insert_data_to_question(cursor, submission_time, view_number, vote_number, title, message, image):
+    cursor.execute("""
+                    INSERT INTO question
+                    (submission_time, view_number, vote_number, title, message, image)
+                    VALUES (%s, %s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, vote_number, title, message, image))
+
+@connection.connection_handler
+def insert_data_to_answer(cursor, submission_time, view_number, question_id, message, image):
+    cursor.execute("""
+                    INSERT INTO answer
+                    (submission_time, view_number, question_id message, image)
+                    VALUES (%s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, question_id, message, image))
+
