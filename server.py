@@ -3,6 +3,7 @@ import os
 import connection
 import data_handler
 import utility
+import datetime
 
 app = Flask(__name__)
 PATH_QUESTIONS = 'sample_data/question.csv'
@@ -14,14 +15,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route("/")
 @app.route('/list', methods=('POST', 'GET'))
 def route_list():
-    questions = connection.read_data('sample_data/question.csv')
-    questions =data_handler.sort_questions(questions, "id", "desc")
+    questions = data_handler.get_all_questions_title('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
         sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
-    return render_template('list.html', questions=questions, q_keys=data_handler.QUESTION_KEYS)
+    return render_template('list.html', questions=questions)
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
@@ -35,20 +35,13 @@ def ask_question():
         new_question = {}
         for key in request.form.keys():
             new_question[key] = request.form[key]
-
-        new_id = data_handler.get_max_id(is_answer=False)
-        new_question["id"] = new_id
-
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
-
-        new_submission_time = utility.get_submission_time()
-        new_question["submission_time"] = new_submission_time
-
-        connection.append_data(PATH_QUESTIONS, new_question, data_handler.QUESTION_KEYS)
+        new_question["submission_time"] = datetime.datetime.now()
+        data_handler.insert_data_to_question(new_question['submission_time'], new_question['view_number'],
+                new_question['vote_number'], new_question['title'], new_question['message'], new_question['image'])
         return redirect("/list")
-    fieldnames = data_handler.QUESTION_KEYS
-    question_details = utility.fill_dict_with_keys(fieldnames)
+    question_details = ['apa', 'cuka', 'fundaluka']
     return render_template("add_question.html", question_details=question_details, mode="add")
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
@@ -77,12 +70,11 @@ def add_new_answer(question_id):
         new_answer = {}
         for key in request.form.keys():
             new_answer[key] = request.form[key]
-        new_id = data_handler.get_max_id(is_answer=True)
-        new_answer['id'] = new_id
-        new_answer['submission_time'] = utility.get_submission_time()
+        new_answer['submission_time'] = datetime.datetime.now()
         new_answer['vote_number'] = 0
         new_answer['question_id'] = question_id
-        connection.append_data('sample_data/answer.csv', new_answer, data_handler.ANSWER_KEYS)
+        data_handler.insert_data_to_answer(new_answer['submission_time'], new_answer['vote_number'],
+                   new_answer['question_id'], new_answer['message'], new_answer['image'])
         return redirect('/question/' + question_id)
     return render_template('answer.html', question_id=question_id)
 
