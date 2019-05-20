@@ -44,19 +44,8 @@ def delete_question(cursor, id):
                    {'id': id})
 
 
-
-
-def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
-
-
-
-def delete_by_id(filename, key, delete_id, fieldnames):
-
-
-def count_vote(filename, id, vote_type, fieldnames):
-
 @connection.connection_handler
-def insert_question_to_database(cursor, submission_time, view_number, vote_number, title, message, image):
+def insert_data_to_question(cursor, submission_time, view_number, vote_number, title, message, image):
     cursor.execute("""
                     INSERT INTO question
                     (submission_time, view_number, vote_number, title, message, image)
@@ -64,7 +53,7 @@ def insert_question_to_database(cursor, submission_time, view_number, vote_numbe
                    (submission_time, view_number, vote_number, title, message, image))
 
 @connection.connection_handler
-def insert_question_to_database(cursor, submission_time, view_number, question_id, message, image):
+def insert_data_to_answer(cursor, submission_time, view_number, question_id, message, image):
     cursor.execute("""
                     INSERT INTO answer
                     (submission_time, view_number, question_id message, image)
