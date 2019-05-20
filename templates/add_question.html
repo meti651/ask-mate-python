@@ -10,31 +10,25 @@
         <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
         <h1>Ask your question!</h1>
     {% elif mode == "edit" %}
-        <a href="/question/{{ question_details['id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <a href="/question/{{ question_params['id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
         <h1>Edit your question!</h1>
     {% endif %}
     <form action="" method="POST">
         <p>
             <label id="titles" for="title">Title of question:</label>
-            <input class="text" type="text" name="title" required value="{{ question_details["title"] }}">
+            <input class="text" type="text" name="title" required value="{{ question_params['title'] }}">
         </p>
         <p>
             <label id="titles" for="message">Expressed question:</label>
-            <textarea name="message" required>{{ question_details["message"] }}</textarea>
+            <textarea name="message" required>{{ question_params['message'] }}</textarea>
         </p>
         <p>
             <label id="titles" for="image">Image:</label>
-            <input class="text" type="text" name="image" value="{{ question_details["image"] }}">
+            <input class="text" type="text" name="image" value="{{ question_params['image'] }}">
         </p>
-        {% if mode == "add" %}
-            <p>
-                <button class="button" type="submit">Ask Question</button>
-            </p>
-        {% elif mode == "edit" %}
-            <p>
-                <button class="button" type="submit">Edit Question</button>
-            </p>
-        {% endif %}
+        <p>
+            <button class="button" type="submit">Edit Question</button>
+        </p>
     </form>
 </body>
 </html>

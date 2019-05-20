@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import os
 import connection
 import data_handler
@@ -54,15 +54,11 @@ def ask_question():
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
     if request.method == "POST":
-        questions = list(connection.read_data(PATH_QUESTIONS))
-        for index in range(len(questions)):
-            if questions[index]['id'] == question_id:
-                for key in request.form.keys():
-                    questions[index][key] = request.form[key]
-        connection.write_data(PATH_QUESTIONS, data_handler.QUESTION_KEYS, questions)
-        return redirect("/list")
-    question_details = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
-    return render_template('add_question.html', question_details=question_details, mode="edit")
+        data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
+        return redirect(url_for("route_list"))
+
+    question_params = data_handler.get_question_by_id(question_id)
+    return render_template('add_question.html', question_params=question_params)
 
 
 @app.route("/question/<question_id>/delete")
@@ -113,5 +109,5 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=8888
+        port=9991
     )

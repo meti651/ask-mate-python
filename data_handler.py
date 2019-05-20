@@ -1,24 +1,30 @@
 import connection
+from psycopg2 import sql
 
+@connection.connection_handler
+def get_question_by_id(cursor, id):
+    cursor.execute(
+        """
+        SELECT * FROM question WHERE id = %(id)s;
+        """, {'id':int(id)})
 
-def get_story_by_id(filename, id):
-
-
-def get_answers_by_question_id(filename, q_id):
-
-
-def get_max_id(is_answer=True):
-
-
-def sort_questions(question_list, attribute, order_direction):
-
-
-def get_question_id_by_answer_id(answer_id, filename="sample_data/answer.csv"):
+    question = cursor.fetchall()
+    return question[0]
 
 
 
-def delete_by_id(filename, key, delete_id, fieldnames):
+@connection.connection_handler
+def edit_questions(cursor, id, title, message, image):
+    cursor.execute(
+        """
+        UPDATE question
+        SET title = %(title)s, message = %(message)s, image = %(image)s
+        WHERE id = %(id)s;
+        """, {'title': title, 'id': int(id), 'message': message, 'image': image})
 
-
-def count_vote(filename, id, vote_type, fieldnames):
+"""
+sql.SQL('UPDATE question SET title = {title}, message = {message}, image = {image} WHERE id = {id}')
+            .format(title=sql.Identifier(title), message=sql.Identifier(message),
+                    image=sql.Identifier(image), id=sql.Identifier(id))
+"""
 
