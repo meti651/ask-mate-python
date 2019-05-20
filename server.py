@@ -49,7 +49,7 @@ def ask_question():
         return redirect("/list")
     fieldnames = data_handler.QUESTION_KEYS
     question_details = utility.fill_dict_with_keys(fieldnames)
-    return render_template("add_question.html", question_details=question_details)
+    return render_template("add_question.html", question_details=question_details, mode="add")
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
@@ -62,7 +62,7 @@ def edit_question(question_id):
         connection.write_data(PATH_QUESTIONS, data_handler.QUESTION_KEYS, questions)
         return redirect("/list")
     question_details = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
-    return render_template('add_question.html', question_details=question_details)
+    return render_template('add_question.html', question_details=question_details, mode="edit")
 
 
 @app.route("/question/<question_id>/delete")
@@ -88,7 +88,7 @@ def add_new_answer(question_id):
         new_answer['question_id'] = question_id
         connection.append_data('sample_data/answer.csv', new_answer, data_handler.ANSWER_KEYS)
         return redirect('/question/' + question_id)
-    return render_template('answer.html')
+    return render_template('answer.html', question_id=question_id)
 
 
 @app.route('/answer/<answer_id>/delete')
@@ -97,6 +97,17 @@ def delete_an_answer(answer_id):
     question_id = data_handler.get_question_id_by_answer_id(answer_id)
     data_handler.delete_by_id(filename, "id", answer_id, data_handler.ANSWER_KEYS)
     return redirect('/question/' + question_id)
+
+
+@app.route('/<story_type>/<id>/<vote_type>')
+def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
+    if story_type == "question":
+        data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
+        return redirect('/question/' + id)
+    if story_type == "answer":
+        question_id = data_handler.get_question_id_by_answer_id(id)
+        data_handler.count_vote(PATH_ANSWERS, id, vote_type, data_handler.ANSWER_KEYS)
+        return redirect('/question/' + question_id)
 
 
 if __name__ == "__main__":

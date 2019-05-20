@@ -60,3 +60,14 @@ def delete_by_id(filename, key, delete_id, fieldnames):
         results.append(data)
     connection.write_data(filename, fieldnames, reversed(results))
 
+
+def count_vote(filename, id, vote_type, fieldnames):
+    datas = connection.read_data(filename)
+    results = []
+    for data in datas:
+        if data['id'] == id and vote_type == "vote-up":
+            data['vote_number'] = str(int(data['vote_number']) + 1)
+        elif data['id'] == id and vote_type == "vote-down":
+            data['vote_number'] = str(int(data['vote_number']) - 1)
+        results.append(data)
+    connection.write_data(filename, fieldnames, results)
