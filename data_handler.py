@@ -10,8 +10,7 @@ def get_question_by_id(cursor, id):
         """, {'id':int(id)})
 
     question = cursor.fetchall()
-    return question[0]
-
+    return question
 
 
 @connection.connection_handler
@@ -86,10 +85,10 @@ def insert_data_to_question(cursor, submission_time, view_number, vote_number, t
                    (submission_time, view_number, vote_number, title, message, image))
 
 @connection.connection_handler
-def insert_data_to_answer(cursor, submission_time, view_number, question_id, message, image):
+def insert_data_to_answer(cursor, submission_time, question_id, message, image):
     cursor.execute("""
                     INSERT INTO answer
-                    (submission_time, view_number, question_id message, image)
+                    (submission_time,  question_id, message, image)
                     VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, view_number, question_id, message, image))
+                   (submission_time, question_id, message, image))
 
