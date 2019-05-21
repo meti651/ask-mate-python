@@ -51,7 +51,7 @@ def edit_question(question_id):
 
 @app.route("/question/<question_id>/delete")
 def delete_question(question_id):
-    data_handler.delete_question(question_id)
+    data_handler.delete(question_id, 'question')
     return redirect("/list")
 
 
@@ -72,9 +72,9 @@ def add_new_answer(question_id):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
-    question_id = data_handler.get_question_by_id()
-    data_handler.delete_question(answer_id)
-    return redirect('/question/' + question_id)
+    query_string = request.referrer
+    data_handler.delete(answer_id, 'answer')
+    return redirect(query_string)
 
 
 

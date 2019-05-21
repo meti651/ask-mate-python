@@ -86,8 +86,8 @@ def get_answer_by_id(cursor, id):
                     WHERE id = %(id)s;
                     """,
                    {'id': int(id)})
-    questions = cursor.fetchall()
-    return questions
+    answers = cursor.fetchall()
+    return answers
 
 
 @connection.connection_handler
@@ -102,13 +102,11 @@ def get_answers_by_question_id(cursor, question_id):
 
 
 @connection.connection_handler
-def delete_question(cursor, id):
-    cursor.execute("""
-                    delete from answer
-                    where question_id = %(id)s;
-                    DELETE FROM question
+def delete(cursor, id, table):
+    cursor.execute(sql.SQL("""
+                    DELETE FROM {table}
                     WHERE id = %(id)s;
-                    """,
+                    """).format(table=sql.Identifier(table)),
                    {'id': int(id)})
 
 
