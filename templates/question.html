@@ -9,20 +9,20 @@
         <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
         <h1>{{ question.title }}</h1>
         <p>
-            <a href="/question/{{ question.id }}/new_answer"><button class="button">Answer</button></a>
-            <a href="/question/{{ question.id }}/edit"><button class="button">Edit</button></a>
+            <a href="/question/{{ question['id'] }}/new_answer"><button class="button">Answer</button></a>
+            <a href="/question/{{ question['id'] }}/edit"><button class="button">Edit</button></a>
             <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
             <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
             <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
         </p>
         <table>
             <tr>
-                {% for key in question.keys() %}
+                {% for key in question[0].keys() %}
                     <th> {{ key }}</th>
                 {% endfor %}
             </tr>
             <tr>
-                {% for value in question.values() %}
+                {% for value in question[0].values() %}
                     {% if loop.index < 7 %}
                         <td> {{ value }}</td>
                     {% elif loop.index == 7 %}
@@ -43,9 +43,9 @@
                     {% for answer in answers %}
                         <tr>
                             {% for value in answer.values() %}
-                                {% if loop.index < 6 %}
+                                {% if loop.index < answer|length %}
                                     <td> {{ value }}</td>
-                                {% elif loop.index == 6 %}
+                                {% elif loop.index == answer|length %}
                                     <td><img src="{{ value }}" alter="image" height="100"></td>
                                 {% endif %}
                             {% endfor %}

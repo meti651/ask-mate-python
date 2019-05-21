@@ -25,29 +25,40 @@ def edit_questions(cursor, id, title, message, image):
 
 
 @connection.connection_handler
-def get_last_5_questions_title(cursor, sort_by, direction):
-    cursor.execute("""
-                    SELECT title FROM question
-                    ORDER BY %(sort_by)s %(direction)s
-                    LIMIT 5;
-                    """,
-                   {'sort_by': sort_by, 'direction': direction})
+def get_last_5_questions(cursor, sort_by, direction):
+    if direction.upper() == "ASC":
+        cursor.execute(sql.SQL("""
+                               SELECT * FROM question
+                               ORDER BY {sort_by} ASC
+                               LIMIT 5;
+                               """
+                               ).format(sort_by=sql.Identifier(sort_by)),
+                       {'sort_by': sort_by})
+    else:
+        cursor.execute(sql.SQL("""
+                                       SELECT * FROM question
+                                       ORDER BY {sort_by} DESC
+                                       LIMIT 5;
+                                       """
+                               ).format(sort_by=sql.Identifier(sort_by)),
+                       {'sort_by': sort_by})
+
     questions = cursor.fetchall()
     return questions
 
 
 @connection.connection_handler
-def get_all_questions_title(cursor, sort_by, direction):
+def get_all_questions(cursor, sort_by, direction):
     if direction == "ASC":
         cursor.execute(sql.SQL("""
-                            SELECT title FROM question
+                            SELECT * FROM question
                             ORDER BY {sort_by} ASC;
                             """
                             ).format(sort_by=sql.Identifier(sort_by)),
                        {'sort_by': sort_by})
     else:
         cursor.execute(sql.SQL("""
-                                    SELECT title FROM question
+                                    SELECT * FROM question
                                     ORDER BY {sort_by} DESC;
                                     """
                                ).format(sort_by=sql.Identifier(sort_by)),
@@ -56,16 +67,27 @@ def get_all_questions_title(cursor, sort_by, direction):
     questions = cursor.fetchall()
     return questions
 
+
 @connection.connection_handler
-def get_question_n_answers_by_question_id(cursor, id):
+def get_question_by_id(cursor, id):
     cursor.execute("""
                     SELECT * FROM question
-                    JOIN answer ON question.id = answer.question_id
-                    WHERE id == id;
+                    WHERE id = %(id)s;
                     """,
-                   {'id': id})
+                   {'id': int(id)})
     questions = cursor.fetchall()
     return questions
+
+
+@connection.connection_handler
+def get_answers_by_question_id(cursor, question_id):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    WHERE question_id = %(question_id)s;
+                    """,
+                   {'question_id': question_id})
+    answers = cursor.fetchall()
+    return answers
 
 
 @connection.connection_handler

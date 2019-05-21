@@ -12,21 +12,21 @@ PATH_ANSWERS = 'sample_data/answer.csv'
 UPLOAD_FOLDER = os.path.basename("Pictures")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/")
+@app.route("/", methods=('GET', 'POST'))
 @app.route('/list', methods=('POST', 'GET'))
 def route_list():
-    questions = data_handler.get_all_questions_title('submission_time', 'DESC')
+    questions = data_handler.get_last_5_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
-        sorted_questions = data_handler.sort_questions(questions, attribute, reverse)
+        sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
     return render_template('list.html', questions=questions)
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
-    displayed_question = data_handler.get_story_by_id(PATH_QUESTIONS, question_id)
-    displayed_answers = data_handler.get_answers_by_question_id(PATH_ANSWERS, question_id)
+    displayed_question = data_handler.get_question_by_id(question_id)
+    displayed_answers = data_handler.get_answers_by_question_id(question_id)
     return render_template('question.html', question=displayed_question, answers=displayed_answers)
 
 @app.route('/add_question', methods=('GET', 'POST'))
