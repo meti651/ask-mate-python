@@ -26,9 +26,11 @@
             <label id="titles" for="image">Image:</label>
             <input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}">
         </p>
-        <p>
-            <button class="button" type="submit">Edit Question</button>
-        </p>
+         {% if mode =="edit" %}}
+             <p><button class="button" type="submit">Edit Question</button></p>
+         {% else %}
+             <p><button class="button" type="submit">Ask Question</button></p>
+         {% endif %}
     </form>
 </body>
 </html>
