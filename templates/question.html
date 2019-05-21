@@ -17,12 +17,12 @@
         </p>
         <table>
             <tr>
-                {% for key in question[0].keys() %}
+                {% for key in question.keys() %}
                     <th> {{ key }}</th>
                 {% endfor %}
             </tr>
             <tr>
-                {% for value in question[0].values() %}
+                {% for value in question.values() %}
                     {% if loop.index < 7 %}
                         <td> {{ value }}</td>
                     {% elif loop.index == 7 %}

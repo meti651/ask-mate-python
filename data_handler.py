@@ -80,6 +80,17 @@ def get_question_by_id(cursor, id):
 
 
 @connection.connection_handler
+def get_answer_by_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id': int(id)})
+    questions = cursor.fetchall()
+    return questions
+
+
+@connection.connection_handler
 def get_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answer
@@ -93,14 +104,22 @@ def get_answers_by_question_id(cursor, question_id):
 @connection.connection_handler
 def delete_question(cursor, id):
     cursor.execute("""
+                    delete from answer
+                    where question_id = %(id)s;
                     DELETE FROM question
-                    WHERE id = %(id)s
+                    WHERE id = %(id)s;
                     """,
-                   {'id': id})
+                   {'id': int(id)})
 
 
 @connection.connection_handler
-def insert_data_to_question(cursor, submission_time, view_number, vote_number, title, message, image):
+def insert_data_to_question(cursor, new_question):
+    submission_time = new_question['submission_time']
+    view_number = new_question['view_number']
+    vote_number = new_question['vote_number']
+    title = new_question['title']
+    message = new_question['message']
+    image = new_question['image']
     cursor.execute("""
                     INSERT INTO question
                     (submission_time, view_number, vote_number, title, message, image)
@@ -108,10 +127,16 @@ def insert_data_to_question(cursor, submission_time, view_number, vote_number, t
                    (submission_time, view_number, vote_number, title, message, image))
 
 @connection.connection_handler
-def insert_data_to_answer(cursor, submission_time, view_number, question_id, message, image):
+def insert_data_to_answer(cursor, answer):
+    submission_time = answer['submission_time']
+    vote_number = answer['vote_number']
+    question_id = answer['question_id']
+    message = answer['message']
+    image = answer['image']
     cursor.execute("""
                     INSERT INTO answer
-                    (submission_time, view_number, question_id message, image)
+                    (submission_time, vote_number, question_id, message, image)
                     VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, view_number, question_id, message, image))
+                   (submission_time, vote_number, question_id, message, image))
+
 

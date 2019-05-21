@@ -1,16 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import connection
 import data_handler
-import utility
 import datetime
 
 app = Flask(__name__)
-PATH_QUESTIONS = 'sample_data/question.csv'
-PATH_ANSWERS = 'sample_data/answer.csv'
 
-UPLOAD_FOLDER = os.path.basename("Pictures")
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/", methods=('GET', 'POST'))
 @app.route('/list', methods=('POST', 'GET'))
@@ -27,7 +21,9 @@ def route_list():
 def display_question(question_id):
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
-    return render_template('question.html', question=displayed_question, answers=displayed_answers)
+    print(displayed_answers)
+    return render_template('question.html', question=displayed_question[0], answers=displayed_answers)
+
 
 @app.route('/add_question', methods=('GET', 'POST'))
 def ask_question():
@@ -37,12 +33,11 @@ def ask_question():
             new_question[key] = request.form[key]
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
-        new_question["submission_time"] = datetime.datetime.now()
-        data_handler.insert_data_to_question(new_question['submission_time'], new_question['view_number'],
-                new_question['vote_number'], new_question['title'], new_question['message'], new_question['image'])
+        new_question["submission_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data_handler.insert_data_to_question(new_question)
         return redirect("/list")
-    question_details = ['apa', 'cuka', 'fundaluka']
-    return render_template("add_question.html", question_details=question_details, mode="add")
+    return render_template("add_question.html", mode="add")
+
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
@@ -51,15 +46,12 @@ def edit_question(question_id):
         return redirect(url_for("route_list"))
 
     question_params = data_handler.get_question_by_id(question_id)
-    return render_template('add_question.html', question_params=question_params)
+    return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
 
 @app.route("/question/<question_id>/delete")
 def delete_question(question_id):
-    questions_fieldnames = data_handler.QUESTION_KEYS
-    data_handler.delete_by_id(PATH_QUESTIONS, "id", question_id, questions_fieldnames)
-    answers_fieldnames = data_handler.ANSWER_KEYS
-    data_handler.delete_by_id(PATH_ANSWERS, "question_id", question_id, answers_fieldnames)
+    data_handler.delete_question(question_id)
     return redirect("/list")
 
 
@@ -70,21 +62,20 @@ def add_new_answer(question_id):
         new_answer = {}
         for key in request.form.keys():
             new_answer[key] = request.form[key]
-        new_answer['submission_time'] = datetime.datetime.now()
+        new_answer['submission_time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         new_answer['vote_number'] = 0
         new_answer['question_id'] = question_id
-        data_handler.insert_data_to_answer(new_answer['submission_time'], new_answer['vote_number'],
-                   new_answer['question_id'], new_answer['message'], new_answer['image'])
+        data_handler.insert_data_to_answer(new_answer)
         return redirect('/question/' + question_id)
     return render_template('answer.html', question_id=question_id)
 
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
-    filename = "sample_data/answer.csv"
-    question_id = data_handler.get_question_id_by_answer_id(answer_id)
-    data_handler.delete_by_id(filename, "id", answer_id, data_handler.ANSWER_KEYS)
+    question_id = data_handler.get_question_by_id()
+    data_handler.delete_question(answer_id)
     return redirect('/question/' + question_id)
+
 
 
 @app.route('/<story_type>/<id>/<vote_type>')
