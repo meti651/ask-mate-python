@@ -3,7 +3,7 @@ html {
 }
 h1 {
     text-align: center;
-    color: yellowgreen;
+    color: rgb(20%,120%,20%);
     border: 1px solid #2f4f4f;
     font-weight: bold;
     background-color: grey;
@@ -18,7 +18,39 @@ h1 {
     -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
     box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
     background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
+    animation-name: font;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
+
+
+@keyframes font{
+  0%   {color: rgb(20%,110%,20%)}
+  5%  {color: rgb(20%,105%,20%)}
+  10%  {color: rgb(20%,100%,20%)}
+  15%  {color: rgb(20%,95%,20%)}
+  20% {color: rgb(20%,90%,20%)}
+  25%  {color: rgb(20%,85%,20%)}
+  30%  {color: rgb(20%,80%,20%)}
+  35%  {color: rgb(20%,75%,20%)}
+  40% {color: rgb(20%,70%,20%)}
+  45%  {color: rgb(20%,65%,20%)}
+  50%   {color: rgb(20%,60%,20%)}
+  55%  {color: rgb(20%,65%,20%)}
+  60%  {color: rgb(20%,70%,20%)}
+  65%  {color: rgb(20%,75%,20%)}
+  70% {color: rgb(20%,80%,20%)}
+  75%  {color: rgb(20%,85%,20%)}
+  80%  {color: rgb(20%,90%,20%)}
+  85%  {color: rgb(20%,95%,20%)}
+  90% {color: rgb(20%,100%,20%)}
+  95%  {color: rgb(20%,105%,20%)}
+  100%  {color: rgb(20%,110%,20%)}
+}
+
+
+
 
 h2 {
     border: 1px solid #2f4f4f;
