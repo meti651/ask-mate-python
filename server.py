@@ -52,10 +52,10 @@ def ask_question():
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
+    question_params = data_handler.get_question_by_id(question_id)
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
-        return redirect(url_for("route_list"))
-    question_params = data_handler.get_question_by_id(question_id)
+        return redirect('/question/' + str(question_params[0]['id']))
     return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
 
