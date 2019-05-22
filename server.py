@@ -21,7 +21,6 @@ def route_list():
 def display_question(question_id):
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
-    print(displayed_answers)
     return render_template('question.html', question=displayed_question[0], answers=displayed_answers)
 
 
@@ -80,13 +79,9 @@ def delete_an_answer(answer_id):
 
 @app.route('/<story_type>/<id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
-    if story_type == "question":
-        data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
-        return redirect('/question/' + id)
-    if story_type == "answer":
-        question_id = data_handler.get_question_id_by_answer_id(id)
-        data_handler.count_vote(PATH_ANSWERS, id, vote_type, data_handler.ANSWER_KEYS)
-        return redirect('/question/' + question_id)
+    query_string = request.referrer
+    data_handler.count_vote(story_type, id, vote_type)
+    return redirect(query_string)
 
 
 if __name__ == "__main__":

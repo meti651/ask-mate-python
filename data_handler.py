@@ -138,3 +138,16 @@ def insert_data_to_answer(cursor, answer):
                    (submission_time, vote_number, question_id, message, image))
 
 
+@connection.connection_handler
+def count_vote(cursor, story_type, id, vote_type):
+    if vote_type == "vote-up":
+        point = 1
+    else:
+        point = -1
+    cursor.execute(sql.SQL("""
+                    UPDATE {story_type}
+                    SET vote_number = vote_number + %(point)s
+                    WHERE id = %(id)s;
+                   """).format(story_type = sql.Identifier(story_type)),
+                   {'point': int(point),
+                    'id': int(id)})
