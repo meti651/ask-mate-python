@@ -100,6 +100,13 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
         return redirect('/question/' + question_id)
 
 
+@app.route('/question/<question_id>/tag/<tag_id>')
+def delete_tag(question_id, tag_id):
+    data_handler.delete_tag(question_id, tag_id)
+    return_route = request.referrer
+    return redirect(return_route)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

@@ -138,3 +138,12 @@ def insert_data_to_answer(cursor, answer):
                    (submission_time, vote_number, question_id, message, image))
 
 
+@connection.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    cursor.execute("""
+                    DELETE FROM question_tag
+                    WHERE question_id = %(question_id)s
+                    AND tag_id = %(tag_id)s;
+                    """,
+                   {'question_id': int(question_id), 'tag_id': int(tag_id)})
+
