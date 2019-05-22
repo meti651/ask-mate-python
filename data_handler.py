@@ -82,7 +82,7 @@ def get_question_by_id(cursor, id):
 @connection.connection_handler
 def get_answer_by_id(cursor, id):
     cursor.execute("""
-                    SELECT * FROM question
+                    SELECT * FROM answer
                     WHERE id = %(id)s;
                     """,
                    {'id': int(id)})
@@ -138,3 +138,11 @@ def insert_data_to_answer(cursor, answer):
                    (submission_time, vote_number, question_id, message, image))
 
 
+@connection.connection_handler
+def edit_answer(cursor, id, message, image):
+    cursor.execute(
+        """
+        UPDATE answer
+        SET message = %(message)s, image = %(image)s
+        WHERE id = %(id)s;
+        """, {'id': int(id), 'message': message, 'image': image})
