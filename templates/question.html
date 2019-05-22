@@ -54,6 +54,7 @@
                                 <a href="/answer/{{ answer['id'] }}/vote-down"><img src="{{ url_for('static', filename='dislike-icon.png') }}" alt="dislike"></a>
                             </td>
                             <td><a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a></td>
+                            <td><a href="/answer/{{ answer.id }}/edit"><button class="button">Edit answer</button></a></td>
                         </tr>
                     {% endfor %}
                 </table>

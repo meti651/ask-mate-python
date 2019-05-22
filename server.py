@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os
+import utility
 import data_handler
 import datetime
 
@@ -7,18 +7,31 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=('GET', 'POST'))
-@app.route('/list', methods=('POST', 'GET'))
 def route_list():
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
         sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
-    return render_template('list.html', questions=questions)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
+    return render_template('list.html', questions=questions, method='last')
+
+
+@app.route('/list', methods=('POST', 'GET'))
+def list_all_question():
+    questions = data_handler.get_all_questions('submission_time', 'DESC')
+    if request.method == 'POST':
+        attribute = request.form['attribute']
+        reverse = request.form['order_direction']
+        sorted_questions = data_handler.get_all_questions(attribute, reverse)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='all')
+    return render_template('list.html', questions=questions, method='all')
+
+
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
+    data_handler.increase_view_number(question_id)
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
     return render_template('question.html', question=displayed_question[0], answers=displayed_answers)
@@ -40,11 +53,10 @@ def ask_question():
 
 @app.route('/question/<question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
+    question_params = data_handler.get_question_by_id(question_id)
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
-        return redirect(url_for("route_list"))
-
-    question_params = data_handler.get_question_by_id(question_id)
+        return redirect('/question/' + str(question_params[0]['id']))
     return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
 
@@ -68,6 +80,13 @@ def add_new_answer(question_id):
         return redirect('/question/' + question_id)
     return render_template('answer.html', question_id=question_id)
 
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+def edit_answer(answer_id):
+    answer_params = data_handler.get_answer_by_id(answer_id)
+    if request.method == "POST":
+        data_handler.edit_answer(answer_id, request.form['message'], request.form['image'])
+        return redirect('/question/' + str(answer_params[0]['question_id']))
+    return render_template('answer.html', question_params=answer_params[0], mode='edit')
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
@@ -82,6 +101,13 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
     query_string = request.referrer
     data_handler.count_vote(story_type, id, vote_type)
     return redirect(query_string)
+
+
+@app.route('/question/<question_id>/tag/<tag_id>')
+def delete_tag(question_id, tag_id):
+    data_handler.delete_tag(question_id, tag_id)
+    return_route = request.referrer
+    return redirect(return_route)
 
 
 if __name__ == "__main__":

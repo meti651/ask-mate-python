@@ -32,6 +32,15 @@
                 <p><li><a id="link" href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
             </div>
         {% endfor %}
+
+        <div id="see_more">
+            <p>
+                <a href={{ "/list" if method=="last" else "/" }}>
+                    <button class="button">{{ "See more" if method == "last" else "Hide" }}</button>
+                </a>
+            </p>
+        </div>
+
     </ul>
 </body>
 </html>

@@ -5,20 +5,27 @@
         <title>Add new answer</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
-    <body>
-        <a href="/question/{{ question_id }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
-        <form action="" method="post">
+    <body>{% if mode == "edit" %}
+                <a href="/question/{{ question_params['question_id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+            {% else %}
+                <a href="/question/{{ question_id }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+            {% endif %}
+    <form action="" method="post">
             <p>
                 <label id="titles" for="message">New answer:</label>
-                <textarea id="message" name="message" minlength="10"></textarea>
+                <textarea id="message" name="message" minlength="10" required>{% if mode == "edit" %}{{ question_params['message'] }}{% endif %}</textarea>
             </p>
             <p>
                 <label id="titles" for="image">Image:</label>
-                <input class="text" type="text" name="image">
+                <input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}">
             </p>
-            <p>
-                <button class="button" type="submit">Post answer</button>
+            <p> {% if mode == "edit" %}
+                    <button class="button" type="submit">Edit answer</button>
+                {% else %}
+                    <button class="button" type="submit">Post answer</button>
+                {% endif %}
             </p>
+
         </form>
     </body>
 </html>
