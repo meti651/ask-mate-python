@@ -74,7 +74,7 @@ def get_question_by_id(cursor, id):
                     SELECT * FROM question
                     WHERE id = %(id)s;
                     """,
-                   {'id': int(id)})
+                   {'id': id})
     questions = cursor.fetchall()
     return questions
 
