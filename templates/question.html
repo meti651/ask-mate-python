@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
-        <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <a href="/list"><img src="{{ url_for('static', filename='Actions-arrow-left-icon.png') }}" alt="Back to the question list"></a>
         <h1>{{ question.title }}</h1>
         <p>
             <a href="/question/{{ question['id'] }}/new_answer"><button class="button">Answer</button></a>

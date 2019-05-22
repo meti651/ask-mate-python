@@ -6,9 +6,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>{% if mode == "edit" %}
-                <a href="/question/{{ question_params['question_id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+                <a href="/question/{{ question_params['question_id'] }}"><img src="{{ url_for('static', filename='Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
             {% else %}
-                <a href="/question/{{ question_id }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+                <a href="/question/{{ question_id }}"><img src="{{ url_for('static', filename='Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
             {% endif %}
     <form action="" method="post">
             <p>
