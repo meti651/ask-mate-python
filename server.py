@@ -7,21 +7,32 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=('GET', 'POST'))
-@app.route('/list', methods=('POST', 'GET'))
 def route_list():
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
         sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse)
-    return render_template('list.html', questions=questions)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
+    return render_template('list.html', questions=questions, method='last')
+
+
+@app.route('/list', methods=('POST', 'GET'))
+def list_all_question():
+    questions = data_handler.get_all_questions('submission_time', 'DESC')
+    if request.method == 'POST':
+        attribute = request.form['attribute']
+        reverse = request.form['order_direction']
+        sorted_questions = data_handler.get_all_questions(attribute, reverse)
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='all')
+    return render_template('list.html', questions=questions, method='all')
+
+
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
-    print(displayed_answers)
     return render_template('question.html', question=displayed_question[0], answers=displayed_answers)
 
 
