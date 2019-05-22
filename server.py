@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os
+import utility
 import data_handler
 import datetime
 
@@ -31,6 +31,7 @@ def list_all_question():
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
+    data_handler.increase_view_number(question_id)
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
     return render_template('question.html', question=displayed_question[0], answers=displayed_answers)

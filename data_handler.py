@@ -147,3 +147,12 @@ def delete_tag(cursor, question_id, tag_id):
                     """,
                    {'question_id': int(question_id), 'tag_id': int(tag_id)})
 
+
+@connection.connection_handler
+def increase_view_number(cursor, id):
+    cursor.execute(
+        """
+        UPDATE question
+        SET view_number = view_number + 1
+        WHERE id = %(id)s;
+        """, {'id': int(id)})
