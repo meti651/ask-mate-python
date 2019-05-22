@@ -139,6 +139,26 @@ def insert_data_to_answer(cursor, answer):
 
 
 @connection.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    cursor.execute("""
+                    DELETE FROM question_tag
+                    WHERE question_id = %(question_id)s
+                    AND tag_id = %(tag_id)s;
+                    """,
+                   {'question_id': int(question_id), 'tag_id': int(tag_id)})
+
+
+@connection.connection_handler
+def increase_view_number(cursor, id):
+    cursor.execute(
+        """
+        UPDATE question
+        SET view_number = view_number + 1
+        WHERE id = %(id)s;
+        """, {'id': int(id)})
+
+
+@connection.connection_handler
 def edit_answer(cursor, id, message, image):
     cursor.execute(
         """
