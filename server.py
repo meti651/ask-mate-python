@@ -56,7 +56,6 @@ def edit_question(question_id):
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
         return redirect(url_for("route_list"))
-
     question_params = data_handler.get_question_by_id(question_id)
     return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
@@ -81,6 +80,13 @@ def add_new_answer(question_id):
         return redirect('/question/' + question_id)
     return render_template('answer.html', question_id=question_id)
 
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+def edit_answer(answer_id):
+    answer_params = data_handler.get_answer_by_id(answer_id)
+    if request.method == "POST":
+        data_handler.edit_answer(answer_id, request.form['message'], request.form['image'])
+        return redirect('/question/' + str(answer_params[0]['question_id']))
+    return render_template('answer.html', question_params=answer_params[0], mode='edit')
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
