@@ -7,10 +7,10 @@
 </head>
 <body>
     {% if mode == "add" %}
-        <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question list"></a>
         <h1>Ask your question!</h1>
     {% elif mode == "edit" %}
-        <a href="/question/{{ question_params['id'] }}"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <a href="/question/{{ question_params['id'] }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
         <h1>Edit your question!</h1>
     {% endif %}
     <form action="" method="POST">

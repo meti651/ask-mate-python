@@ -94,7 +94,8 @@ def get_answer_by_id(cursor, id):
 def get_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answer
-                    WHERE question_id = %(question_id)s;
+                    WHERE question_id = %(question_id)s
+                    ORDER BY submission_time;
                     """,
                    {'question_id': question_id})
     answers = cursor.fetchall()
@@ -136,6 +137,21 @@ def insert_data_to_answer(cursor, answer):
                     (submission_time, vote_number, question_id, message, image)
                     VALUES (%s, %s, %s, %s, %s);""",
                    (submission_time, vote_number, question_id, message, image))
+
+
+@connection.connection_handler
+def count_vote(cursor, story_type, id, vote_type):
+    if vote_type == "vote-up":
+        point = 1
+    else:
+        point = -1
+    cursor.execute(sql.SQL("""
+                    UPDATE {story_type}
+                    SET vote_number = vote_number + %(point)s
+                    WHERE id = %(id)s;
+                   """).format(story_type = sql.Identifier(story_type)),
+                   {'point': int(point),
+                    'id': int(id)})
 
 
 @connection.connection_handler

@@ -51,10 +51,10 @@ def ask_question():
 
 @app.route('/question/<int:question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
+    question_params = data_handler.get_question_by_id(question_id)
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
-        return redirect(url_for("route_list"))
-    question_params = data_handler.get_question_by_id(question_id)
+        return redirect('/question/' + str(question_params[0]['id']))
     return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
 
@@ -96,13 +96,9 @@ def delete_an_answer(answer_id):
 
 @app.route('/<story_type>/<int:id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
-    if story_type == "question":
-        data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
-        return redirect('/question/' + id)
-    if story_type == "answer":
-        question_id = data_handler.get_question_id_by_answer_id(id)
-        data_handler.count_vote(PATH_ANSWERS, id, vote_type, data_handler.ANSWER_KEYS)
-        return redirect('/question/' + question_id)
+    query_string = request.referrer
+    data_handler.count_vote(story_type, id, vote_type)
+    return redirect(query_string)
 
 
 @app.route('/question/<int:question_id>/tag/<int:tag_id>')
