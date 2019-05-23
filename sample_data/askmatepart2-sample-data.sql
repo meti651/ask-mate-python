@@ -52,6 +52,7 @@ CREATE TABLE comment (
 );
 
 
+
 DROP TABLE IF EXISTS public.question_tag;
 CREATE TABLE question_tag (
     question_id integer NOT NULL,
