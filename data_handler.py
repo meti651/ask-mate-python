@@ -151,7 +151,7 @@ def insert_data_to_answer(cursor, answer):
 @connection.connection_handler
 def get_question_tags(cursor, q_id):
     cursor.execute("""
-                    SELECT name FROM question_tag
+                    SELECT id, name FROM question_tag
                     INNER JOIN tag ON question_tag.tag_id = tag.id
                     WHERE question_id = %(q_id)s;""", {'q_id': int(q_id)})
 
