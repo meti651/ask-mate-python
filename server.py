@@ -115,7 +115,7 @@ def add_new_tag(question_id):
                 return redirect(curr_link)
             return redirect(url_for('display_question', question_id=question_id))
     question_tag = data_handler.get_all_tag()
-    return render_template('new_tag.html', tags=question_tag)
+    return render_template('new_tag.html', question_id=question_id, tags=question_tag)
 
 
 
