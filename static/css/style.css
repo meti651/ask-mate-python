@@ -205,10 +205,22 @@ textarea {
     border: 3px darkgray solid;
 }
 
+#answer_block {
+    position: relative;
+    left: 0;
+    width: 60%;
+    display: block;
+    background-color: #e6e6e6;
+    border: 3px darkgray solid;
+}
+
 #submission_time, #vote_number, #vote_number_button {display: inline-block}
 #image, #view_number_button #view_number {display: inline-block}
 
-#submission_time {
+#answer_message, #answer_id {display: inline-block}
+#answer_submission_time, #answer_vote_number, #answer_button {display: inline-block}
+
+#submission_time, #answer_submission_time {
     color: darkgray;
     text-align: left;
     letter-spacing: 0;
@@ -228,13 +240,18 @@ textarea {
     margin:0 5px 0px 0;
 }
 
-#vote_number_button {
+#vote_number_button, #answer_button {
     float: right;
     margin: 10px;
 }
 
 #vote_number {
     float: right;
+}
+
+#answer_vote_number {
+    float: right;
+    margin: 15px 5px;
 }
 
 #id {

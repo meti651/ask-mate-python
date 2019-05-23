@@ -15,6 +15,7 @@ def route_list():
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
     return render_template('list.html', questions=questions, method='last')
 
+
 @app.route("/search?=<search_data>", methods=('GET', 'POST'))
 def get_data_by_search(search_data):
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
@@ -128,7 +129,6 @@ def add_new_tag(question_id):
     return render_template('new_tag.html', question_id=question_id, tags=question_tag)
 
 
-
 @app.route('/<story_type>/<int:id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
     query_string = request.referrer
@@ -149,6 +149,7 @@ def delete_tag(question_id, tag_id):
 #         print(search_data)
 #         data = data_handler.get_items_by_search_result(search_data)
 #     return render_template('list.html', questions=data, search_data=search_data)
+
 
 if __name__ == "__main__":
     app.run(
