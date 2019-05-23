@@ -21,9 +21,10 @@
             <table>
                 <tr>
                     {% for dict in tags %}
-                        {% for tag in dict.values() %}
-                            <td>{{ tag }}</td>
-                        {% endfor %}
+
+                        <td>{{ dict['name'] }}</td>
+                        <td><a href="/question/{{ question['id'] }}/tag/{{ dict['id'] }}"><img src="{{ url_for('static', filename='icons/x-mark.png') }}" alt="eye" width="20" height="20"></a></td>
+
                     {% endfor %}
                 <tr/>
             </table>
