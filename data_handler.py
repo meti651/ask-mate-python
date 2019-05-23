@@ -174,6 +174,16 @@ def get_tag_id(cursor, tag_name):
     return tag_id[0]
 
 @connection.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    cursor.execute("""
+                    DELETE FROM question_tag
+                    WHERE question_id = %(question_id)s
+                    AND tag_id = %(tag_id)s;
+                    """,
+                   {'question_id': int(question_id), 'tag_id': int(tag_id)})
+
+
+@connection.connection_handler
 def add_tag_to_question(cursor, tag_id, question_id):
     cursor.execute("""
                     INSERT INTO question_tag (question_id, tag_id)
@@ -186,7 +196,6 @@ def get_all_tag(cursor):
                     SELECT name FROM tag;""")
     tags = cursor.fetchall()
     return tags
-
 
 @connection.connection_handler
 def count_vote(cursor, story_type, id, vote_type):
@@ -201,16 +210,6 @@ def count_vote(cursor, story_type, id, vote_type):
                    """).format(story_type = sql.Identifier(story_type)),
                    {'point': int(point),
                     'id': int(id)})
-
-
-@connection.connection_handler
-def delete_tag(cursor, question_id, tag_id):
-    cursor.execute("""
-                    DELETE FROM question_tag
-                    WHERE question_id = %(question_id)s
-                    AND tag_id = %(tag_id)s;
-                    """,
-                   {'question_id': int(question_id), 'tag_id': int(tag_id)})
 
 
 @connection.connection_handler

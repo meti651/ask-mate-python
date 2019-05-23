@@ -58,14 +58,11 @@ CREATE TABLE question_tag (
     tag_id integer NOT NULL
 );
 
-ALTER TABLE question_tag
-  ADD CONSTRAINT uq_question_tag UNIQUE(question_id, tag_id);
-
 DROP TABLE IF EXISTS public.tag;
 DROP SEQUENCE IF EXISTS public.tag_id_seq;
 CREATE TABLE tag (
     id serial NOT NULL,
-    name text UNIQUE
+    name text
 );
 
 
