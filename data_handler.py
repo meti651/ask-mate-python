@@ -124,6 +124,7 @@ def insert_data_to_question(cursor, new_question):
                     VALUES (%s, %s, %s, %s, %s, %s);""",
                    (submission_time, view_number, vote_number, title, message, image))
 
+
 @connection.connection_handler
 def insert_data_to_answer(cursor, submission_time, question_id, message, image):
     cursor.execute("""
@@ -133,6 +134,7 @@ def insert_data_to_answer(cursor, submission_time, question_id, message, image):
                    (submission_time, question_id, message, image))
 
 
+@connection.connection_handler
 def insert_data_to_answer(cursor, answer):
     submission_time = answer['submission_time']
     vote_number = answer['vote_number']
