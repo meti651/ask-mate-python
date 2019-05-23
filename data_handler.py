@@ -188,6 +188,7 @@ def get_all_tag(cursor):
     return tags
 
 
+@connection.connection_handler
 def count_vote(cursor, story_type, id, vote_type):
     if vote_type == "vote-up":
         point = 1
