@@ -26,21 +26,18 @@
         </p>
     </form>
     <h2>Questions</h2>
-    <ul>
-        {% for dict in questions %}
+    {% for dict in questions %}
+        <a id="link" href="/question/{{ dict['id'] }}" >
             <div id="list">
-                <p><li><a id="link" href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
+                {{ dict['title'] }}
             </div>
-        {% endfor %}
+        </a>
+    {% endfor %}
 
-        <div id="see_more">
-            <p>
-                <a href={{ "/list" if method=="last" else "/" }}>
-                    <button class="button">{{ "See more" if method == "last" else "Hide" }}</button>
-                </a>
-            </p>
-        </div>
-
-    </ul>
+    <div id="see_more">
+        <a href={{ "/list" if method=="last" else "/" }}>
+            <button class="button">{{ "See more" if method == "last" else "Hide" }}</button>
+        </a>
+    </div>
 </body>
 </html>

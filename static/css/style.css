@@ -100,25 +100,24 @@ table {
     -webkit-border-vertical-spacing: 10px;
 }
 
+a {
+    text-decoration: none;
+}
 
 #list {
-    color: black;
+    list-style-type: none;
+    background: linear-gradient(to right, slategray, lightgray);
+    color: white;
     text-align: left;
     font-size: 22px;
     margin: 4px 2px;
-
+    padding: 10px 10px;
 }
 
-#link:hover {
-    color: yellowgreen;
-}
 
 #list:hover {
-    color: lightgray;
-    text-align: left;
-    font-size: 22px;
-    margin: 4px 2px;
-
+    color: yellowgreen;
+    background: slategray;
 }
 
 
