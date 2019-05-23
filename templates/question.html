@@ -15,6 +15,14 @@
             <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
             <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
         </p>
+
+        <p id="tag">
+            {% for tag in tags.values() %}
+                <p>{{ tag }}</p>
+            {% endfor %}
+            <a href="/question/{{ question['id'] }}/new-tag"><button id="tag_btn" name="tag_btn">Add Tag</button></a>
+        </p>
+
         <table>
             <tr>
                 {% for key in question.keys() %}
