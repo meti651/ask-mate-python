@@ -10,8 +10,7 @@ def get_question_by_id(cursor, id):
         """, {'id':int(id)})
 
     question = cursor.fetchall()
-    return question[0]
-
+    return question
 
 
 @connection.connection_handler
@@ -126,6 +125,14 @@ def insert_data_to_question(cursor, new_question):
                    (submission_time, view_number, vote_number, title, message, image))
 
 @connection.connection_handler
+def insert_data_to_answer(cursor, submission_time, question_id, message, image):
+    cursor.execute("""
+                    INSERT INTO answer
+                    (submission_time,  question_id, message, image)
+                    VALUES (%s, %s, %s, %s, %s);""",
+                   (submission_time, question_id, message, image))
+
+
 def insert_data_to_answer(cursor, answer):
     submission_time = answer['submission_time']
     vote_number = answer['vote_number']
@@ -140,6 +147,45 @@ def insert_data_to_answer(cursor, answer):
 
 
 @connection.connection_handler
+def get_question_tags(cursor, q_id):
+    cursor.execute("""
+                    SELECT name FROM question_tag
+                    INNER JOIN tag ON question_tag.tag_id = tag.id
+                    WHERE question_id = %(q_id)s;""", {'q_id': int(q_id)})
+
+    question_tags = cursor.fetchall()
+    return question_tags
+
+@connection.connection_handler
+def add_question_tag(cursor, tag_name):
+    cursor.execute("""
+                    INSERT INTO tag (name)
+                    VALUES (%(tag_name)s);""", {'tag_name': tag_name})
+
+
+@connection.connection_handler
+def get_tag_id(cursor, tag_name):
+    cursor.execute("""
+                    SELECT id FROM tag
+                    WHERE name = %(tag_name)s;""", {'tag_name': tag_name})
+    tag_id = cursor.fetchall()
+    return tag_id[0]
+
+@connection.connection_handler
+def add_tag_to_question(cursor, tag_id, question_id):
+    cursor.execute("""
+                    INSERT INTO question_tag (question_id, tag_id)
+                    VALUES (%s, %s);""", (question_id, tag_id))
+
+
+@connection.connection_handler
+def get_all_tag(cursor):
+    cursor.execute("""
+                    SELECT name FROM tag;""")
+    tags = cursor.fetchall()
+    return tags
+
+
 def count_vote(cursor, story_type, id, vote_type):
     if vote_type == "vote-up":
         point = 1

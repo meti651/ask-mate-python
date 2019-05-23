@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+</head>
+<body>
+    <form action="" method="POST">
+        <label for="q_tag">Add new tag:</label>
+        <input type="text" id="q_tag" name="create_tag">
+        <button type="submit">Create</button>
+        <label for="tag_list"></label><br>
+        <select id="tag_list" name="selected_tag">
+            <option></option>
+            {% for tag in tags %}
+                <option>{{ tag['name'] }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" id="add_tag">Add tag</button>
+    </form>
+</body>
+</html>
