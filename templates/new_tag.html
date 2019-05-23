@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <a href="/question/{{ question_id }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
     <form action="" method="POST">
         <label for="q_tag">Add new tag:</label>
         <input type="text" id="q_tag" name="create_tag">
-        <button type="submit">Create</button>
+        <button type="submit" class="button">Create</button>
         <label for="tag_list"></label><br>
         <select id="tag_list" name="selected_tag">
             <option></option>
@@ -17,7 +18,7 @@
                 <option>{{ tag['name'] }}</option>
             {% endfor %}
         </select>
-        <button type="submit" id="add_tag">Add tag</button>
+        <button type="submit" id="add_tag" class="button">Add tag</button>
     </form>
 </body>
 </html>
