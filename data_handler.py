@@ -73,7 +73,7 @@ def get_question_by_id(cursor, id):
                     SELECT * FROM question
                     WHERE id = %(id)s;
                     """,
-                   {'id': int(id)})
+                   {'id': id})
     questions = cursor.fetchall()
     return questions
 
@@ -81,7 +81,7 @@ def get_question_by_id(cursor, id):
 @connection.connection_handler
 def get_answer_by_id(cursor, id):
     cursor.execute("""
-                    SELECT * FROM question
+                    SELECT * FROM answer
                     WHERE id = %(id)s;
                     """,
                    {'id': int(id)})
@@ -185,14 +185,45 @@ def get_all_tag(cursor):
     return tags
 
 
+def count_vote(cursor, story_type, id, vote_type):
+    if vote_type == "vote-up":
+        point = 1
+    else:
+        point = -1
+    cursor.execute(sql.SQL("""
+                    UPDATE {story_type}
+                    SET vote_number = vote_number + %(point)s
+                    WHERE id = %(id)s;
+                   """).format(story_type = sql.Identifier(story_type)),
+                   {'point': int(point),
+                    'id': int(id)})
 
 
+@connection.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    cursor.execute("""
+                    DELETE FROM question_tag
+                    WHERE question_id = %(question_id)s
+                    AND tag_id = %(tag_id)s;
+                    """,
+                   {'question_id': int(question_id), 'tag_id': int(tag_id)})
 
 
+@connection.connection_handler
+def increase_view_number(cursor, id):
+    cursor.execute(
+        """
+        UPDATE question
+        SET view_number = view_number + 1
+        WHERE id = %(id)s;
+        """, {'id': int(id)})
 
 
-
-
-
-
-
+@connection.connection_handler
+def edit_answer(cursor, id, message, image):
+    cursor.execute(
+        """
+        UPDATE answer
+        SET message = %(message)s, image = %(image)s
+        WHERE id = %(id)s;
+        """, {'id': int(id), 'message': message, 'image': image})

@@ -6,14 +6,14 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
-        <a href="/list"><img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-1/72/back-icon.png" alt="Back to the question list"></a>
+        <a href="/list"><img src="{{ url_for('static', filename='Actions-arrow-left-icon.png') }}" alt="Back to the question list"></a>
         <h1>{{ question.title }}</h1>
         <p>
             <a href="/question/{{ question['id'] }}/new_answer"><button class="button">Answer</button></a>
             <a href="/question/{{ question['id'] }}/edit"><button class="button">Edit</button></a>
             <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
-            <a href="/question/{{ question['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
-            <a href="/question/{{ question['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
+            <a href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='like-icon.png') }}" alt="like"></a>
+            <a href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='dislike-icon.png') }}" alt="dislike"></a>
         </p>
 
         <p id="tag">
@@ -58,10 +58,11 @@
                                 {% endif %}
                             {% endfor %}
                             <td>
-                                <a href="/answer/{{ answer['id'] }}/vote-up"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/like-icon.png" alt="like"></a>
-                                <a href="/answer/{{ answer['id'] }}/vote-down"><img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/24/dislike-icon.png" alt="dislike"></a>
+                                <a href="/answer/{{ answer['id'] }}/vote-up"><img src="{{ url_for('static', filename='like-icon.png') }}" alt="like"></a>
+                                <a href="/answer/{{ answer['id'] }}/vote-down"><img src="{{ url_for('static', filename='dislike-icon.png') }}" alt="dislike"></a>
                             </td>
                             <td><a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a></td>
+                            <td><a href="/answer/{{ answer.id }}/edit"><button class="button">Edit answer</button></a></td>
                         </tr>
                     {% endfor %}
                 </table>
