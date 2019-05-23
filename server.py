@@ -10,7 +10,7 @@ def route_list():
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
-        reverse = request.form['order_direction']
+        reverse = request.form['order_direction'].upper()
         sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
     return render_template('list.html', questions=questions, method='last')
@@ -32,7 +32,7 @@ def list_all_question():
     questions = data_handler.get_all_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
-        reverse = request.form['order_direction']
+        reverse = request.form['order_direction'].upper()
         sorted_questions = data_handler.get_all_questions(attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='all')
     return render_template('list.html', questions=questions, method='all')
