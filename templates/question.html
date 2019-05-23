@@ -12,9 +12,23 @@
             <a href="/question/{{ question['id'] }}/new_answer"><button class="button">Answer</button></a>
             <a href="/question/{{ question['id'] }}/edit"><button class="button">Edit</button></a>
             <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
+            <a href="/question/{{ question['id'] }}/new-tag"><button  class="button" id="tag_btn" name="tag_btn">Add Tag</button></a>
             <a href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
             <a href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
         </p>
+
+        <p id="tag">
+            <table>
+                <tr>
+                    {% for dict in tags %}
+                        {% for tag in dict.values() %}
+                            <td>{{ tag }}</td>
+                        {% endfor %}
+                    {% endfor %}
+                <tr/>
+            </table>
+        </p>
+
         <table>
             <tr>
                 {% for key in question.keys() %}
