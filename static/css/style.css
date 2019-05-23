@@ -195,3 +195,67 @@ textarea {
 
 }
 
+#question_block {
+    position: relative;
+    left: 15%;
+    width: 60%;
+    display: block;
+    background-color: #e6e6e6;
+    border: 3px darkgray solid;
+}
+
+#submission_time, #vote_number, #vote_number_button {display: inline-block}
+#image, #view_number_button #view_number {display: inline-block}
+
+#submission_time {
+    color: darkgray;
+    text-align: left;
+    letter-spacing: 0;
+    font: normal 100 13px/2 Serif;
+    position: relative;
+    top:0;
+    left:0;
+}
+
+#view_number, #view_number_button {
+    float: right;
+}
+#view_number {
+    margin-bottom: 10px;
+}
+#view_number_button {
+    margin:0 5px 0px 0;
+}
+
+#vote_number_button {
+    float: right;
+    margin: 10px;
+}
+
+#vote_number {
+    float: right;
+}
+
+#id {
+    position: relative;
+    top: 0;
+    left: 0;
+    font: normal bold 22px/10 Serif;
+}
+
+#title {
+    margin-left: 15%;
+    position: relative;
+    top: 0;
+    left: 0px;
+    font: normal bold 22px/1 Serif;
+}
+
+#message {
+    width: 60%;
+    height: 30%;
+    margin-left: 15%;
+    font: normal normal 16px Serif;
+
+}
+

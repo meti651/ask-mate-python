@@ -13,8 +13,6 @@
             <a href="/question/{{ question['id'] }}/edit"><button class="button">Edit</button></a>
             <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
             <a href="/question/{{ question['id'] }}/new-tag"><button  class="button" id="tag_btn" name="tag_btn">Add Tag</button></a>
-            <a href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
-            <a href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
         </p>
 
         <p id="tag">
@@ -30,22 +28,36 @@
             </table>
         </p>
 
-        <table>
-            <tr>
-                {% for key in question.keys() %}
-                    <th> {{ key }}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for value in question.values() %}
-                    {% if loop.index < 7 %}
-                        <td> {{ value }}</td>
-                    {% elif loop.index == 7 %}
-                        <td><img src="{{ value }}" alter="image" height="200"></td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
+
+        <p id="title">{{ question['id'] }}. {{ question['title'] }}</p>
+        <div id="question_block">
+            <p id="submission_time">{{ question['submission_time'] }}</p>
+            <p id="vote_number">{{ question['vote_number'] }}</p>
+            <a id="vote_number_button" href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
+            <a id="vote_number_button" href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+            <p id="message">{{ question['message'] }}</p>
+            <p id="image">
+                {% if question['image'] != None %}
+                    <img src={{ question['image'] }} alter="image">
+                {% else %}
+
+                {% endif %}
+            </p>
+            <p id="view_number">{{ question['view_number'] }}</p>
+            <p id="view_number_button"><img src="{{ url_for('static', filename='icons/eye-icon.png') }}" alt="eye" width="20" height="30"></p>
+
+            {#{% for key, value in question.items() %}
+                {% if loop.index < 7 %}
+
+                    <div id="{{ key }}">
+                        {{ value }}
+                    </div>
+
+                {% elif loop.index == 7 %}
+                    <td><img id="image" src="{{ value }}" alter="image" height="200"></td>
+                {% endif %}
+            {% endfor %}#}
+        </div>
         <h2>Answers</h2>
         {% if answers|length > 0 %}
             <div id="answer">
