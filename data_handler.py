@@ -156,10 +156,10 @@ def get_question_tags(cursor, q_id):
     return question_tags
 
 @connection.connection_handler
-def add_question_tag(cursor, tag):
+def add_question_tag(cursor, tag_name):
     cursor.execute("""
                     INSERT INTO tag (name)
-                    VALUES (%s);""", tag)
+                    VALUES (%(tag_name)s);""", {'tag_name': tag_name})
 
 
 @connection.connection_handler

@@ -28,14 +28,13 @@ def list_all_question():
     return render_template('list.html', questions=questions, method='all')
 
 
-
-@app.route('/question/<question_id>')
+@app.route('/question/<int:question_id>')
 def display_question(question_id):
     data_handler.increase_view_number(question_id)
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
     displayed_tags = data_handler.get_question_tags(question_id)
-    return render_template('question.html', question=displayed_question[0], answers=displayed_answers, tags=displayed_tags[0])
+    return render_template('question.html', question=displayed_question[0], answers=displayed_answers, tags=displayed_tags)
 
 
 @app.route('/add_question', methods=('GET', 'POST'))
@@ -99,18 +98,17 @@ def delete_an_answer(answer_id):
 @app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
 def add_new_tag(question_id):
     if request.method == 'POST':
-        print(request.form)
         new_tag = request.form['create_tag']
         selected_tag = request.form['selected_tag']
+        print(new_tag, selected_tag)
         if new_tag:
             data_handler.add_question_tag(new_tag)
             curr_link = request.referrer
             return redirect(curr_link)
         else:
             tag_id = data_handler.get_tag_id(selected_tag)['id']
-            print(tag_id, question_id)
-            data_handler.add_tag_to_question(question_id, tag_id)
-            return redirect('/question/<question_id>')
+            data_handler.add_tag_to_question(tag_id, question_id)
+            return redirect(url_for('display_question', question_id=question_id))
     question_tag = data_handler.get_all_tag()
     return render_template('new_tag.html', tags=question_tag)
 
