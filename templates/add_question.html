@@ -14,23 +14,28 @@
         <h1>Edit your question!</h1>
     {% endif %}
     <form action="" method="POST">
-        <p>
-            <label id="titles" for="title">Title of question:</label>
-            <input class="text" type="text" name="title" required value="{% if mode == "edit"  %}{{ question_params['title'] }}{% endif %}">
-        </p>
-        <p>
-            <label id="titles" for="message">Expressed question:</label>
-            <textarea name="message" required>{% if mode == "edit" %}{{ question_params['message'] }}{% endif %}</textarea>
-        </p>
-        <p>
-            <label id="titles" for="image">Image:</label>
-            <input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}">
-        </p>
-         {% if mode =="edit" %}
-             <p><button class="button" type="submit">Edit Question</button></p>
-         {% else %}
-             <p><button class="button" type="submit">Ask Question</button></p>
-         {% endif %}
+        <table>
+            <tr>
+                <td class="right-aligned-td"><label id="titles" for="title">Title of question:</label></td>
+                <td><input class="text" type="text" name="title" required value="{% if mode == "edit"  %}{{ question_params['title'] }}{% endif %}"></td>
+            </tr>
+            <tr>
+                <td class="right-aligned-td"><label id="titles" for="message">Expressed question:</label></td>
+                <td><textarea name="message" required>{% if mode == "edit" %}{{ question_params['message'] }}{% endif %}</textarea></td>
+            </tr>
+            <tr>
+                <td class="right-aligned-td"><label id="titles" for="image">Image:</label></td>
+                <td><input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                {% if mode =="edit" %}
+                    <td class="right-aligned-td"><button class="button" type="submit">Edit Question</button></td>
+                {% else %}
+                    <td class="right-aligned-td"><button class="button" type="submit">Ask Question</button></td>
+                {% endif %}
+            </tr>
+        </table>
     </form>
 </body>
 </html>

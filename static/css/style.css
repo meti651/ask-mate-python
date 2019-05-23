@@ -1,6 +1,7 @@
 html {
     background-color: lightgray;
     word-break: break-all;
+    font-family: Serif;
 }
 
 
@@ -195,3 +196,6 @@ textarea {
 
 }
 
+.right-aligned-td {
+    text-align: right;
+}
