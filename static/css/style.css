@@ -82,6 +82,20 @@ table {
     -webkit-border-vertical-spacing: 10px;
 }
 
+.see_more {
+    margin-left: 60px;
+}
+
+.see_more.see_more {
+    background-color: lightgray;
+    border: 0;
+    color: gray;
+    cursor: pointer;
+    font: italic 19px Serif;
+    text-decoration: underline;
+}
+
+
 a {
     text-decoration: none;
 }
