@@ -1,20 +1,24 @@
 html {
     background-color: lightgray;
+    word-break: break-all;
 }
+
+
 h1 {
     text-align: center;
     color: rgb(20%,120%,20%);
     border: 1px solid #2f4f4f;
     font-weight: bold;
     background-color: grey;
-    height: 90px;
-    line-height: 90px;
+    padding: 20px;
+    line-height: 40px;
     margin-top: 0px;
     background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
     animation-name: font;
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    height: auto;
 }
 
 
@@ -43,8 +47,6 @@ h1 {
 }
 
 
-
-
 h2 {
     border: 1px solid #2f4f4f;
     font-weight: bold;
@@ -57,6 +59,7 @@ h2 {
     margin-top: 0px;
     background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
 }
+
 
 th {
     font-size: 20px;
@@ -79,25 +82,39 @@ table {
     -webkit-border-vertical-spacing: 10px;
 }
 
+.see_more {
+    margin-left: 60px;
+}
+
+.see_more.see_more {
+    background-color: lightgray;
+    border: 0;
+    color: gray;
+    cursor: pointer;
+    font: italic 19px Serif;
+    text-decoration: underline;
+}
+
+
+a {
+    text-decoration: none;
+}
 
 #list {
-    color: black;
+    list-style-type: none;
+    background: linear-gradient(to right, slategray, lightgray);
+    color: white;
     text-align: left;
     font-size: 22px;
     margin: 4px 2px;
-
+    padding: 10px 10px;
+    width: 75%;
 }
 
-#link:hover {
-    color: yellowgreen;
-}
 
 #list:hover {
-    color: lightgray;
-    text-align: left;
-    font-size: 22px;
-    margin: 4px 2px;
-
+    color: yellowgreen;
+    background: slategray;
 }
 
 
