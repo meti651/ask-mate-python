@@ -94,7 +94,8 @@ def get_answer_by_id(cursor, id):
 def get_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answer
-                    WHERE question_id = %(question_id)s;
+                    WHERE question_id = %(question_id)s
+                    ORDER BY submission_time;
                     """,
                    {'question_id': question_id})
     answers = cursor.fetchall()
