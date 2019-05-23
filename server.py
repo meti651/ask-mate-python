@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-import utility
 import data_handler
 import datetime
 
@@ -28,8 +27,7 @@ def list_all_question():
     return render_template('list.html', questions=questions, method='all')
 
 
-
-@app.route('/question/<question_id>')
+@app.route('/question/<int:question_id>')
 def display_question(question_id):
     data_handler.increase_view_number(question_id)
     displayed_question = data_handler.get_question_by_id(question_id)
@@ -47,11 +45,11 @@ def ask_question():
         new_question["vote_number"] = 0
         new_question["submission_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         data_handler.insert_data_to_question(new_question)
-        return redirect("/list")
+        return redirect("/")
     return render_template("add_question.html", mode="add")
 
 
-@app.route('/question/<question_id>/edit', methods=('GET','POST'))
+@app.route('/question/<int:question_id>/edit', methods=('GET','POST'))
 def edit_question(question_id):
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
@@ -60,14 +58,13 @@ def edit_question(question_id):
     return render_template('add_question.html', question_params=question_params[0], mode="edit")
 
 
-@app.route("/question/<question_id>/delete")
+@app.route("/question/<int:question_id>/delete")
 def delete_question(question_id):
     data_handler.delete(question_id, 'question')
-    return redirect("/list")
+    return redirect("/")
 
 
-
-@app.route('/question/<question_id>/new_answer', methods=['GET', 'POST'])
+@app.route('/question/<int:question_id>/new_answer', methods=['GET', 'POST'])
 def add_new_answer(question_id):
     if request.method == 'POST':
         new_answer = {}
@@ -77,10 +74,11 @@ def add_new_answer(question_id):
         new_answer['vote_number'] = 0
         new_answer['question_id'] = question_id
         data_handler.insert_data_to_answer(new_answer)
-        return redirect('/question/' + question_id)
+        return redirect('/question/' + str(question_id))
     return render_template('answer.html', question_id=question_id)
 
-@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+
+@app.route('/answer/<int:answer_id>/edit', methods=['GET', 'POST'])
 def edit_answer(answer_id):
     answer_params = data_handler.get_answer_by_id(answer_id)
     if request.method == "POST":
@@ -88,15 +86,15 @@ def edit_answer(answer_id):
         return redirect('/question/' + str(answer_params[0]['question_id']))
     return render_template('answer.html', question_params=answer_params[0], mode='edit')
 
-@app.route('/answer/<answer_id>/delete')
+
+@app.route('/answer/<int:answer_id>/delete')
 def delete_an_answer(answer_id):
     query_string = request.referrer
     data_handler.delete(answer_id, 'answer')
     return redirect(query_string)
 
 
-
-@app.route('/<story_type>/<id>/<vote_type>')
+@app.route('/<story_type>/<int:id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
     if story_type == "question":
         data_handler.count_vote(PATH_QUESTIONS, id, vote_type, data_handler.QUESTION_KEYS)
@@ -107,7 +105,7 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
         return redirect('/question/' + question_id)
 
 
-@app.route('/question/<question_id>/tag/<tag_id>')
+@app.route('/question/<int:question_id>/tag/<int:tag_id>')
 def delete_tag(question_id, tag_id):
     data_handler.delete_tag(question_id, tag_id)
     return_route = request.referrer
