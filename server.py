@@ -32,7 +32,8 @@ def display_question(question_id):
     data_handler.increase_view_number(question_id)
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
-    return render_template('question.html', question=displayed_question[0], answers=displayed_answers)
+    displayed_tags = data_handler.get_question_tags(question_id)
+    return render_template('question.html', question=displayed_question[0], answers=displayed_answers, tags=displayed_tags)
 
 
 @app.route('/add_question', methods=('GET', 'POST'))
@@ -94,6 +95,25 @@ def delete_an_answer(answer_id):
     return redirect(query_string)
 
 
+@app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
+def add_new_tag(question_id):
+    if request.method == 'POST':
+        new_tag = request.form['create_tag']
+        selected_tag = request.form['selected_tag']
+        print(new_tag, selected_tag)
+        if new_tag:
+            data_handler.add_question_tag(new_tag)
+            curr_link = request.referrer
+            return redirect(curr_link)
+        else:
+            tag_id = data_handler.get_tag_id(selected_tag)['id']
+            data_handler.add_tag_to_question(tag_id, question_id)
+            return redirect(url_for('display_question', question_id=question_id))
+    question_tag = data_handler.get_all_tag()
+    return render_template('new_tag.html', tags=question_tag)
+
+
+
 @app.route('/<story_type>/<int:id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
     query_string = request.referrer
@@ -111,5 +131,5 @@ def delete_tag(question_id, tag_id):
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=9991
+        port=9992
     )

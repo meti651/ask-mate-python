@@ -10,13 +10,6 @@ h1 {
     height: 90px;
     line-height: 90px;
     margin-top: 0px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
     background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
     animation-name: font;
     animation-duration: 3s;
@@ -62,13 +55,6 @@ h2 {
     width: 200px;
     line-height: 50px;
     margin-top: 0px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
     background-image: linear-gradient(to left top, #808080, #707277, #5b666d, #445a60, #2f4f4f);
 }
 
@@ -80,13 +66,6 @@ th {
     height: 30px;
     width: 100px;
     letter-spacing: 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
 
 }
 
@@ -113,24 +92,25 @@ table {
     text-decoration: underline;
 }
 
+
+a {
+    text-decoration: none;
+}
+
 #list {
-    color: black;
+    list-style-type: none;
+    background: linear-gradient(to right, slategray, lightgray);
+    color: white;
     text-align: left;
     font-size: 22px;
     margin: 4px 2px;
-
+    padding: 10px 10px;
 }
 
-#link:hover {
-    color: yellowgreen;
-}
 
 #list:hover {
-    color: lightgray;
-    text-align: left;
-    font-size: 22px;
-    margin: 4px 2px;
-
+    color: yellowgreen;
+    background: slategray;
 }
 
 
@@ -203,10 +183,6 @@ textarea {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
 
 }
 
@@ -216,10 +192,6 @@ textarea {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
 
 }
 

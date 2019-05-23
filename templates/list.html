@@ -26,12 +26,13 @@
         </p>
     </form>
     <h2>Questions</h2>
-    <ul>
-        {% for dict in questions %}
+    {% for dict in questions %}
+        <a id="link" href="/question/{{ dict['id'] }}" >
             <div id="list">
-                <p><li><a id="link" href="/question/{{ dict['id'] }}" >{{ dict['title'] }}</a></li></p>
+                {{ dict['title'] }}
             </div>
-        {% endfor %}
+        </a>
+    {% endfor %}
 
         <div class="see more">
             <p>
