@@ -12,6 +12,7 @@
     </div>
     <form action="", method="POST">
         <p>
+
             <select class="button2" name="attribute">
                 <option value="id">Date</option>
                 <option value="title">Title</option>
@@ -26,7 +27,11 @@
         </p>
     </form>
     <h2>Questions</h2>
-    {% for dict in questions %}
+    <form action="", method="POST">
+        <input type="text" name="search_field" class="text" placeholder="Search">
+        <a href="/search?={{ search_data }}"><button class="button" type="submit">Search</button></a>
+    </form>
+        {% for dict in questions %}
         <a id="link" href="/question/{{ dict['id'] }}" >
             <div id="list">
                 {{ dict['title'] }}
