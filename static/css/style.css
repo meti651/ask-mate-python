@@ -215,7 +215,7 @@ textarea {
 }
 
 #submission_time, #vote_number, .vote_number_button {display: inline-block}
-#image, #view_number_button #view_number {display: inline-block}
+#image, #view_number_button, #view_number {display: inline-block}
 
 #answer_message, #answer_id {display: inline-block}
 #answer_submission_time, #answer_vote_number, #answer_button {display: inline-block}
@@ -287,10 +287,6 @@ textarea {
     text-align: right;
 }
 
-#answer_id {
-    margin: 15px 0 0 15px;
-}
-
-#answer_image {
+#answer_image, #answer_id, #answer_message {
     margin: 15px;
 }
