@@ -13,8 +13,6 @@
             <a href="/question/{{ question['id'] }}/edit"><button class="button">Edit</button></a>
             <a href="/question/{{ question['id'] }}/delete"><button class="button">Delete question</button></a>
             <a href="/question/{{ question['id'] }}/new-tag"><button  class="button" id="tag_btn" name="tag_btn">Add Tag</button></a>
-            <a href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
-            <a href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
         </p>
 
         <p id="tag">
@@ -30,50 +28,40 @@
             </table>
         </p>
 
-        <table>
-            <tr>
-                {% for key in question.keys() %}
-                    <th> {{ key }}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for value in question.values() %}
-                    {% if loop.index < 7 %}
-                        <td> {{ value }}</td>
-                    {% elif loop.index == 7 %}
-                        <td><img src="{{ value }}" alter="image" height="200"></td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
+
+        <div id="question_block">
+            <p id="submission_time">{{ question['submission_time'] }}</p>
+            <p id="vote_number">{{ question['vote_number'] }}</p>
+            <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
+            <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+            <p id="expression">{{ question['message'] }}</p>
+            <p id="image">
+                {% if question['image'] != None %}
+                    <img src="{{ question['image'] }}" alter="image" id="image-tag">
+                {% else %}
+
+                {% endif %}
+            </p>
+            <p id="view_number">{{ question['view_number'] }}</p>
+            <p id="view_number_button"><img src="{{ url_for('static', filename='icons/eye-icon.png') }}" alt="eye" width="20" height="30"></p>
+        </div>
         <h2>Answers</h2>
         {% if answers|length > 0 %}
-            <div id="answer">
-                <table>
-                    <tr>
-                        {% for key in answers[0].keys() %}
-                            <th> {{ key }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% for answer in answers %}
-                        <tr>
-                            {% for value in answer.values() %}
-                                {% if loop.index < answer|length %}
-                                    <td> {{ value }}</td>
-                                {% elif loop.index == answer|length %}
-                                    <td><img src="{{ value }}" alter="image" height="100"></td>
-                                {% endif %}
-                            {% endfor %}
-                            <td>
-                                <a href="/answer/{{ answer['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
-                                <a href="/answer/{{ answer['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
-                            </td>
-                            <td><a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a></td>
-                            <td><a href="/answer/{{ answer.id }}/edit"><button class="button">Edit answer</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+            {% for answer in answers %}
+                <div id="answer_block">
+                    <div id="answer_id">{{ answer['id'] }}.</div><br>
+                    <div id="answer_message">{{ answer['message'] }}</div>
+                    <div id="answer_image"><img src="{{ answer['image'] if answer['image'] != None else '' }}" alter="image" height="100"></div>
+                    <div id="answer_submission_time">{{ answer['submission_time'] }}</div>
+                    <div id="answer_vote_number">{{ answer['vote_number'] }}</div>
+                    <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
+                    <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+                    <div>
+                        <a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a>
+                        <a href="/answer/{{ answer.id }}/edit"><button class="button">Edit answer</button></a>
+                    </div>
+                </div>
+            {% endfor %}
         {% endif %}
     </body>
 </html>

@@ -21,12 +21,23 @@ def route_list(search_data):
     return render_template('list.html', questions=questions, method='last')
 
 
+@app.route("/search?=<search_data>", methods=('GET', 'POST'))
+def get_data_by_search(search_data):
+    questions = data_handler.get_last_5_questions('submission_time', 'DESC')
+    print(request.form)
+    if request.method == 'POST':
+        sorted_questions = data_handler.get_items_by_search_result(search_data)
+        print(search_data)
+        return render_template('list.html', questions=sorted_questions, search_data=search_data, method='last')
+    return render_template('list.html', questions=questions, method='last')
+
+
 @app.route('/list', methods=('POST', 'GET'))
 def list_all_question():
     questions = data_handler.get_all_questions('submission_time', 'DESC')
     if request.method == 'POST':
         attribute = request.form['attribute']
-        reverse = request.form['order_direction']
+        reverse = request.form['order_direction'].upper()
         sorted_questions = data_handler.get_all_questions(attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='all')
     return render_template('list.html', questions=questions, method='all')
@@ -123,7 +134,6 @@ def add_new_tag(question_id):
     return render_template('new_tag.html', question_id=question_id, tags=question_tag)
 
 
-
 @app.route('/<story_type>/<int:id>/<vote_type>')
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
     query_string = request.referrer
@@ -144,6 +154,7 @@ def delete_tag(question_id, tag_id):
 #         print(search_data)
 #         data = data_handler.get_items_by_search_result(search_data)
 #     return render_template('list.html', questions=data, search_data=search_data)
+
 
 if __name__ == "__main__":
     app.run(
