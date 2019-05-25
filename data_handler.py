@@ -235,9 +235,9 @@ def edit_answer(cursor, id, message, image):
 @connection.connection_handler
 def get_items_by_search_result(cursor, search_data):
     cursor.execute("""
-                SELECT * FROM question JOIN answer ON question.id = answer.question_id
+                SELECT title, id FROM question
                 WHERE title LIKE %(search_data)s 
-                    OR message LIKE %(search_data)s
-                    OR answer.message LIKE %(search_data)s;""", {'search_data': '%' + search_data + '%'})
+                    OR message LIKE %(search_data)s;""", {'search_data': '%' + search_data + '%'})
     datas = cursor.fetchall()
+    print(datas)
     return datas

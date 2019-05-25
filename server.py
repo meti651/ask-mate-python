@@ -6,23 +6,18 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=('GET', 'POST'))
-def route_list():
+@app.route("/search?=<search_data>", methods=('GET', 'POST'))
+def route_list(search_data):
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
     if request.method == 'POST':
+        print(search_data)
         attribute = request.form['attribute']
         reverse = request.form['order_direction']
-        sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
+        if search_data:
+            sorted_questions = data_handler.get_items_by_search_result(search_data)
+        else:
+            sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
         return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
-    return render_template('list.html', questions=questions, method='last')
-
-@app.route("/search?=<search_data>", methods=('GET', 'POST'))
-def get_data_by_search(search_data):
-    questions = data_handler.get_last_5_questions('submission_time', 'DESC')
-    print(request.form)
-    if request.method == 'POST':
-        sorted_questions = data_handler.get_items_by_search_result(search_data)
-        print(search_data)
-        return render_template('list.html', questions=sorted_questions, search_data=search_data, method='last')
     return render_template('list.html', questions=questions, method='last')
 
 
