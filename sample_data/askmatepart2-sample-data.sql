@@ -51,8 +51,7 @@ CREATE TABLE comment (
     answer_id integer,
     message text,
     submission_time timestamp without time zone,
-    edited_count integer,
-    user_id integer NOT NULL
+    edited_count integer
 );
 
 
@@ -69,7 +68,7 @@ CREATE TABLE tag (
     name text
 );
 
-DROP TABLE IF EXISTS public.users
+DROP TABLE IF EXISTS public.users;
 CREATE TABLE users (
     id serial NOT NULL,
     user_name text UNIQUE,
