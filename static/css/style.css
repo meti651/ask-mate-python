@@ -106,6 +106,7 @@ a {
     margin: 4px 2px;
     padding: 10px 10px;
     width: 75%;
+    text-shadow: 1px 1px #5b666d;
 }
 
 
@@ -214,8 +215,8 @@ textarea {
     border: 3px darkgray solid;
 }
 
-#submission_time, #vote_number, #vote_number_button {display: inline-block}
-#image, #view_number_button #view_number {display: inline-block}
+#submission_time, #vote_number, .vote_number_button {display: inline-block}
+#image, #view_number_button, #view_number {display: inline-block}
 
 #answer_message, #answer_id {display: inline-block}
 #answer_submission_time, #answer_vote_number, #answer_button {display: inline-block}
@@ -226,27 +227,28 @@ textarea {
     letter-spacing: 0;
     font: normal 100 13px/2 Serif;
     position: relative;
-    top:0;
-    left:0;
+    top: 0;
+    left: 15px;
 }
 
 #view_number, #view_number_button {
     float: right;
 }
 #view_number {
-    margin-bottom: 10px;
+    margin: 15px 15px 15px 5px;
 }
 #view_number_button {
-    margin:0 5px 0px 0;
+    margin: 0 0 0 0;
 }
 
-#vote_number_button, #answer_button {
+.vote_number_button, .answer_button {
     float: right;
-    margin: 10px;
+    margin: 15px 5px;
 }
 
 #vote_number {
     float: right;
+    margin: 15px 15px 15px 0;
 }
 
 #answer_vote_number {
@@ -269,14 +271,23 @@ textarea {
     font: normal bold 22px/1 Serif;
 }
 
-#message {
-    width: 60%;
-    height: 30%;
-    margin-left: 15%;
+#expression {
     font: normal normal 16px Serif;
+    margin: 15px;
+}
 
+#image {
+    margin: 15px;
+}
+
+#image-tag {
+    max-width: 100%;
 }
 
 .right-aligned-td {
     text-align: right;
+}
+
+#answer_image, #answer_id, #answer_message {
+    margin: 15px;
 }
