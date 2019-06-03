@@ -26,7 +26,9 @@ CREATE TABLE question (
     vote_number integer,
     title text,
     message text,
-    image text
+    image text,
+    user_id integer NOT NULL
+
 );
 
 DROP TABLE IF EXISTS public.answer;
@@ -37,7 +39,8 @@ CREATE TABLE answer (
     vote_number integer,
     question_id integer,
     message text,
-    image text
+    image text,
+    user_id integer NOT NULL
 );
 
 DROP TABLE IF EXISTS public.comment;
@@ -48,7 +51,8 @@ CREATE TABLE comment (
     answer_id integer,
     message text,
     submission_time timestamp without time zone,
-    edited_count integer
+    edited_count integer,
+    user_id integer NOT NULL
 );
 
 
@@ -65,6 +69,14 @@ CREATE TABLE tag (
     name text
 );
 
+DROP TABLE IF EXISTS public.users
+CREATE TABLE users (
+    id serial NOT NULL,
+    user_name text UNIQUE,
+    password text NOT NULL,
+    email text UNIQUE,
+    registration_time timestamp without time zone
+);
 
 ALTER TABLE ONLY answer
     ADD CONSTRAINT pk_answer_id PRIMARY KEY (id);
@@ -81,6 +93,9 @@ ALTER TABLE ONLY question_tag
 ALTER TABLE ONLY tag
     ADD CONSTRAINT pk_tag_id PRIMARY KEY (id);
 
+ALTER TABLE ONLY users
+    ADD CONSTRAINT pk_users_id PRIMARY KEY (id);
+
 ALTER TABLE ONLY comment
     ADD CONSTRAINT fk_answer_id FOREIGN KEY (answer_id) REFERENCES answer(id) ON DELETE CASCADE ;
 
@@ -95,6 +110,12 @@ ALTER TABLE ONLY comment
 
 ALTER TABLE ONLY question_tag
     ADD CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE ;
+
+ALTER TABLE ONLY question
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY answer
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 INSERT INTO question VALUES (0, '2017-04-28 08:29:00', 29, 7, 'How to make lists in Python?', 'I am totally new to this, any hints?', NULL);
