@@ -18,7 +18,7 @@ def route_list():
                                method='last')
     return render_template('list.html', questions=questions, method='last')
 
-
+'''
 @app.route("/search?=<search_data>", methods=('GET', 'POST'))
 def get_data_by_search(search_data):
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
@@ -28,7 +28,7 @@ def get_data_by_search(search_data):
         print(search_data)
         return render_template('list.html', questions=sorted_questions, search_data=search_data, method='last')
     return render_template('list.html', questions=questions, method='last')
-
+'''
 
 @app.route('/list', methods=('POST', 'GET'))
 def list_all_question():
