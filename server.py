@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
-import data_handler
 import datetime
+
+from flask import Flask, render_template, request, redirect, url_for
+
+import data_handler
 
 app = Flask(__name__)
 
@@ -12,7 +14,8 @@ def route_list():
         attribute = request.form['attribute']
         reverse = request.form['order_direction'].upper()
         sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='last')
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse,
+                               method='last')
     return render_template('list.html', questions=questions, method='last')
 
 
@@ -34,7 +37,8 @@ def list_all_question():
         attribute = request.form['attribute']
         reverse = request.form['order_direction'].upper()
         sorted_questions = data_handler.get_all_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse, method='all')
+        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse,
+                               method='all')
     return render_template('list.html', questions=questions, method='all')
 
 
@@ -44,7 +48,8 @@ def display_question(question_id):
     displayed_question = data_handler.get_question_by_id(question_id)
     displayed_answers = data_handler.get_answers_by_question_id(question_id)
     displayed_tags = data_handler.get_question_tags(question_id)
-    return render_template('question.html', question=displayed_question[0], answers=displayed_answers, tags=displayed_tags)
+    return render_template('question.html', question=displayed_question[0], answers=displayed_answers,
+                           tags=displayed_tags)
 
 
 @app.route('/add_question', methods=('GET', 'POST'))
@@ -61,7 +66,7 @@ def ask_question():
     return render_template("add_question.html", mode="add")
 
 
-@app.route('/question/<int:question_id>/edit', methods=('GET','POST'))
+@app.route('/question/<int:question_id>/edit', methods=('GET', 'POST'))
 def edit_question(question_id):
     question_params = data_handler.get_question_by_id(question_id)
     if request.method == "POST":
@@ -141,14 +146,14 @@ def delete_tag(question_id, tag_id):
     data_handler.delete_tag(question_id, tag_id)
     return_route = request.referrer
     return redirect(return_route)
-#
-# @app.route('/search?q=<search_data>', methods=['GET', 'POST'])
-# def get_searched_result():
-#     if request.method = "POST":
-#         search_data = request.form['search_field']
-#         print(search_data)
-#         data = data_handler.get_items_by_search_result(search_data)
-#     return render_template('list.html', questions=data, search_data=search_data)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def get_searched_result():
+    search_data = request.args.get('q')
+    questions = data_handler.get_all_questions('title', 'ASC')
+    result = data_handler.get_items_by_search_result(search_data)
+    return render_template('search.html', result=result, questions=questions)
 
 
 if __name__ == "__main__":
