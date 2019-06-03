@@ -151,9 +151,8 @@ def delete_tag(question_id, tag_id):
 @app.route('/search', methods=['GET', 'POST'])
 def get_searched_result():
     search_data = request.args.get('q')
-    questions = data_handler.get_all_questions('title', 'ASC')
     result = data_handler.get_items_by_search_result(search_data)
-    return render_template('search.html', result=result, questions=questions)
+    return render_template('search.html', result=result)
 
 
 if __name__ == "__main__":
