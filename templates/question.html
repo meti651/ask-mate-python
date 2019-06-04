@@ -1,24 +1,33 @@
 {% extends 'layout.html' %}
 {% block content %}
+    <div class="buttons-container">
+        <div class="box-1">
+            <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                                 alt="Back to the question list"></a>
+        </div>
+        <div class="box-2">
+            <a href="/question/{{ question['id'] }}/new_answer">
+                <button class="button">Answer</button>
+            </a>
+        </div>
+        <div class="box-3">
+            <a href="/question/{{ question['id'] }}/edit">
+                <button class="button">Edit</button>
+            </a>
+        </div>
+        <div class="box-4">
+            <a href="/question/{{ question['id'] }}/delete">
+                <button class="button">Delete question</button>
+            </a>
+        </div>
+        <div class="box-4">
+            <a href="/question/{{ question['id'] }}/new-tag">
+                <button class="button" id="tag_btn" name="tag_btn">Add Tag</button>
+            </a>
+        </div>
+    </div>
 
-    <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
-                         alt="Back to the question list"></a>
-    <p>
-        <a href="/question/{{ question['id'] }}/new_answer">
-            <button class="button">Answer</button>
-        </a>
-        <a href="/question/{{ question['id'] }}/edit">
-            <button class="button">Edit</button>
-        </a>
-        <a href="/question/{{ question['id'] }}/delete">
-            <button class="button">Delete question</button>
-        </a>
-        <a href="/question/{{ question['id'] }}/new-tag">
-            <button class="button" id="tag_btn" name="tag_btn">Add Tag</button>
-        </a>
-    </p>
 
-    <p id="tag">
     <table>
         <tr>
             {% for dict in tags %}
@@ -31,7 +40,7 @@
             {% endfor %}
         <tr/>
     </table>
-    </p>
+
 
     <div id="question_block">
         <p id="submission_time">{{ question['submission_time'] }}</p>
@@ -50,7 +59,7 @@
         <p id="view_number_button"><img src="{{ url_for('static', filename='icons/eye-icon.png') }}" alt="eye"
                                         width="20" height="30"></p>
     </div>
-    <h2>Answers</h2>
+
     {% if answers|length > 0 %}
         {% for answer in answers %}
             <div id="answer_block">
