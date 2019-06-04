@@ -9,15 +9,15 @@ html {
     justify-content: space-between;
 }
 
-.box-2, .box-3 {
+
+.box-1, .box-2, .box-3 {
     align-self: center;
 }
 
 
-
 h1 {
     text-align: center;
-    color: rgb(20%,120%,20%);
+    color: rgb(20%, 120%, 20%);
     border: 1px solid #2f4f4f;
     font-weight: bold;
     background-color: grey;
@@ -33,28 +33,70 @@ h1 {
 }
 
 
-@keyframes font{
-  0%   {color: rgb(20%,110%,20%)}
-  5%  {color: rgb(20%,105%,20%)}
-  10%  {color: rgb(20%,100%,20%)}
-  15%  {color: rgb(20%,95%,20%)}
-  20% {color: rgb(20%,90%,20%)}
-  25%  {color: rgb(20%,85%,20%)}
-  30%  {color: rgb(20%,80%,20%)}
-  35%  {color: rgb(20%,75%,20%)}
-  40% {color: rgb(20%,70%,20%)}
-  45%  {color: rgb(20%,65%,20%)}
-  50%   {color: rgb(20%,60%,20%)}
-  55%  {color: rgb(20%,65%,20%)}
-  60%  {color: rgb(20%,70%,20%)}
-  65%  {color: rgb(20%,75%,20%)}
-  70% {color: rgb(20%,80%,20%)}
-  75%  {color: rgb(20%,85%,20%)}
-  80%  {color: rgb(20%,90%,20%)}
-  85%  {color: rgb(20%,95%,20%)}
-  90% {color: rgb(20%,100%,20%)}
-  95%  {color: rgb(20%,105%,20%)}
-  100%  {color: rgb(20%,110%,20%)}
+@keyframes font {
+    0% {
+        color: rgb(20%, 110%, 20%)
+    }
+    5% {
+        color: rgb(20%, 105%, 20%)
+    }
+    10% {
+        color: rgb(20%, 100%, 20%)
+    }
+    15% {
+        color: rgb(20%, 95%, 20%)
+    }
+    20% {
+        color: rgb(20%, 90%, 20%)
+    }
+    25% {
+        color: rgb(20%, 85%, 20%)
+    }
+    30% {
+        color: rgb(20%, 80%, 20%)
+    }
+    35% {
+        color: rgb(20%, 75%, 20%)
+    }
+    40% {
+        color: rgb(20%, 70%, 20%)
+    }
+    45% {
+        color: rgb(20%, 65%, 20%)
+    }
+    50% {
+        color: rgb(20%, 60%, 20%)
+    }
+    55% {
+        color: rgb(20%, 65%, 20%)
+    }
+    60% {
+        color: rgb(20%, 70%, 20%)
+    }
+    65% {
+        color: rgb(20%, 75%, 20%)
+    }
+    70% {
+        color: rgb(20%, 80%, 20%)
+    }
+    75% {
+        color: rgb(20%, 85%, 20%)
+    }
+    80% {
+        color: rgb(20%, 90%, 20%)
+    }
+    85% {
+        color: rgb(20%, 95%, 20%)
+    }
+    90% {
+        color: rgb(20%, 100%, 20%)
+    }
+    95% {
+        color: rgb(20%, 105%, 20%)
+    }
+    100% {
+        color: rgb(20%, 110%, 20%)
+    }
 }
 
 
@@ -141,14 +183,14 @@ a {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 
 }
 
-.button:hover{
+.button:hover {
     background-color: lightgray;
     border: 1px solid #2f4f4f;
     color: gray;
@@ -177,10 +219,10 @@ a {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 
 }
 
@@ -200,14 +242,14 @@ a {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 
 }
 
-.small-button:hover{
+.small-button:hover {
     background-color: lightgray;
     border: 1px solid #2f4f4f;
     color: gray;
@@ -220,7 +262,6 @@ a {
     cursor: pointer;
 
 }
-
 
 
 #titles {
@@ -264,11 +305,21 @@ textarea {
     border: 3px darkgray solid;
 }
 
-#submission_time, #vote_number, .vote_number_button {display: inline-block}
-#image, #view_number_button, #view_number {display: inline-block}
+#submission_time, #vote_number, .vote_number_button {
+    display: inline-block
+}
 
-#answer_message, #answer_id {display: inline-block}
-#answer_submission_time, #answer_vote_number, #answer_button {display: inline-block}
+#image, #view_number_button, #view_number {
+    display: inline-block
+}
+
+#answer_message, #answer_id {
+    display: inline-block
+}
+
+#answer_submission_time, #answer_vote_number, #answer_button {
+    display: inline-block
+}
 
 #submission_time, #answer_submission_time {
     color: darkgray;
@@ -283,9 +334,11 @@ textarea {
 #view_number, #view_number_button {
     float: right;
 }
+
 #view_number {
     margin: 15px 15px 15px 5px;
 }
+
 #view_number_button {
     margin: 0 0 0 0;
 }
@@ -341,8 +394,8 @@ textarea {
     margin: 15px;
 }
 
-#tags p{
-    font:bold normal 24px/2 Serif;
+#tags p {
+    font: bold normal 24px/2 Serif;
     background-color: gray;
     color: greenyellow;
     text-align: center;

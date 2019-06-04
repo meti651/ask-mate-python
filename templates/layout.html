@@ -7,29 +7,35 @@
 </head>
 <body>
 
-{% if question %}
-    <h1>{{ question.title }}</h1>
-{% elif mode == "add-question" %}
-    <h1>Ask your question!</h1>
-{% elif mode == "edit-question" %}
-    <h1>Edit your question!</h1>
-{% elif mode == "add-answer" %}
-    <h1>Add your answer!</h1>
-{% elif mode == "edit-answer" %}
-    <h1>Edit your answer!</h1>
-{% elif mode == "add-tag" %}
-    <h1>Add your tag!</h1>
-{% elif result %}
-    <h1>Search results</h1>
-{% else %}
-    <h1>Ask Mate v2.0</h1>
-{% endif %}
-{% if session %}
-    <a class="button" href="/logout">Logout</a>
-{% else %}
-    <a class="button" href="/login">Login</a>
-    <a class="button" href="/registration">Registration</a>
-{% endif %}
+<div class="header-container">
+    {% if question %}
+        <h1>{{ question.title }}</h1>
+    {% elif mode == "add-question" %}
+        <h1>Ask your question!</h1>
+    {% elif mode == "edit-question" %}
+        <h1>Edit your question!</h1>
+    {% elif mode == "add-answer" %}
+        <h1>Add your answer!</h1>
+    {% elif mode == "edit-answer" %}
+        <h1>Edit your answer!</h1>
+    {% elif mode == "add-tag" %}
+        <h1>Add your tag!</h1>
+    {% elif result %}
+        <h1>Search results</h1>
+    {% elif login %}
+        <h1>Log in</h1>
+    {% elif registration %}
+        <h1>Registration</h1>
+    {% else %}
+        <h1>Ask Mate v2.0</h1>
+    {% endif %}
+    {% if session %}
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+        <a href="/registration">Registration</a>
+    {% endif %}
+</div>
 {% block content %} {% endblock %}
 
 </body>
