@@ -3,8 +3,7 @@
 
     <div id="tags">
         {% for tag in tags %}
-            <p>{{ tag.name }}</p>
-            <p>{{ tag.used }}</p>
+            <p>#{{ tag.name }}: {{ tag.used }}</p>
         {% endfor %}
     </div>
 
