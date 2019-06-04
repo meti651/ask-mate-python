@@ -291,3 +291,11 @@ textarea {
 #answer_image, #answer_id, #answer_message {
     margin: 15px;
 }
+
+#tags p{
+    font:bold normal 24px/2 Serif;
+    background-color: gray;
+    color: greenyellow;
+    text-align: center;
+    margin: 0;
+}
