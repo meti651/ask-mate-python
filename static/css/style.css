@@ -4,6 +4,16 @@ html {
     font-family: Serif;
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-2, .box-3 {
+    align-self: center;
+}
+
+
 
 h1 {
     text-align: center;
@@ -140,7 +150,7 @@ a {
 
 .button:hover{
     background-color: lightgray;
-    border: none;
+    border: 1px solid #2f4f4f;
     color: gray;
     padding: 15px 32px;
     text-align: center;
@@ -174,6 +184,45 @@ a {
 
 }
 
+
+.small-button {
+    background-color: gray;
+    border: 1px solid #2f4f4f;
+    font-weight: bold;
+    color: lightgray;
+    padding: 1px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
+}
+
+.small-button:hover{
+    background-color: lightgray;
+    border: 1px solid #2f4f4f;
+    color: gray;
+    padding: 1px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+
+
+
 #titles {
     font-size: 22px;
     vertical-align: top;
@@ -190,7 +239,7 @@ textarea {
 
 .text {
     height: 25px;
-    width: 300px;
+    width: 150px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
