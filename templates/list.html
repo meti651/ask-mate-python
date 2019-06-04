@@ -27,10 +27,10 @@
         </p>
     </form>
     <h2>Questions</h2>
-    {#<form action="", method="POST">
-        <input type="text" name="search_field" class="text" placeholder="Search">
-        <a href="/search?={{ search_data }}"><button class="button" type="submit">Search</button></a>
-    </form>#}
+    <form action="/search" method="GET">
+        <input type="text" name="q" class="text" placeholder="Search">
+        <input type="submit">
+    </form>
         {% for dict in questions %}
         <a id="link" href="/question/{{ dict['id'] }}" >
             <div id="list">

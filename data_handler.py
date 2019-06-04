@@ -233,14 +233,15 @@ def edit_answer(cursor, id, message, image):
 
 
 @connection.connection_handler
-def get_items_by_search_result(cursor, search_data):
+def get_items_by_search_result(cursor, search):
+    search = '%' + search + '%'
     cursor.execute("""
-                SELECT * FROM question JOIN answer ON question.id = answer.question_id
-                WHERE title LIKE %(search_data)s 
-                    OR message LIKE %(search_data)s
-                    OR answer.message LIKE %(search_data)s;""", {'search_data': '%' + search_data + '%'})
-    datas = cursor.fetchall()
-    return datas
+                SELECT question.id, question.message, question.title FROM question LEFT JOIN answer ON question.id = answer.question_id
+                WHERE question.title LIKE %(search)s 
+                    OR question.message LIKE %(search)s
+                    OR answer.message LIKE %(search)s;""", {'search': search})
+    data = cursor.fetchall()
+    return data
 
 
 @connection.connection_handler
