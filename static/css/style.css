@@ -165,12 +165,14 @@ a {
     padding: 10px 10px;
     width: 75%;
     text-shadow: 1px 1px #5b666d;
+    transition: all 0.3s ease 0s;
 }
 
 
 #list:hover {
     color: yellowgreen;
     background: slategray;
+    transition: all 0.3s ease 0s;
 }
 
 #login-box {
@@ -181,12 +183,14 @@ a {
     padding: 10px 10px;
     width: 75%;
     text-shadow: 1px 1px #5b666d;
+    transition: all 0.3s ease 0s;
 }
 
 
 #login-box:hover {
     color: yellowgreen;
     background: slategray;
+    transition: all 0.3s ease 0s;
 }
 
 .button {
@@ -208,6 +212,7 @@ a {
     -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    transition: all 0.3s ease 0s;
 
 }
 
@@ -222,6 +227,7 @@ a {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: all 0.3s ease 0s;
 
 }
 
@@ -244,6 +250,7 @@ a {
     -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    transition: all 0.3s ease 0s;
 
 }
 
@@ -267,6 +274,7 @@ a {
     -webkit-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     -moz-box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
     box-shadow: 0px 3px 0px #2f4f4f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+    transition: all 0.3s ease 0s;
 
 }
 
@@ -281,6 +289,7 @@ a {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: all 0.3s ease 0s;
 
 }
 
@@ -392,6 +401,7 @@ textarea {
     top: 0;
     left: 0px;
     font: normal bold 22px/1 Serif;
+    transition: all 0.3s ease 0s;
 }
 
 #expression {
