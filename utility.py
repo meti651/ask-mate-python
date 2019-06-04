@@ -1,20 +1,36 @@
+import data_handler
+import bcrypt
 import datetime
 
 
-def get_submission_time():
-    current_date = datetime.datetime.now()
-    result = ""
-    result += str(current_date.year)
-    result += str(current_date.month)
-    result += str(current_date.day)
-    result += str(current_date.hour)
-    result += str(current_date.minute)
-    result += str(current_date.second)
-    return result
+def increase_view_number(question_id):
+    question = data_handler.get_question_by_id(question_id)
+    view_number = question[0]['view_number']
+    return view_number + 1
 
 
-def fill_dict_with_keys(keys):
-    result = {}
-    for key in keys:
-        result[key] = ""
-    return result
+def hash_password(plain_text_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
+
+
+def match_password(password, check):
+    if password == check:
+        return True
+    else:
+        return False
+
+
+def insert_data(user):
+    new_user = {}
+    for key in user.keys():
+        new_user[key] = user[key]
+    new_user["registration_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    new_user["password"] = hash_password(user["password"])
+    return new_user

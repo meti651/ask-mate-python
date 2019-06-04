@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Registration</h1>
+    <form action="/registration" method="post">
+        <div id="reg">
+            <input type="text" name="username" placeholder="Username" class="text">
+            <input type="text" name="password" placeholder="Password" class="text">
+            <input type="text" name="check" placeholder="Password" class="text">
+            <input type="text" name="email" placeholder="Email" class="text">
+            <input type="submit" placeholder="Registration" class="button">
+            {% if errorcode != '' %}
+            {% endif %}
+        </div>
+    </form>
+
+{% endblock %}

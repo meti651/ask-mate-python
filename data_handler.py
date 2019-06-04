@@ -1,6 +1,6 @@
 import connection
 from psycopg2 import sql
-
+import utility
 
 @connection.connection_handler
 def get_question_by_id(cursor, id):
@@ -250,6 +250,21 @@ def list_tags_and_their_usage_number(cursor):
                     SELECT tag.name, COUNT(question_tag.tag_id) AS used FROM tag
                     LEFT JOIN question_tag ON tag.id = question_tag.tag_id
                     GROUP BY tag.name
+                    ORDER BY used DESC;
                     """)
     tags = cursor.fetchall()
     return tags
+
+
+@connection.connection_handler
+def insert_user(cursor, user):
+    username = user["username"]
+    password = user["password"]
+    email = user["email"]
+    registration_time = user["registration_time"]
+
+    cursor.execute("""
+                    INSERT INTO users
+                    (user_name, password, email, registration_time)
+                    VALUES (%s, %s, %s, %s);
+                    """, (username, password, email, registration_time))

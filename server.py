@@ -166,6 +166,16 @@ def register():
             return redirect("/")
         else:
             return render_template("registration.html", errorcode="Password doesn't match")
+    return render_template("registration.html", errorcode='')
+
+
+
+
+
+@app.route("/tags")
+def list_tags():
+    tags = data_handler.list_tags_and_their_usage_number()
+    return render_template("tags.html", tags=tags)
 
 
 if __name__ == "__main__":
