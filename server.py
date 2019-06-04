@@ -1,22 +1,31 @@
 import datetime
 import utility
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 import data_handler
 
 app = Flask(__name__)
+app.secret_key = '�p����%aYHҀ��'
 
 
 @app.route("/", methods=('GET', 'POST'))
 def route_list():
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
-    if request.method == 'POST':
-        attribute = request.form['attribute']
-        reverse = request.form['order_direction'].upper()
-        sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse,
-                               method='last')
-    return render_template('list.html', questions=questions, method='last')
+    if 'username' in session:
+        if request.method == 'POST':
+            attribute = request.form['attribute']
+            reverse = request.form['order_direction'].upper()
+            sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
+            return render_template('list.html',
+                                   questions=sorted_questions,
+                                   attribute=attribute,
+                                   reverse=reverse,
+                                   method='last',
+                                   session=True
+                                   )
+        return render_template('list.html', questions=questions, method='last', session=True)
+    return render_template('list.html', questions=questions, method='last', session=False)
+
 
 '''
 @app.route("/search?=<search_data>", methods=('GET', 'POST'))
@@ -169,7 +178,23 @@ def register():
     return render_template("registration.html", errorcode='')
 
 
+@app.route("/login", methods=("GET", "POST"))
+def login_user():
+    if request.method == "POST":
+        user = data_handler.get_user(request.form["username"])
+        print(user)
+        is_matching = utility.verify_password(request.form["password"], user[0]["password"])
+        if is_matching:
+            session["username"] = request.form["username"]
+            print(session)
+            return redirect("/")
+    return render_template("login.html")
 
+
+@app.route("/logout")
+def logout_user():
+    session.pop("username", None)
+    return redirect("/")
 
 
 @app.route("/tags")

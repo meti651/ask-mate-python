@@ -268,3 +268,14 @@ def insert_user(cursor, user):
                     (user_name, password, email, registration_time)
                     VALUES (%s, %s, %s, %s);
                     """, (username, password, email, registration_time))
+
+
+@connection.connection_handler
+def get_user(cursor, username):
+    cursor.execute("""
+                    SELECT user_name, password FROM users
+                    WHERE user_name = %(username)s;
+                    """, {'username': username})
+    user = cursor.fetchall()
+    return user
+

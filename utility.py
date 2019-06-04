@@ -34,3 +34,5 @@ def insert_data(user):
     new_user["registration_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     new_user["password"] = hash_password(user["password"])
     return new_user
+
+
