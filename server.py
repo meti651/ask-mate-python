@@ -27,6 +27,7 @@ def get_data_by_search(search_data):
     return render_template('list.html', questions=questions, method='last')
 '''
 
+
 @app.route('/list', methods=('POST', 'GET'))
 def list_all_question():
     questions = data_handler.get_all_questions('submission_time', 'DESC')

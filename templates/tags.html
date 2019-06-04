@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div id="tags">
+        {% for tag in tags %}
+            <p>{{ tag.name }}</p>
+            <p>{{ tag.used }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

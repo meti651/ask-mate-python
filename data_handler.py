@@ -241,3 +241,14 @@ def get_items_by_search_result(cursor, search_data):
                     OR answer.message LIKE %(search_data)s;""", {'search_data': '%' + search_data + '%'})
     datas = cursor.fetchall()
     return datas
+
+
+@connection.connection_handler
+def list_tags_and_their_usage_number(cursor):
+    cursor.execute("""
+                    SELECT tag.name, COUNT(question_tag.tag_id) AS used FROM tag
+                    LEFT JOIN question_tag ON tag.id = question_tag.tag_id
+                    GROUP BY tag.name
+                    """)
+    tags = cursor.fetchall()
+    return tags
