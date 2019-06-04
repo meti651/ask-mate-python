@@ -71,6 +71,7 @@ def ask_question():
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
         new_question["submission_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        new_question['user_name'] = session['username']
         data_handler.insert_data_to_question(new_question)
         return redirect("/")
     return render_template("add_question.html", mode="add-question")
@@ -100,6 +101,7 @@ def add_new_answer(question_id):
         new_answer['submission_time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         new_answer['vote_number'] = 0
         new_answer['question_id'] = question_id
+        new_answer['user_name'] = session['username']
         data_handler.insert_data_to_answer(new_answer)
         return redirect('/question/' + str(question_id))
     return render_template('answer.html', question_id=question_id, mode='add-answer')
