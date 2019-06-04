@@ -177,7 +177,7 @@ def register():
             return redirect("/")
         else:
             return render_template("registration.html", errorcode="Password doesn't match")
-    return render_template("registration.html", errorcode='')
+    return render_template("registration.html", errorcode='', registration='registration')
 
 
 @app.route("/login", methods=("GET", "POST"))
@@ -190,7 +190,7 @@ def login_user():
             session["username"] = request.form["username"]
             print(session)
             return redirect("/")
-    return render_template("login.html")
+    return render_template("login.html", login='login')
 
 
 @app.route("/logout")
