@@ -1,5 +1,5 @@
 import datetime
-
+import utility
 from flask import Flask, render_template, request, redirect, url_for
 
 import data_handler
@@ -154,6 +154,18 @@ def get_searched_result():
     search_data = request.args.get('q')
     result = data_handler.get_items_by_search_result(search_data)
     return render_template('search.html', result=result)
+
+
+@app.route("/registration", methods=("GET", "POST"))
+def register():
+    if request.method == "POST":
+        is_matching = utility.match_password(request.form["password"], request.form["check"])
+        if is_matching:
+            user = utility.insert_data(request.form)
+            data_handler.insert_user(user)
+            return redirect("/")
+        else:
+            return render_template("registration.html", errorcode="Password doesn't match")
 
 
 if __name__ == "__main__":
