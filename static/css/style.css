@@ -15,7 +15,7 @@ html {
 }
 
 
-h1 {
+.header-container {
     text-align: center;
     color: rgb(20%, 120%, 20%);
     border: 1px solid #2f4f4f;
@@ -32,6 +32,13 @@ h1 {
     height: auto;
 }
 
+.header-container {
+    display: flex;
+}
+
+.header-box-2 {
+    flex: 1;
+}
 
 @keyframes font {
     0% {
@@ -136,7 +143,6 @@ table {
 }
 
 #see_more {
-    margin-left: 60px;
     background-color: lightgray;
     border: 0;
     color: gray;
@@ -167,6 +173,21 @@ a {
     background: slategray;
 }
 
+#login-box {
+    color: white;
+    text-align: left;
+    font-size: 22px;
+    margin: 4px 2px;
+    padding: 10px 10px;
+    width: 75%;
+    text-shadow: 1px 1px #5b666d;
+}
+
+
+#login-box:hover {
+    color: yellowgreen;
+    background: slategray;
+}
 
 .button {
     background-color: gray;

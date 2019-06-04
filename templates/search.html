@@ -2,7 +2,9 @@
 {% block content %}
 
     {% for item in result %}
-        <div id="list"><a href="question/{{ item.id }}">{{ item.title }}</a></div>
+        <a id="link" href="question/{{ item.id }}">
+            <div id="list">{{ item.title }}</div>
+        </a>
     {% endfor %}
 
 {% endblock %}

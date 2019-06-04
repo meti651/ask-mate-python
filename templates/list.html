@@ -39,12 +39,10 @@
             </div>
         </a>
     {% endfor %}
-    <div>
-        <p>
-            <a href={{ "/list" if method=="last" else "/" }}>
-                <button id="see_more">{{ "See more" if method == "last" else "Hide" }}</button>
-            </a>
-        </p>
-    </div>
+
+    <a href={{ "/list" if method=="last" else "/" }}>
+        <button id="see_more">{{ "See more" if method == "last" else "Hide" }}</button>
+    </a>
+
 
 {% endblock %}
