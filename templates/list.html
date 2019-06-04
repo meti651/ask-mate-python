@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ask Mate v2.0</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <h1>Ask Mate v2.0</h1>
+{% extends 'layout.html' %}
+{% block content %}
+
     <div id="button">
-    <p><a href="/add_question"><button class="button">Ask question</button></a></p>
+        <p><a href="/add_question">
+            <button class="button">Ask question</button>
+        </a></p>
     </div>
-    <form action="", method="POST">
+    <form action="" , method="POST">
         <p>
 
             <select class="button2" name="attribute">
@@ -23,7 +19,9 @@
                 <option value="asc">ASC</option>
                 <option value="desc">DESC</option>
             </select>
-            <a href="/list?order_by={{ attribute }}&order_direction={{ reverse }}"><button class="button" type="submit">List</button></a>
+            <a href="/list?order_by={{ attribute }}&order_direction={{ reverse }}">
+                <button class="button" type="submit">List</button>
+            </a>
         </p>
     </form>
     <h2>Questions</h2>
@@ -31,14 +29,13 @@
         <input type="text" name="q" class="text" placeholder="Search">
         <input type="submit">
     </form>
-        {% for dict in questions %}
-        <a id="link" href="/question/{{ dict['id'] }}" >
+    {% for dict in questions %}
+        <a id="link" href="/question/{{ dict['id'] }}">
             <div id="list">
                 {{ dict['title'] }}
             </div>
         </a>
     {% endfor %}
-
     <div>
         <p>
             <a href={{ "/list" if method=="last" else "/" }}>
@@ -47,6 +44,4 @@
         </p>
     </div>
 
-    </ul>
-</body>
-</html>
+{% endblock %}

@@ -64,7 +64,7 @@ def ask_question():
         new_question["submission_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         data_handler.insert_data_to_question(new_question)
         return redirect("/")
-    return render_template("add_question.html", mode="add")
+    return render_template("add_question.html", mode="add-question")
 
 
 @app.route('/question/<int:question_id>/edit', methods=('GET', 'POST'))
@@ -73,7 +73,7 @@ def edit_question(question_id):
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
         return redirect('/question/' + str(question_params[0]['id']))
-    return render_template('add_question.html', question_params=question_params[0], mode="edit")
+    return render_template('add_question.html', question_params=question_params[0], mode="edit-question")
 
 
 @app.route("/question/<int:question_id>/delete")
@@ -93,7 +93,7 @@ def add_new_answer(question_id):
         new_answer['question_id'] = question_id
         data_handler.insert_data_to_answer(new_answer)
         return redirect('/question/' + str(question_id))
-    return render_template('answer.html', question_id=question_id)
+    return render_template('answer.html', question_id=question_id, mode='add-answer')
 
 
 @app.route('/answer/<int:answer_id>/edit', methods=['GET', 'POST'])
@@ -102,7 +102,7 @@ def edit_answer(answer_id):
     if request.method == "POST":
         data_handler.edit_answer(answer_id, request.form['message'], request.form['image'])
         return redirect('/question/' + str(answer_params[0]['question_id']))
-    return render_template('answer.html', question_params=answer_params[0], mode='edit')
+    return render_template('answer.html', question_params=answer_params[0], mode='edit-answer')
 
 
 @app.route('/answer/<int:answer_id>/delete')
@@ -132,7 +132,7 @@ def add_new_tag(question_id):
                 return redirect(curr_link)
             return redirect(url_for('display_question', question_id=question_id))
     question_tag = data_handler.get_all_tag()
-    return render_template('new_tag.html', question_id=question_id, tags=question_tag)
+    return render_template('new_tag.html', question_id=question_id, tags=question_tag, mode='add-tag')
 
 
 @app.route('/<story_type>/<int:id>/<vote_type>')
