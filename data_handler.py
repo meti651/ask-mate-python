@@ -118,20 +118,12 @@ def insert_data_to_question(cursor, new_question):
     title = new_question['title']
     message = new_question['message']
     image = new_question['image']
+    user_name = new_question['user_name']
     cursor.execute("""
                     INSERT INTO question
-                    (submission_time, view_number, vote_number, title, message, image)
-                    VALUES (%s, %s, %s, %s, %s, %s);""",
-                   (submission_time, view_number, vote_number, title, message, image))
-
-
-@connection.connection_handler
-def insert_data_to_answer(cursor, submission_time, question_id, message, image):
-    cursor.execute("""
-                    INSERT INTO answer
-                    (submission_time,  question_id, message, image)
-                    VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, question_id, message, image))
+                    (submission_time, view_number, vote_number, title, message, image, username)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, vote_number, title, message, image, user_name))
 
 
 @connection.connection_handler
@@ -141,11 +133,12 @@ def insert_data_to_answer(cursor, answer):
     question_id = answer['question_id']
     message = answer['message']
     image = answer['image']
+    user_name = answer['user_name']
     cursor.execute("""
                     INSERT INTO answer
-                    (submission_time, vote_number, question_id, message, image)
-                    VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, vote_number, question_id, message, image))
+                    (submission_time, vote_number, question_id, message, image, username)
+                    VALUES (%s, %s, %s, %s, %s, %s);""",
+                   (submission_time, vote_number, question_id, message, image, user_name))
 
 
 @connection.connection_handler
@@ -157,6 +150,7 @@ def get_question_tags(cursor, q_id):
 
     question_tags = cursor.fetchall()
     return question_tags
+
 
 @connection.connection_handler
 def add_question_tag(cursor, tag_name):
@@ -172,6 +166,7 @@ def get_tag_id(cursor, tag_name):
                     WHERE name = %(tag_name)s;""", {'tag_name': tag_name})
     tag_id = cursor.fetchall()
     return tag_id[0]
+
 
 @connection.connection_handler
 def delete_tag(cursor, question_id, tag_id):
@@ -196,6 +191,7 @@ def get_all_tag(cursor):
                     SELECT name FROM tag;""")
     tags = cursor.fetchall()
     return tags
+
 
 @connection.connection_handler
 def count_vote(cursor, story_type, id, vote_type):
