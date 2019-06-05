@@ -170,13 +170,21 @@ def get_searched_result():
 @app.route("/registration", methods=("GET", "POST"))
 def register():
     if request.method == "POST":
-        is_matching = utility.match_password(request.form["password"], request.form["check"])
-        if is_matching:
-            user = utility.insert_data(request.form)
-            data_handler.insert_user(user)
-            return redirect("/")
-        else:
-            return render_template("registration.html", errorcode="Password doesn't match")
+        try:
+            is_matching = utility.match_password(request.form["password"], request.form["check"])
+            if is_matching:
+                validate_pw = utility.pw_checker(request.form["password"])
+                if validate_pw:
+                    user = utility.insert_data(request.form)
+                    data_handler.insert_user(user)
+                    return redirect("/")
+                else:
+                    return render_template("registration.html",
+                                           errorcode='failed_password')
+            else:
+                return render_template("registration.html", errorcode="Password doesn't match")
+        except:
+            return render_template("registration.html", errorcode="Username is already in use")
     return render_template("registration.html", errorcode='', registration='registration')
 
 
