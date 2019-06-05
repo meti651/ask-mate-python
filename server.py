@@ -194,8 +194,11 @@ def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote
     if 'username' in session:
         query_string = request.referrer
         data_handler.count_vote(story_type, id, vote_type)
+        user_id = data_handler.get_user_id(id, story_type)
+        data_handler.change_reputation(user_id[0]['user_id'], vote_type, story_type)
         return redirect(query_string)
     return render_template(""), 404
+
 
 
 @app.route('/question/<int:question_id>/tag/<int:tag_id>')
