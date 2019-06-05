@@ -274,3 +274,31 @@ def get_question_by_tag(cursor, tag_name):
                     """, {'tag_name': tag_name})
     questions = cursor.fetchall()
     return questions
+
+
+@connection.connection_handler
+def change_reputation(cursor, user_id, vote_type, story_type):
+    if vote_type == "vote-up" and story_type == 'question':
+        point = 5
+    elif vote_type == "vote-up" and story_type == 'answer':
+        point = 10
+    else:
+        point = -2
+    cursor.execute("""
+                    UPDATE users
+                    SET reputation = reputation + %(point)s
+                    WHERE id = %(user_id)s;
+                   """, {'point': int(point), 'user_id': int(user_id)})
+
+
+@connection.connection_handler
+def get_user_id(cursor, id, story_type):
+    cursor.execute(sql.SQL("""
+                    SELECT user_id FROM {story_type}
+                    WHERE id = %(id)s;
+                   """).format(story_type=sql.Identifier(story_type)), {'id': int(id)})
+    user_id = cursor.fetchall()
+    return user_id
+
+
+
