@@ -56,6 +56,7 @@
                     <div id="answer_vote_number">{{ answer['vote_number'] }}</div>
                     <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-up"><img src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
                     <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-down"><img src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+                    <a id="{{ is_marked }}" href="/answer/{{ answer['id'] }}/mark"><img src="{{ url_for('static', filename='icons/mark.svg') }}" alt="mark answer"></a>
                     <div>
                         <a href="/answer/{{ answer.id }}/delete"><button class="button">Delete answer</button></a>
                         <a href="/answer/{{ answer.id }}/edit"><button class="button">Edit answer</button></a>

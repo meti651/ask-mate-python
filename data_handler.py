@@ -241,3 +241,16 @@ def get_items_by_search_result(cursor, search_data):
     datas = cursor.fetchall()
     print(datas)
     return datas
+
+
+@connection.connection_handler
+def mark_answer(cursor, answer_id, is_marked):
+    cursor.execute(
+        """
+               UPDATE answer
+               SET is_marked = %(is_marked)s 
+               WHERE id = %(answer_id)s;
+               """, {'id': int(answer_id), 'is_marked': is_marked})
+
+
+

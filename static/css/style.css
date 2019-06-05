@@ -291,3 +291,8 @@ textarea {
 #answer_image, #answer_id, #answer_message {
     margin: 15px;
 }
+
+#is_marked{
+    background-color: lightgreen;
+    border-color: darkgreen;
+}

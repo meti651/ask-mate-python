@@ -139,6 +139,12 @@ def delete_tag(question_id, tag_id):
     return redirect(return_route)
 
 
+@app.route('/answer/<int:answer_id>/mark', methods=['GET', 'POST'])
+def mark(answer_id):
+    if request.method == 'POST':
+        is_matching = not request.form['is_matching']
+        data_handler.mark_answer(answer_id, is_matching)
+        return redirect(url_for(display_question))
 #
 # @app.route('/search?q=<search_data>', methods=['GET', 'POST'])
 # def get_searched_result():
