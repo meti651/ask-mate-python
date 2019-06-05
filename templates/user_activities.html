@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="buttons-container">
+        <div class="box-1">
+            <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                                 alt="Back to the question list"></a>
+        </div>
+    </div>
+    <div id="questions_of_user">
+        <h2>Questions I have asked</h2>
+        {% for question in my_questions %}
+            <a href="/question/{{ question['id'] }}">
+                <div class="list">
+                    {{ question.title }}
+                </div>
+            </a>
+        {% endfor %}
+    </div><br>
+    <div id="answered_questions_by_user">
+        <h2>Questions I have answered</h2>
+        {% for question in questions_i_have_answered %}
+            <a href="/question/{{ question['id'] }}">
+                <div class="list">
+                    {{ question.title }}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

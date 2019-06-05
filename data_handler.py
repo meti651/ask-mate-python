@@ -275,3 +275,36 @@ def get_user(cursor, username):
     user = cursor.fetchall()
     return user
 
+
+@connection.connection_handler
+def get_user_id(cursor, username):
+    cursor.execute("""
+                    SELECT id FROM users
+                    WHERE user_name = %(username)s;
+                   """, {'username': username})
+    user_id_query = cursor.fetchall()
+    user_id = user_id_query[0]['id']
+    return user_id
+
+
+@connection.connection_handler
+def get_question_ids_and_titles_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT question.id, title FROM question
+                    JOIN users ON (question.username = users.user_name)
+                    WHERE users.id = %(user_id)s;
+                   """, {'user_id': user_id})
+    question_ids_and_titles = cursor.fetchall()
+    return question_ids_and_titles
+
+
+@connection.connection_handler
+def get_answered_question_ids_and_titles_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT DISTINCT question.id, title FROM question
+                    JOIN answer ON (question.id = answer.question_id)
+                    JOIN users ON (answer.username = users.user_name)
+                    WHERE users.id = %(user_id)s;
+                   """, {'user_id': user_id})
+    question_ids_and_titles = cursor.fetchall()
+    return question_ids_and_titles
