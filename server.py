@@ -150,6 +150,8 @@ def add_new_tag(question_id):
 def vote(story_type, id, vote_type):  # story_type: 'question' or 'answer', vote_type: 'vote-up' or 'vote-down'
     query_string = request.referrer
     data_handler.count_vote(story_type, id, vote_type)
+    user_id = data_handler.get_user_id(id, story_type)
+    data_handler.change_reputation(user_id[0]['user_id'], vote_type, story_type)
     return redirect(query_string)
 
 
