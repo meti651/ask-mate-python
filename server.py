@@ -205,6 +205,12 @@ def list_tags():
     return render_template("tags.html", tags=tags)
 
 
+@app.route("/tags/question/<tag_name>")
+def list_questions_by_tag_name(tag_name):
+    questions = data_handler.get_question_by_tag(tag_name)
+    return render_template("tag_question.html", questions=questions)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,
