@@ -61,7 +61,7 @@
 
     {% if answers|length > 0 %}
         {% for answer in answers %}
-            <div id="answer_block">
+            <div id={{"True" if answer["is_marked"] else "answer_block"}}>
                 <div id="answer_id">{{ answer['id'] }}.</div>
                 <br>
                 <div id="answer_message">{{ answer['message'] }}</div>
@@ -73,6 +73,8 @@
                         src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
                 <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-down"><img
                         src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+                <a class="answer_button" href="/answer/{{ answer['id'] }}/{{ answer["is_marked"] }}" name="mark_answer"><img id="mark_answer"
+                        src="{{ url_for('static', filename='icons/mark.svg') }}" alt="mark answer"></a>
                 <div>
                     <a href="/answer/{{ answer.id }}/delete">
                         <button class="button">Delete answer</button>

@@ -147,12 +147,16 @@ def delete_tag(question_id, tag_id):
     return redirect(return_route)
 
 
-@app.route('/answer/<int:answer_id>/mark', methods=['GET', 'POST'])
-def mark(answer_id):
-    if request.method == 'POST':
-        is_matching = not request.form['is_matching']
-        data_handler.mark_answer(answer_id, is_matching)
-        return redirect(url_for(display_question))
+@app.route('/answer/<int:answer_id>/<is_marked>', methods=['GET'])
+def mark(answer_id, is_marked):
+    query_string = request.referrer
+    if is_marked == "False":
+        is_marked = True
+    else:
+        is_marked = False
+    data_handler.mark_answer(answer_id, is_marked)
+    return redirect(query_string)
+
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -187,11 +191,9 @@ def register():
 def login_user():
     if request.method == "POST":
         user = data_handler.get_user(request.form["username"])
-        print(user)
         is_matching = utility.verify_password(request.form["password"], user[0]["password"])
         if is_matching:
             session["username"] = request.form["username"]
-            print(session)
             return redirect("/")
     return render_template("login.html", login='login')
 

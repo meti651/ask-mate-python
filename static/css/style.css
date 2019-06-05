@@ -426,9 +426,18 @@ textarea {
 }
 
 
-#is_marked {
+#True {
     background-color: lightgreen;
-    border-color: darkgreen;
+    border: 3px darkgreen solid;
+    position: relative;
+    left: 0;
+    width: 60%;
+    display: block;
+}
+
+#mark_answer{
+    width: 40px;
+    height: 40px;
 }
 
 #tags p {

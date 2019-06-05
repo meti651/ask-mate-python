@@ -277,10 +277,10 @@ def get_question_by_tag(cursor, tag_name):
 
 
 @connection.connection_handler
-def mark_answer(cursor, answer_id, is_marked):
+def mark_answer(cursor, id, is_marked):
     cursor.execute(
         """
                UPDATE answer
                SET is_marked = %(is_marked)s 
-               WHERE id = %(answer_id)s;
-               """, {'id': int(answer_id), 'is_marked': is_marked})
+               WHERE id = %(id)s;
+               """, {'id': id, 'is_marked': is_marked})
