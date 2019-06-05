@@ -6,7 +6,8 @@ from psycopg2 import sql
 def get_question_by_id(cursor, id):
     cursor.execute(
         """
-        SELECT * FROM question WHERE id = %(id)s;
+        SELECT * FROM question
+        WHERE id = %(id)s;
         """, {'id': int(id)})
     question = cursor.fetchall()
     return question

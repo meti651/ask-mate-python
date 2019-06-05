@@ -2,9 +2,11 @@
 {% block content %}
     <div class="buttons-container">
         <div class="box-1">
-            <a href="/add_question">
-                <button class="button">Ask question</button>
-            </a>
+            {% if session %}
+                <a href="/add_question">
+                    <button class="button">Ask question</button>
+                </a>
+            {% endif %}
             <a href="/tags">
                 <button class="button">Show tags</button>
             </a>
