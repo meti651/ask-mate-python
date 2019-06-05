@@ -34,8 +34,8 @@
     </div>
     <div class="header-box-3">
         {% if session %}
-            <a href="/logout">Logout</a><br>
-            <a href="/users">My activities</a>
+            <a id="login-box" href="/logout">Logout</a><br>
+            <a id="login-box" href="/users">My activities</a>
         {% else %}
             <a id="login-box" href="/login">Login</a><br>
             <a id="login-box" href="/registration">Registration</a>

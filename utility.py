@@ -36,3 +36,34 @@ def insert_data(user):
     return new_user
 
 
+def pw_checker(password):
+    special_chars = ['@', '!', '#', '$', '%']
+    valid_pw = True
+
+    if len(password) <= 6:
+        valid_pw = False
+    if not any(char.isdigit() for char in password):
+        valid_pw = False
+    if not any(char.islower() for char in password):
+        valid_pw = False
+    if not any(char.isupper() for char in password):
+        valid_pw = False
+    if not any(char in special_chars for char in password):
+        valid_pw = False
+
+    return valid_pw
+
+
+def match_question_session(session, question_id):
+    question = data_handler.get_question_by_id(question_id)
+    if session == question[0]['username']:
+        return True
+    return False
+
+
+def match_answer_session(session, answer_id):
+    answer = data_handler.get_question_by_id(answer_id)
+    if session == answer[0]['username']:
+        return True
+    return False
+

@@ -2,29 +2,33 @@
 {% block content %}
     <div class="buttons-container">
         <div class="box-1">
-            <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+            <a href="/"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
                                  alt="Back to the question list"></a>
         </div>
-        <div class="box-2">
-            <a href="/question/{{ question['id'] }}/new_answer">
-                <button class="button">Answer</button>
-            </a>
-        </div>
-        <div class="box-3">
-            <a href="/question/{{ question['id'] }}/edit">
-                <button class="button">Edit</button>
-            </a>
-        </div>
-        <div class="box-4">
-            <a href="/question/{{ question['id'] }}/delete">
-                <button class="button">Delete question</button>
-            </a>
-        </div>
-        <div class="box-4">
-            <a href="/question/{{ question['id'] }}/new-tag">
-                <button class="button" id="tag_btn" name="tag_btn">Add Tag</button>
-            </a>
-        </div>
+        {% if session %}
+            <div class="box-2">
+                <a href="/question/{{ question['id'] }}/new_answer">
+                    <button class="button">Answer</button>
+                </a>
+            </div>
+        {% endif %}
+        {% if session == question['username'] %}
+            <div class="box-3">
+                <a href="/question/{{ question['id'] }}/edit">
+                    <button class="button">Edit</button>
+                </a>
+            </div>
+            <div class="box-4">
+                <a href="/question/{{ question['id'] }}/delete">
+                    <button class="button">Delete question</button>
+                </a>
+            </div>
+            <div class="box-4">
+                <a href="/question/{{ question['id'] }}/new-tag">
+                    <button class="button" id="tag_btn" name="tag_btn">Add Tag</button>
+                </a>
+            </div>
+        {% endif %}
     </div>
 
 
@@ -45,10 +49,12 @@
     <div id="question_block">
         <p id="submission_time">{{ question['submission_time'] }}</p>
         <p id="vote_number">{{ question['vote_number'] }}</p>
-        <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-up"><img
-                src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
-        <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-down"><img
-                src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+        {% if session %}
+            <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-up"><img
+                    src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
+            <a class="vote_number_button" href="/question/{{ question['id'] }}/vote-down"><img
+                    src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+        {% endif %}
         <p id="expression">{{ question['message'] }}</p>
         <p id="image">
             {% if question['image'] != None %}
@@ -69,11 +75,14 @@
                 <div id="answer_image"><img src="{{ answer['image'] if answer['image'] != None else '' }}" alter="image"
                                             height="100"></div>
                 <div id="answer_submission_time">{{ answer['submission_time'] }}</div>
-                <div id="answer_vote_number">{{ answer['vote_number'] }}</div>
-                <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-up"><img
-                        src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
-                <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-down"><img
-                        src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+                {% if session %}
+                    <div id="answer_vote_number">{{ answer['vote_number'] }}</div>
+                    <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-up"><img
+                            src="{{ url_for('static', filename='icons/like-icon.png') }}" alt="like"></a>
+                    <a class="answer_button" href="/answer/{{ answer['id'] }}/vote-down"><img
+                            src="{{ url_for('static', filename='icons/dislike-icon.png') }}" alt="dislike"></a>
+                {% endif %}
+                {% if session == answer['username'] %}
                 <div>
                     <a href="/answer/{{ answer.id }}/delete">
                         <button class="button">Delete answer</button>
@@ -82,6 +91,7 @@
                         <button class="button">Edit answer</button>
                     </a>
                 </div>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}

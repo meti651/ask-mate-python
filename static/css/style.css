@@ -37,7 +37,15 @@ html {
 }
 
 .header-box-2 {
-    flex: 1;
+    flex: 2;
+}
+
+.header-box-1 {
+    flex:1;
+}
+
+.header-box-3 {
+    flex:1;
 }
 
 @keyframes font {
@@ -432,4 +440,9 @@ textarea {
     color: greenyellow;
     text-align: center;
     margin: 0;
+}
+
+#tag {
+    color: greenyellow;
+    text-decoration: underline;
 }

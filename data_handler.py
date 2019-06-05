@@ -1,14 +1,14 @@
 import connection
 from psycopg2 import sql
-import utility
+
 
 @connection.connection_handler
 def get_question_by_id(cursor, id):
     cursor.execute(
         """
-        SELECT * FROM question WHERE id = %(id)s;
-        """, {'id':int(id)})
-
+        SELECT * FROM question
+        WHERE id = %(id)s;
+        """, {'id': int(id)})
     question = cursor.fetchall()
     return question
 
@@ -63,17 +63,6 @@ def get_all_questions(cursor, sort_by, direction):
                                ).format(sort_by=sql.Identifier(sort_by)),
                        {'sort_by': sort_by})
 
-    questions = cursor.fetchall()
-    return questions
-
-
-@connection.connection_handler
-def get_question_by_id(cursor, id):
-    cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id = %(id)s;
-                    """,
-                   {'id': id})
     questions = cursor.fetchall()
     return questions
 
@@ -277,7 +266,7 @@ def get_user(cursor, username):
 
 
 @connection.connection_handler
-def get_user_id(cursor, username):
+def get_user_id_by_username(cursor, username):
     cursor.execute("""
                     SELECT id FROM users
                     WHERE user_name = %(username)s;
@@ -308,3 +297,40 @@ def get_answered_question_ids_and_titles_by_user_id(cursor, user_id):
                    """, {'user_id': user_id})
     question_ids_and_titles = cursor.fetchall()
     return question_ids_and_titles
+
+
+@connection.connection_handler
+def get_question_by_tag(cursor, tag_name):
+    cursor.execute("""
+                    SELECT question.title, question.id FROM question
+                    LEFT JOIN question_tag ON question.id=question_tag.question_id
+                    LEFT JOIN tag ON question_tag.tag_id = tag.id
+                    WHERE tag.name = %(tag_name)s
+                    """, {'tag_name': tag_name})
+    questions = cursor.fetchall()
+    return questions
+
+
+@connection.connection_handler
+def change_reputation(cursor, user_id, vote_type, story_type):
+    if vote_type == "vote-up" and story_type == 'question':
+        point = 5
+    elif vote_type == "vote-up" and story_type == 'answer':
+        point = 10
+    else:
+        point = -2
+    cursor.execute("""
+                    UPDATE users
+                    SET reputation = reputation + %(point)s
+                    WHERE id = %(user_id)s;
+                   """, {'point': int(point), 'user_id': int(user_id)})
+
+
+@connection.connection_handler
+def get_user_id(cursor, id, story_type):
+    cursor.execute(sql.SQL("""
+                    SELECT user_id FROM {story_type}
+                    WHERE id = %(id)s;
+                   """).format(story_type=sql.Identifier(story_type)), {'id': int(id)})
+    user_id = cursor.fetchall()
+    return user_id
