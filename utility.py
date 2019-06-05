@@ -36,3 +36,19 @@ def insert_data(user):
     return new_user
 
 
+def pw_checker(password):
+    speacial_chars = ['@', '!', '#', '$', '%']
+    valid_pw = True
+
+    if len(password) <= 6:
+        valid_pw = False
+    if not any(char.isdigit() for char in password):
+        valid_pw = False
+    if not any(char.islower() for char in password):
+        valid_pw = False
+    if not any(char.isupper() for char in password):
+        valid_pw = False
+    if not any(char in speacial_chars for char in password):
+        valid_pw = False
+
+    return valid_pw
