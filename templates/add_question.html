@@ -1,41 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ask your question</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    {% if mode == "add" %}
-        <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question list"></a>
-        <h1>Ask your question!</h1>
-    {% elif mode == "edit" %}
-        <a href="/question/{{ question_params['id'] }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
-        <h1>Edit your question!</h1>
-    {% endif %}
+{% extends 'layout.html' %}
+{% block content %}
+
+    <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                         alt="Back to the question list"></a>
+
     <form action="" method="POST">
         <table>
             <tr>
                 <td class="right-aligned-td"><label id="titles" for="title">Title of question:</label></td>
-                <td><input class="text" type="text" name="title" required value="{% if mode == "edit"  %}{{ question_params['title'] }}{% endif %}"></td>
+                <td><input class="text" type="text" name="title" required
+                           value="{% if mode == "edit-question" %}{{ question_params['title'] }}{% endif %}"></td>
             </tr>
             <tr>
                 <td class="right-aligned-td"><label id="titles" for="message">Expressed question:</label></td>
-                <td><textarea name="message" required>{% if mode == "edit" %}{{ question_params['message'] }}{% endif %}</textarea></td>
+                <td><textarea name="message" required>{% if mode == "edit-question" %}
+                    {{ question_params['message'] }}{% endif %}</textarea></td>
             </tr>
             <tr>
                 <td class="right-aligned-td"><label id="titles" for="image">Image:</label></td>
-                <td><input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}"></td>
+                <td><input class="text" type="text" name="image"
+                           value="{% if mode == "edit-question" %}{{ question_params['image'] }}{% endif %}"></td>
             </tr>
             <tr>
                 <td></td>
-                {% if mode =="edit" %}
-                    <td class="right-aligned-td"><button class="button" type="submit">Edit Question</button></td>
+                {% if mode =="edit-question" %}
+                    <td class="right-aligned-td">
+                        <button class="button" type="submit">Edit Question</button>
+                    </td>
                 {% else %}
-                    <td class="right-aligned-td"><button class="button" type="submit">Ask Question</button></td>
+                    <td class="right-aligned-td">
+                        <button class="button" type="submit">Ask Question</button>
+                    </td>
                 {% endif %}
             </tr>
         </table>
     </form>
-</body>
-</html>
+
+{% endblock %}

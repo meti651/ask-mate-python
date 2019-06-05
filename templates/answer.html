@@ -1,35 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Add new answer</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
-        {% if mode == "edit" %}
-            <a href="/question/{{ question_params['question_id'] }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
-        {% else %}
-            <a href="/question/{{ question_id }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
-        {% endif %}
-        <form action="" method="post">
-            <table>
-                <tr>
-                    <td class="right-aligned-td"><label id="titles" for="message">New answer:</label></td>
-                    <td class="right-aligned-td"><textarea id="message" name="message" minlength="10" required>{% if mode == "edit" %}{{ question_params['message'] }}{% endif %}</textarea></td>
-                </tr>
-                <tr>
-                    <td class="right-aligned-td"><label id="titles" for="image">Image:</label></td>
-                    <td class="right-aligned-td"><input class="text" type="text" name="image" value="{% if mode == "edit" %}{{ question_params['image'] }}{% endif %}"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    {% if mode == "edit" %}
-                        <td class="right-aligned-td"><button class="button" type="submit">Edit answer</button></td>
-                    {% else %}
-                        <td class="right-aligned-td"><button class="button" type="submit">Post answer</button></td>
-                    {% endif %}
-                </tr>
-            </table>
-        </form>
-    </body>
-</html>
+{% extends 'layout.html' %}
+{% block content %}
+
+    {% if mode == "edit" %}
+        <a href="/question/{{ question_params['question_id'] }}"><img
+                src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
+    {% else %}
+        <a href="/question/{{ question_id }}"><img
+                src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
+    {% endif %}
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td class="right-aligned-td"><label id="titles" for="message">Your answer:</label></td>
+                <td class="right-aligned-td"><textarea id="message" name="message" minlength="10"
+                                                       required>{% if mode == "edit-answer" %}
+                    {{ question_params['message'] }}{% endif %}</textarea></td>
+            </tr>
+            <tr>
+                <td class="right-aligned-td"><label id="titles" for="image">Image:</label></td>
+                <td class="right-aligned-td"><input class="text" type="text" name="image" value="
+                        {% if mode == "edit-answer" %}{{ question_params['image'] }}{% endif %}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                {% if mode == "edit-answer" %}
+                    <td class="right-aligned-td">
+                        <button class="button" type="submit">Edit answer</button>
+                    </td>
+                {% else %}
+                    <td class="right-aligned-td">
+                        <button class="button" type="submit">Post answer</button>
+                    </td>
+                {% endif %}
+            </tr>
+        </table>
+    </form>
+
+{% endblock %}

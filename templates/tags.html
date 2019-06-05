@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div id="tags">
+        {% for tag in tags %}
+            <p>#{{ tag.name }}: <a href="/tags/question/{{ tag.name }}">{{ tag.used }}</a></p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

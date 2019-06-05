@@ -1,24 +1,30 @@
-from flask import Flask, render_template, request, redirect, url_for
-import data_handler
 import datetime
+import utility
+from flask import Flask, render_template, request, redirect, url_for, session
+
+import data_handler
 
 app = Flask(__name__)
+app.secret_key = '�p����%aYHҀ��'
 
 
 @app.route("/", methods=('GET', 'POST'))
-@app.route("/search?=<search_data>", methods=('GET', 'POST'))
-def route_list(search_data=None):
+def route_list():
     questions = data_handler.get_last_5_questions('submission_time', 'DESC')
-    if request.method == 'POST':
-        attribute = request.form['attribute']
-        reverse = request.form['order_direction']
-        if search_data:
-            sorted_questions = data_handler.get_items_by_search_result(search_data)
-        else:
+    if 'username' in session:
+        if request.method == 'POST':
+            attribute = request.form['attribute']
+            reverse = request.form['order_direction'].upper()
             sorted_questions = data_handler.get_last_5_questions(attribute, reverse)
-        return render_template('list.html', questions=sorted_questions, attribute=attribute, reverse=reverse,
-                               method='last')
-    return render_template('list.html', questions=questions, method='last')
+            return render_template('list.html',
+                                   questions=sorted_questions,
+                                   attribute=attribute,
+                                   reverse=reverse,
+                                   method='last',
+                                   session=True
+                                   )
+        return render_template('list.html', questions=questions, method='last', session=True)
+    return render_template('list.html', questions=questions, method='last', session=False)
 
 
 @app.route('/list', methods=('POST', 'GET'))
@@ -52,9 +58,10 @@ def ask_question():
         new_question["view_number"] = 0
         new_question["vote_number"] = 0
         new_question["submission_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        new_question['user_name'] = session['username']
         data_handler.insert_data_to_question(new_question)
         return redirect("/")
-    return render_template("add_question.html", mode="add")
+    return render_template("add_question.html", mode="add-question")
 
 
 @app.route('/question/<int:question_id>/edit', methods=('GET', 'POST'))
@@ -63,7 +70,7 @@ def edit_question(question_id):
     if request.method == "POST":
         data_handler.edit_questions(question_id, request.form['title'], request.form['message'], request.form['image'])
         return redirect('/question/' + str(question_params[0]['id']))
-    return render_template('add_question.html', question_params=question_params[0], mode="edit")
+    return render_template('add_question.html', question_params=question_params[0], mode="edit-question")
 
 
 @app.route("/question/<int:question_id>/delete")
@@ -81,9 +88,10 @@ def add_new_answer(question_id):
         new_answer['submission_time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         new_answer['vote_number'] = 0
         new_answer['question_id'] = question_id
+        new_answer['user_name'] = session['username']
         data_handler.insert_data_to_answer(new_answer)
         return redirect('/question/' + str(question_id))
-    return render_template('answer.html', question_id=question_id)
+    return render_template('answer.html', question_id=question_id, mode='add-answer')
 
 
 @app.route('/answer/<int:answer_id>/edit', methods=['GET', 'POST'])
@@ -92,7 +100,7 @@ def edit_answer(answer_id):
     if request.method == "POST":
         data_handler.edit_answer(answer_id, request.form['message'], request.form['image'])
         return redirect('/question/' + str(answer_params[0]['question_id']))
-    return render_template('answer.html', question_params=answer_params[0], mode='edit')
+    return render_template('answer.html', question_params=answer_params[0], mode='edit-answer')
 
 
 @app.route('/answer/<int:answer_id>/delete')
@@ -122,7 +130,7 @@ def add_new_tag(question_id):
                 return redirect(curr_link)
             return redirect(url_for('display_question', question_id=question_id))
     question_tag = data_handler.get_all_tag()
-    return render_template('new_tag.html', question_id=question_id, tags=question_tag)
+    return render_template('new_tag.html', question_id=question_id, tags=question_tag, mode='add-tag')
 
 
 @app.route('/<story_type>/<int:id>/<vote_type>')
@@ -145,14 +153,65 @@ def mark(answer_id):
         is_matching = not request.form['is_matching']
         data_handler.mark_answer(answer_id, is_matching)
         return redirect(url_for(display_question))
-#
-# @app.route('/search?q=<search_data>', methods=['GET', 'POST'])
-# def get_searched_result():
-#     if request.method = "POST":
-#         search_data = request.form['search_field']
-#         print(search_data)
-#         data = data_handler.get_items_by_search_result(search_data)
-#     return render_template('list.html', questions=data, search_data=search_data)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def get_searched_result():
+    search_data = request.args.get('q')
+    result = data_handler.get_items_by_search_result(search_data)
+    return render_template('search.html', result=result)
+
+
+@app.route("/registration", methods=("GET", "POST"))
+def register():
+    if request.method == "POST":
+        try:
+            is_matching = utility.match_password(request.form["password"], request.form["check"])
+            if is_matching:
+                validate_pw = utility.pw_checker(request.form["password"])
+                if validate_pw:
+                    user = utility.insert_data(request.form)
+                    data_handler.insert_user(user)
+                    return redirect("/")
+                else:
+                    return render_template("registration.html",
+                                           errorcode='failed_password')
+            else:
+                return render_template("registration.html", errorcode="Password doesn't match")
+        except:
+            return render_template("registration.html", errorcode="Username is already in use")
+    return render_template("registration.html", errorcode='', registration='registration')
+
+
+@app.route("/login", methods=("GET", "POST"))
+def login_user():
+    if request.method == "POST":
+        user = data_handler.get_user(request.form["username"])
+        print(user)
+        is_matching = utility.verify_password(request.form["password"], user[0]["password"])
+        if is_matching:
+            session["username"] = request.form["username"]
+            print(session)
+            return redirect("/")
+    return render_template("login.html", login='login')
+
+
+@app.route("/logout")
+def logout_user():
+    session.pop("username", None)
+    return redirect("/")
+
+
+@app.route("/tags")
+def list_tags():
+    tags = data_handler.list_tags_and_their_usage_number()
+    return render_template("tags.html", tags=tags)
+
+
+@app.route("/tags/question/<tag_name>")
+def list_questions_by_tag_name(tag_name):
+    questions = data_handler.get_question_by_tag(tag_name)
+    return render_template("tag_question.html", questions=questions)
 
 
 if __name__ == "__main__":

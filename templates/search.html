@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    {% for item in result %}
+        <a id="link" href="question/{{ item.id }}">
+            <div id="list">{{ item.title }}</div>
+        </a>
+    {% endfor %}
+
+{% endblock %}

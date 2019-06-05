@@ -7,8 +7,7 @@ def get_question_by_id(cursor, id):
     cursor.execute(
         """
         SELECT * FROM question WHERE id = %(id)s;
-        """, {'id':int(id)})
-
+        """, {'id': int(id)})
     question = cursor.fetchall()
     return question
 
@@ -68,17 +67,6 @@ def get_all_questions(cursor, sort_by, direction):
 
 
 @connection.connection_handler
-def get_question_by_id(cursor, id):
-    cursor.execute("""
-                    SELECT * FROM question
-                    WHERE id = %(id)s;
-                    """,
-                   {'id': id})
-    questions = cursor.fetchall()
-    return questions
-
-
-@connection.connection_handler
 def get_answer_by_id(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
@@ -118,20 +106,12 @@ def insert_data_to_question(cursor, new_question):
     title = new_question['title']
     message = new_question['message']
     image = new_question['image']
+    user_name = new_question['user_name']
     cursor.execute("""
                     INSERT INTO question
-                    (submission_time, view_number, vote_number, title, message, image)
-                    VALUES (%s, %s, %s, %s, %s, %s);""",
-                   (submission_time, view_number, vote_number, title, message, image))
-
-
-@connection.connection_handler
-def insert_data_to_answer(cursor, submission_time, question_id, message, image):
-    cursor.execute("""
-                    INSERT INTO answer
-                    (submission_time,  question_id, message, image)
-                    VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, question_id, message, image))
+                    (submission_time, view_number, vote_number, title, message, image, username)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s);""",
+                   (submission_time, view_number, vote_number, title, message, image, user_name))
 
 
 @connection.connection_handler
@@ -141,11 +121,12 @@ def insert_data_to_answer(cursor, answer):
     question_id = answer['question_id']
     message = answer['message']
     image = answer['image']
+    user_name = answer['user_name']
     cursor.execute("""
                     INSERT INTO answer
-                    (submission_time, vote_number, question_id, message, image)
-                    VALUES (%s, %s, %s, %s, %s);""",
-                   (submission_time, vote_number, question_id, message, image))
+                    (submission_time, vote_number, question_id, message, image, username)
+                    VALUES (%s, %s, %s, %s, %s, %s);""",
+                   (submission_time, vote_number, question_id, message, image, user_name))
 
 
 @connection.connection_handler
@@ -157,6 +138,7 @@ def get_question_tags(cursor, q_id):
 
     question_tags = cursor.fetchall()
     return question_tags
+
 
 @connection.connection_handler
 def add_question_tag(cursor, tag_name):
@@ -172,6 +154,7 @@ def get_tag_id(cursor, tag_name):
                     WHERE name = %(tag_name)s;""", {'tag_name': tag_name})
     tag_id = cursor.fetchall()
     return tag_id[0]
+
 
 @connection.connection_handler
 def delete_tag(cursor, question_id, tag_id):
@@ -196,6 +179,7 @@ def get_all_tag(cursor):
                     SELECT name FROM tag;""")
     tags = cursor.fetchall()
     return tags
+
 
 @connection.connection_handler
 def count_vote(cursor, story_type, id, vote_type):
@@ -233,14 +217,63 @@ def edit_answer(cursor, id, message, image):
 
 
 @connection.connection_handler
-def get_items_by_search_result(cursor, search_data):
+def get_items_by_search_result(cursor, search):
+    search = '%' + search + '%'
     cursor.execute("""
-                SELECT title, id FROM question
-                WHERE title LIKE %(search_data)s 
-                    OR message LIKE %(search_data)s;""", {'search_data': '%' + search_data + '%'})
-    datas = cursor.fetchall()
-    print(datas)
-    return datas
+                SELECT question.id, question.message, question.title FROM question LEFT JOIN answer ON question.id = answer.question_id
+                WHERE question.title LIKE %(search)s 
+                    OR question.message LIKE %(search)s
+                    OR answer.message LIKE %(search)s;""", {'search': search})
+    data = cursor.fetchall()
+    return data
+
+
+@connection.connection_handler
+def list_tags_and_their_usage_number(cursor):
+    cursor.execute("""
+                    SELECT tag.name, COUNT(question_tag.tag_id) AS used FROM tag
+                    LEFT JOIN question_tag ON tag.id = question_tag.tag_id
+                    GROUP BY tag.name
+                    ORDER BY used DESC;
+                    """)
+    tags = cursor.fetchall()
+    return tags
+
+
+@connection.connection_handler
+def insert_user(cursor, user):
+    username = user["username"]
+    password = user["password"]
+    email = user["email"]
+    registration_time = user["registration_time"]
+
+    cursor.execute("""
+                    INSERT INTO users
+                    (user_name, password, email, registration_time)
+                    VALUES (%s, %s, %s, %s);
+                    """, (username, password, email, registration_time))
+
+
+@connection.connection_handler
+def get_user(cursor, username):
+    cursor.execute("""
+                    SELECT user_name, password FROM users
+                    WHERE user_name = %(username)s;
+                    """, {'username': username})
+    user = cursor.fetchall()
+    return user
+
+
+@connection.connection_handler
+def get_question_by_tag(cursor, tag_name):
+    cursor.execute("""
+                    SELECT question.title, question.id FROM question
+                    LEFT JOIN question_tag ON question.id=question_tag.question_id
+                    LEFT JOIN tag ON question_tag.tag_id = tag.id
+                    WHERE tag.name = %(tag_name)s
+                    """, {'tag_name': tag_name})
+    questions = cursor.fetchall()
+    return questions
 
 
 @connection.connection_handler
@@ -251,6 +284,3 @@ def mark_answer(cursor, answer_id, is_marked):
                SET is_marked = %(is_marked)s 
                WHERE id = %(answer_id)s;
                """, {'id': int(answer_id), 'is_marked': is_marked})
-
-
-

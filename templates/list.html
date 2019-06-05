@@ -1,15 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ask Mate v2.0</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <h1>Ask Mate v2.0</h1>
-    <div id="button">
-    <p><a href="/add_question"><button class="button">Ask question</button></a></p>
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="buttons-container">
+        <div class="box-1">
+            <a href="/add_question">
+                <button class="button">Ask question</button>
+            </a>
+        </div>
+        <div class="box-2">
+            <form action="" , method="POST">
+                <select class="button2" name="attribute">
+                    <option value="id">Date</option>
+                    <option value="title">Title</option>
+                    <option value="view_number">View Number</option>
+                    <option value="vote_number">Vote Number</option>
+                </select>
+                <select class="button2" name="order_direction">
+                    <option value="asc">ASC</option>
+                    <option value="desc">DESC</option>
+                </select>
+                <a href="/list?order_by={{ attribute }}&order_direction={{ reverse }}">
+                    <button class="small-button" type="submit">List</button>
+                </a>
+            </form>
+        </div>
+        <div class="box-3">
+            <form action="/search" method="GET">
+                <input type="text" name="q" class="text" placeholder="Search">
+                <button class="small-button" type="submit">Search</button>
+            </form>
+        </div>
     </div>
+<<<<<<< HEAD
     <form action="/search?={{ search_data }}", method="POST">
         <p>
 
@@ -37,20 +58,21 @@
     </form>
     {% for dict in questions %}
         <a id="link" href="/question/{{ dict['id'] }}" >
+=======
+
+
+    {% for dict in questions %}
+        <a id="link" href="/question/{{ dict['id'] }}">
+>>>>>>> 571a98e41a33117e09957b89ca20111765d2e80a
             <div id="list">
                 {{ dict['title'] }}
             </div>
         </a>
     {% endfor %}
 
-    <div>
-        <p>
-            <a href={{ "/list" if method=="last" else "/" }}>
-                <button id="see_more">{{ "See more" if method == "last" else "Hide" }}</button>
-            </a>
-        </p>
-    </div>
+    <a href={{ "/list" if method=="last" else "/" }}>
+        <button id="see_more">{{ "See more" if method == "last" else "Hide" }}</button>
+    </a>
 
-    </ul>
-</body>
-</html>
+
+{% endblock %}

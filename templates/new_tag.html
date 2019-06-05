@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tags</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <a href="/question/{{ question_id }}"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}" alt="Back to the question"></a>
+{% extends 'layout.html' %}
+{% block content %}
+
+    <a href="/question/{{ question_id }}"><img
+            src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+            alt="Back to the question"></a>
     <form action="" method="POST">
         <table>
             <tr>
@@ -31,5 +28,5 @@
             </tr>
         </table>
     </form>
-</body>
-</html>
+
+{% endblock %}
