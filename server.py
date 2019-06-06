@@ -271,10 +271,18 @@ def user_id_for_activities():
 
 @app.route("/users/<int:user_id>")
 def list_user_activities(user_id):
+    is_there_questions_of_mine = False
+    is_there_questions_answered_of_me = False
     my_questions = data_handler.get_question_ids_and_titles_by_user_id(user_id)
+    if len(my_questions) > 0:
+        is_there_questions_of_mine = True
     questions_i_have_answered = data_handler.get_answered_question_ids_and_titles_by_user_id(user_id)
+    if len(questions_i_have_answered) > 0:
+        is_there_questions_answered_of_me = True
     return render_template("user_activities.html", my_questions=my_questions,
-                           questions_i_have_answered=questions_i_have_answered)
+                           questions_i_have_answered=questions_i_have_answered,
+                           is_there_questions_of_mine=is_there_questions_of_mine,
+                           is_there_questions_answered_of_me=is_there_questions_answered_of_me)
 
 
 @app.route("/tags/question/<tag_name>")
