@@ -41,6 +41,7 @@ CREATE TABLE answer (
     question_id integer,
     message text,
     image text,
+    is_marked BOOLEAN NOT NULL DEFAULT FALSE,
     username text
 );
 
