@@ -222,23 +222,20 @@ def get_searched_result():
 def register():
     if request.method == "POST":
         user = data_handler.get_user(request.form['username'])
-        try:
-            if user[0]['username'] == request.form['username']:
-                is_matching = utility.match_password(request.form["password"], request.form["check"])
-                if is_matching:
-                    validate_pw = utility.pw_checker(request.form["password"])
-                    if validate_pw:
-                        user = utility.insert_data(request.form)
-                        data_handler.insert_user(user)
-                        return redirect("/")
-                    else:
-                        return render_template("registration.html",
-                                               errorcode='failed_password')
+        if len(user) == 0:
+            is_matching = utility.match_password(request.form["password"], request.form["check"])
+            if is_matching:
+                validate_pw = utility.pw_checker(request.form["password"])
+                if validate_pw:
+                    user = utility.insert_data(request.form)
+                    data_handler.insert_user(user)
+                    return redirect("/")
                 else:
-                    return render_template("registration.html", errorcode="Password doesn't match")
+                    return render_template("registration.html",
+                                           errorcode='failed_password')
             else:
-                return render_template("registration.html", errorcode="invalid")
-        except:
+                return render_template("registration.html", errorcode="Password doesn't match")
+        else:
             return render_template("registration.html", errorcode="invalid")
     return render_template("registration.html", errorcode='', registration='registration')
 
