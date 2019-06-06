@@ -221,19 +221,23 @@ def get_searched_result():
 @app.route("/registration", methods=("GET", "POST"))
 def register():
     if request.method == "POST":
+        user = data_handler.get_user(request.form['username'])
         try:
-            is_matching = utility.match_password(request.form["password"], request.form["check"])
-            if is_matching:
-                validate_pw = utility.pw_checker(request.form["password"])
-                if validate_pw:
-                    user = utility.insert_data(request.form)
-                    data_handler.insert_user(user)
-                    return redirect("/")
+            if user[0]['username'] == request.form['username']:
+                is_matching = utility.match_password(request.form["password"], request.form["check"])
+                if is_matching:
+                    validate_pw = utility.pw_checker(request.form["password"])
+                    if validate_pw:
+                        user = utility.insert_data(request.form)
+                        data_handler.insert_user(user)
+                        return redirect("/")
+                    else:
+                        return render_template("registration.html",
+                                               errorcode='failed_password')
                 else:
-                    return render_template("registration.html",
-                                           errorcode='failed_password')
+                    return render_template("registration.html", errorcode="Password doesn't match")
             else:
-                return render_template("registration.html", errorcode="Password doesn't match")
+                return render_template("registration.html", errorcode="invalid")
         except:
             return render_template("registration.html", errorcode="invalid")
     return render_template("registration.html", errorcode='', registration='registration')
@@ -242,15 +246,18 @@ def register():
 @app.route("/login", methods=("GET", "POST"))
 def login_user():
     if request.method == "POST":
-        user = data_handler.get_user(request.form['username'])
-        if user[0]["user_name"] == request.form["username"]:
-            is_matching = utility.verify_password(request.form["password"], user[0]["password"])
-            if is_matching:
-                session['username'] = request.form["username"]
-                return redirect("/")
+        try:
+            user = data_handler.get_user(request.form['username'])
+            if user[0]["user_name"] == request.form["username"]:
+                is_matching = utility.verify_password(request.form["password"], user[0]["password"])
+                if is_matching:
+                    session['username'] = request.form["username"]
+                    return redirect("/")
+                else:
+                    return render_template("login.html", login='login', error="error")
             else:
-                return render_template("login.html", login='login', error="error")
-        else:
+                return render_template("login.html", login='login', error='error')
+        except:
             return render_template("login.html", login='login', error='error')
     return render_template("login.html", login='login', error='')
 
