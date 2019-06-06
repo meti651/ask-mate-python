@@ -235,19 +235,24 @@ def register():
             else:
                 return render_template("registration.html", errorcode="Password doesn't match")
         except:
-            return render_template("registration.html", errorcode="Username is already in use")
+            return render_template("registration.html", errorcode="invalid")
     return render_template("registration.html", errorcode='', registration='registration')
 
 
 @app.route("/login", methods=("GET", "POST"))
 def login_user():
     if request.method == "POST":
-        user = data_handler.get_user(request.form["username"])
-        is_matching = utility.verify_password(request.form["password"], user[0]["password"])
-        if is_matching:
-            session['username'] = request.form["username"]
-            return redirect("/")
-    return render_template("login.html", login='login')
+        user = data_handler.get_user(request.form['username'])
+        if user[0]["user_name"] == request.form["username"]:
+            is_matching = utility.verify_password(request.form["password"], user[0]["password"])
+            if is_matching:
+                session['username'] = request.form["username"]
+                return redirect("/")
+            else:
+                return render_template("login.html", login='login', error="error")
+        else:
+            return render_template("login.html", login='login', error='error')
+    return render_template("login.html", login='login', error='')
 
 
 @app.route("/logout")

@@ -59,7 +59,7 @@ def match_question_session(session, question_id):
 
 
 def match_answer_session(session, answer_id):
-    answer = data_handler.get_question_by_id(answer_id)
+    answer = data_handler.get_answer_by_id(answer_id)
     if session == answer[0]['username']:
         return True
     return False

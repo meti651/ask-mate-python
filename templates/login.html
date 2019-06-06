@@ -8,6 +8,9 @@
         <div id="login">
             <input type="text" name="username" placeholder="Username" class="text">
             <input type="password" name="password" placeholder="Password" class="password">
+            {% if error == 'error' %}
+                {{ 'Invalid username or password!' }}
+            {% endif %}
             <input type="submit" placeholder="Login" class="button">
         </div>
     </form>
