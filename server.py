@@ -117,7 +117,7 @@ def edit_question(question_id):
 
 @app.route("/question/<int:question_id>/delete")
 def delete_question(question_id):
-    is_matching = utility.match_question_session(question_id)
+    is_matching = utility.match_question_session(session['username'], question_id)
     if is_matching:
         data_handler.delete(question_id, 'question')
         return redirect("/")

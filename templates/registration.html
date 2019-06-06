@@ -1,13 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-
-    <form action="/registration" method="post">
+    <div class="box-1">
+            <a href="/"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                                 alt="Back to the question list"></a>
+    </div>
+    <form class="log/reg_table" action="/registration" method="post">
         <div id="reg">
-            <input type="text" name="username" placeholder="Username" class="text">
-            <input type="password" name="password" placeholder="Password" class="text">
-            <input type="password" name="check" placeholder="Password" class="text">
-            <input type="email" name="email" placeholder="Email" class="text">
-            <input type="submit" placeholder="Registration" class="button">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password" class="password">
+            <input type="password" name="check" placeholder="Password" class="password">
+            <input type="email" name="email" placeholder="Email" class="email">
+            <input type="submit" placeholder="Registration">
             {% if errorcode == "Password doesn't match" %}
                 <p><strong>Passwords doesn't match</strong></p>
             {% endif %}
