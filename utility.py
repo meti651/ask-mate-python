@@ -48,7 +48,6 @@ def pw_checker(password):
     if not any(char.isupper() for char in password):
         valid_pw = False
 
-
     return valid_pw
 
 
