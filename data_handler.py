@@ -301,6 +301,13 @@ def get_user_id(cursor, id, story_type):
     return user_id
 
 
+@connection.connection_handler
+def get_all_users(cursor):
+    cursor.execute("""
+                    SELECT user_name, email, registration_time FROM users
+                    """)
+    user_data = cursor.fetchall()
+    return user_data
 
 
 

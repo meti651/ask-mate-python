@@ -445,3 +445,19 @@ textarea {
     color: greenyellow;
     text-decoration: underline;
 }
+
+.list_users {
+    width: 100%;
+    background-color: gray;
+}
+
+.user_data {
+    font-size: 25px;
+    text-align: center;
+    color: greenyellow;
+}
+
+.user_data p {
+    display: inline-block;
+    margin-right: 15px;
+}
