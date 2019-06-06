@@ -445,3 +445,17 @@ textarea {
     color: greenyellow;
     text-decoration: underline;
 }
+
+#error_code {
+    font:bold normal 200px Serif;
+    margin: 1px;
+    padding: 1px;
+    float:left;
+}
+
+#page_not_found {
+    font-size: 24px;
+    margin-left: 5px;
+    margin-top: 180px;
+    float:left;
+}
