@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <a href="/list"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                         alt="Back to the question list"></a>
+
+    <div class="list_users">
+        {% for user in users %}
+            <div class="user_data">
+                {% for data in user.values() %}
+                    <p>{{ data }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

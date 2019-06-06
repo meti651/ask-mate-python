@@ -268,6 +268,12 @@ def list_questions_by_tag_name(tag_name):
     return render_template("tag_question.html", questions=questions)
 
 
+@app.route("/users")
+def show_users():
+    users = data_handler.get_all_users()
+    return render_template("users.html", users=users)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,
