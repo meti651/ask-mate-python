@@ -262,6 +262,21 @@ def list_tags():
     return render_template("tags.html", tags=tags)
 
 
+@app.route("/users")
+def user_id_for_activities():
+    username = session["username"]
+    user_id = data_handler.get_user_id_by_username(username)
+    return list_user_activities(user_id)
+
+
+@app.route("/users/<int:user_id>")
+def list_user_activities(user_id):
+    my_questions = data_handler.get_question_ids_and_titles_by_user_id(user_id)
+    questions_i_have_answered = data_handler.get_answered_question_ids_and_titles_by_user_id(user_id)
+    return render_template("user_activities.html", my_questions=my_questions,
+                           questions_i_have_answered=questions_i_have_answered)
+
+
 @app.route("/tags/question/<tag_name>")
 def list_questions_by_tag_name(tag_name):
     questions = data_handler.get_question_by_tag(tag_name)
@@ -271,5 +286,5 @@ def list_questions_by_tag_name(tag_name):
 if __name__ == "__main__":
     app.run(
         debug=True,
-        port=9992
+        port=9993
     )
