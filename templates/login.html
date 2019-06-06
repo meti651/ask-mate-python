@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-
+    <div class="box-1">
+            <a href="/"><img src="{{ url_for('static', filename='icons/Actions-arrow-left-icon.png') }}"
+                                 alt="Back to the question list"></a>
+    </div>
     <form action="/login" method="post">
         <div id="login">
             <input type="text" name="username" placeholder="Username" class="text">
-            <input type="text" name="password" placeholder="Password" class="text">
+            <input type="password" name="password" placeholder="Password" class="text">
             <input type="submit" placeholder="Login" class="button">
         </div>
     </form>
