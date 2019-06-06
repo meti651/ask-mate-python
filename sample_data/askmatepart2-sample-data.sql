@@ -40,7 +40,11 @@ CREATE TABLE answer (
     question_id integer,
     message text,
     image text,
+<<<<<<< HEAD
+    is_marked BOOLEAN NOT NULL DEFAULT FALSE
+=======
     username text
+>>>>>>> 571a98e41a33117e09957b89ca20111765d2e80a
 );
 
 DROP TABLE IF EXISTS public.comment;
@@ -53,6 +57,7 @@ CREATE TABLE comment (
     submission_time timestamp without time zone,
     edited_count integer
 );
+
 
 
 DROP TABLE IF EXISTS public.question_tag;

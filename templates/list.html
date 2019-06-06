@@ -36,8 +36,33 @@
         </div>
     </div>
 
+    <form action="/search?={{ search_data }}", method="POST">
+        <p>
 
+            <select class="button2" name="attribute" value="">
+                <option value="id">Date</option>
+                <option value="title">Title</option>
+                <option value="view_number">View Number</option>
+                <option value="vote_number">Vote Number</option>
+            </select>
+            <select class="button2" name="order_direction">
+                <option value="asc">ASC</option>
+                <option value="desc">DESC</option>
+            </select>
+            <a href="/list?order_by={{ attribute }}&order_direction={{ reverse }}"><button class="button" type="submit">List</button></a>
+            <input type="text" name="search_field" class="text" placeholder="Search">
+            <button class="button" type="submit">Search</button>
+        </p>
+    </form>
+    <h2>Questions</h2>
+
+
+    <form action="", method="POST">
+        <input type="text" name="search_field" class="text" placeholder="Search">
+        <a href="/search?={{ search_data }}"><button class="button" type="submit">Search</button></a>
+    </form>
     {% for dict in questions %}
+
         <a id="link" href="/question/{{ dict['id'] }}">
             <div class="list">
                 {{ dict['title'] }}

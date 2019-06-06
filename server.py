@@ -23,6 +23,7 @@ def route_list():
                                    method='last',
                                    session=True
                                    )
+
         return render_template('list.html',
                                questions=questions,
                                method='last',
@@ -209,6 +210,18 @@ def delete_tag(question_id, tag_id):
         return_route = request.referrer
         return redirect(return_route)
     return render_template("404.html"), 404
+
+
+@app.route('/answer/<int:answer_id>/<is_marked>', methods=['GET'])
+def mark(answer_id, is_marked):
+    query_string = request.referrer
+    if is_marked == "False":
+        is_marked = True
+    else:
+        is_marked = False
+    data_handler.mark_answer(answer_id, is_marked)
+    return redirect(query_string)
+
 
 
 @app.route('/search', methods=['GET', 'POST'])

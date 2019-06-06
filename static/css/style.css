@@ -434,6 +434,21 @@ textarea {
     margin: 15px;
 }
 
+
+#True {
+    background-color: lightgreen;
+    border: 3px darkgreen solid;
+    position: relative;
+    left: 0;
+    width: 60%;
+    display: block;
+}
+
+#mark_answer{
+    width: 40px;
+    height: 40px;
+}
+
 #tags p {
     font: bold normal 24px/2 Serif;
     background-color: gray;

@@ -312,6 +312,14 @@ def get_question_by_tag(cursor, tag_name):
 
 
 @connection.connection_handler
+def mark_answer(cursor, id, is_marked):
+    cursor.execute(
+        """
+               UPDATE answer
+               SET is_marked = %(is_marked)s 
+               WHERE id = %(id)s;
+               """, {'id': id, 'is_marked': is_marked})
+
 def change_reputation(cursor, user_id, vote_type, story_type):
     if vote_type == "vote-up" and story_type == 'question':
         point = 5
@@ -334,3 +342,4 @@ def get_user_id(cursor, id, story_type):
                    """).format(story_type=sql.Identifier(story_type)), {'id': int(id)})
     user_id = cursor.fetchall()
     return user_id
+
