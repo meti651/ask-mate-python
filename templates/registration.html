@@ -12,8 +12,14 @@
                 <p><strong>Passwords doesn't match</strong></p>
             {% endif %}
             {% if errorcode == 'failed_password' %}
-            <ul><strong>Password must contain:</strong><italic><li>a number</li><li>uppercase letters</li><li>lowercase letters
-                    </li><li>a special character( ! , @ , # , $ , % )</li><li>at least 6 char long</italic></li></ul>
+                <ul><strong>Password must contain:</strong>
+                    <italic>
+                        <li>a number</li>
+                        <li>uppercase letters</li>
+                        <li>lowercase letters</li>
+                        <li>at least 6 char long</li>
+                    </italic>
+                </ul>
             {% endif %}
             {% if errorcode == "Username is already in use" %}
                 <p><strong>Username is already in use</strong></p>
